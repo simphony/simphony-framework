@@ -39,9 +39,7 @@ The following packages are required::
   sudo apt-get install -y --force-yes openfoam222
 
 
-of you can run::
 
-  sudo ./install_apt_requirements.sh
 
 
 Then create a python virtual environment and activate it::
@@ -54,3 +52,13 @@ Then create a python virtual environment and activate it::
    It is advised that the simphony framework is installed in a virtual enviroment
    to avoid contaminating the system python with packages and allow a simple
    user installation.
+Installation scripts
+~~~~~~~~~~~~~~~~~~~~
+
+A set of simple installation scripts are also provided that execute the above commands
+in sequence::
+
+
+  sudo ./install_apt_requirements.sh
+  ./install_external
+  ./install_simphony_packages
