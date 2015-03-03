@@ -29,10 +29,11 @@ Apt packages
 To build and install the simphony framework the  following apt repos are required::
 
   sudo sh -c "echo deb http://www.openfoam.org/download/ubuntu precise main > /etc/apt
+  sudo apt-get update
 
 The following packages are required::
 
-  sudo apt-get install build-essential git
+  sudo apt-get install build-essential git subversion
   sudo apt-get install libhdf5-serial-dev
   sudo apt-get install mpi-default-bin mpi-default-dev
   sudo apt-get install python-pip python-virtualenv
