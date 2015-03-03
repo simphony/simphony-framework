@@ -1,0 +1,10 @@
+language: python
+python:
+  - "2.7"
+before_install:
+  - sudo apt-get update -qq
+  - sudo ./install_apt_requirements.sh
+install:
+  - virtualenv simphony
+script:
+  - source ./simphony/bin/activate
