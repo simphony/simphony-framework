@@ -9,7 +9,7 @@ source ~/simphony/bin/activate
 git clone --depth=1 git://git.lammps.org/lammps-ro.git lammps
 # checkout a recent stable version (from 9 Dec 2014)
 cd lammps
-git fetch tags
+git fetch --tags
 git checkout r12824
 cd src
 make ubuntu_simple
