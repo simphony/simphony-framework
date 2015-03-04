@@ -52,3 +52,8 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# external packages
+lammps/
+PyFoam/
+JYU-LB/

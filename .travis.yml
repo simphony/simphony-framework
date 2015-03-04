@@ -4,6 +4,5 @@ python:
 before_install:
   - sudo ./install_apt_requirements.sh
 install:
-  - virtualenv simphony
+  - ./install_external.sh
 script:
-  - source ./simphony/bin/activate
