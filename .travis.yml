@@ -6,10 +6,9 @@ before_install:
 install:
   - ./install_external.sh
   - ./install_simphony_packages.sh
-  - . ~/simphony/bin/activate
-script:
   - . /opt/openfoam222/etc/bashrc
   - . ~/simphony/bin/active
+script:
   - haas simphony
   - haas foam_control_wrapper
   - haas jyu_engine
