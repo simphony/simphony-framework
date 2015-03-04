@@ -5,4 +5,5 @@ before_install:
   - sudo ./install_apt_requirements.sh
 install:
   - ./install_external.sh
+  - ./install_python_packages.sh
 script:
