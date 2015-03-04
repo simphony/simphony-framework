@@ -107,6 +107,14 @@ are:
 - simphony-jyulb, version 0.1.0
 - simphony-lammps-md, version 0.1.0
 
+
+To install the SimPhoMy components one needs to run the following commands::
+
+  source ~/simphony/bin/activate # optional we just need to make sure that we use the simphony virtualenv
+  pip install numexpr cython==0.20
+  pip install -r requirements.txt
+  pip install -r simphony_packages.txt
+
 Installation scripts
 ~~~~~~~~~~~~~~~~~~~~
 
