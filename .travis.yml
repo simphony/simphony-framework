@@ -7,7 +7,7 @@ install:
   - ./install_external.sh
   - ./install_simphony_packages.sh
   - . /opt/openfoam222/etc/bashrc
-  - . ~/simphony/bin/active
+  - . ~/simphony/bin/activate
 script:
   - haas simphony
   - haas foam_controlwrapper
