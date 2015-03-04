@@ -6,6 +6,7 @@ before_install:
 install:
   - ./install_external.sh
   - ./install_simphony_packages.sh
+  - . ~/simphony/bin/activate
 script:
   - haas simphony
   - haas foam_control_wrapper
