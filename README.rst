@@ -49,7 +49,7 @@ The following packages are required::
   sudo apt-get install build-essential git subversion
   sudo apt-get install libhdf5-serial-dev
   sudo apt-get install mpi-default-bin mpi-default-dev
-  sudo apt-get install python-pip python-virtualenv
+  sudo apt-get install python-dev python-pip python-virtualenv
   sudo apt-get install -y --force-yes openfoam222
 
 
