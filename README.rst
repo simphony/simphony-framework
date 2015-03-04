@@ -22,11 +22,18 @@ components that will be installed.
 Installation
 ------------
 
+
+Checkout the simphony-framework repo::
+
+  git clone git@github.com:simphony/simphony-framework.git
+  cd simphony-framework
+
 .. note::
 
-  The SymPhoNy framework is developed and tested on Ubuntu 12.4 LTS
-  and the following commands and included scripts assume that they are executed
-  on an Ubuntu machine.
+  The SymPhoNy framework is developed and tested on Ubuntu 12.04 LTS
+  and the following commands and included scripts assume that they
+  are executed inside the top level directory of the simphony-framework
+  cloned repository.
 
 
 Apt packages
@@ -35,31 +42,34 @@ Apt packages
 To build and install the simphony framework the  following apt repos are required::
 
   sudo sh -c "echo deb http://www.openfoam.org/download/ubuntu precise main > /etc/apt
+  sudo apt-get update
 
 The following packages are required::
 
-  sudo apt-get install build-essential git
+  sudo apt-get install build-essential git subversion
   sudo apt-get install libhdf5-serial-dev
   sudo apt-get install mpi-default-bin mpi-default-dev
   sudo apt-get install python-pip python-virtualenv
   sudo apt-get install -y --force-yes openfoam222
 
 
-of you can run::
+External packages
+~~~~~~~~~~~~~~~~~
 
-  sudo ./install_apt_requirements.sh
+A number of dependencies are not available through `apt` and we will need to
+compile them from sources.
 
 
-Then create a python virtual environment and activate it::
+Create a python virtual environment and activate it::
 
   virtualenv ~/simphony
   source ~/simphony/bin/activate
 
 .. note::
 
-   It is advised that the simphony framework is installed in a virtual enviroment
-   to avoid contaminating the system python with packages and allow a simple
-   user installation.
+   It is advised that the simphony framework is installed in a python virtual
+   environment to avoid contaminating the system python with packages and
+   allow a simpler user installation.
 
 - Install **lammps-md**::
 
@@ -96,7 +106,6 @@ are:
 - simphony-openfoam, version 0.1.0
 - simphony-jyulb, version 0.1.0
 - simphony-lammps-md, version 0.1.0
-
 
 Installation scripts
 ~~~~~~~~~~~~~~~~~~~~
