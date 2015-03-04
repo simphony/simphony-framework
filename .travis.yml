@@ -10,6 +10,6 @@ install:
   - . ~/simphony/bin/active
 script:
   - haas simphony
-  - haas foam_control_wrapper
+  - haas foam_controlwrapper
   - haas jyu_engine
   - haas simlammps
