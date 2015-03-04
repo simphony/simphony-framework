@@ -5,7 +5,7 @@ before_install:
   - sudo ./install_apt_requirements.sh
 install:
   - ./install_external.sh
-  - ./install_python_packages.sh
+  - ./install_simphony_packages.sh
 script:
   - haas simphony
   - haas foam_control_wrapper
