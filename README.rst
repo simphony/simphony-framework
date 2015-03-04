@@ -66,28 +66,28 @@ Create a python virtual environment and activate it::
 
 - Install **lammps-md**::
 
-  git clone git://git.lammps.org/lammps-ro.git lammps
-  # checkout a recent stable version (from 9 Dec 2014)
-  cd lammps
-  git checkout r12824
-  cd src
-  make ubuntu_simple
-  ln -s lmp_ubuntu_simple ~/simphony/bin/lammps
-  cd ../..
+    git clone git://git.lammps.org/lammps-ro.git lammps
+    # checkout a recent stable version (from 9 Dec 2014)
+    cd lammps
+    git checkout r12824
+    cd src
+    make ubuntu_simple
+    ln -s lmp_ubuntu_simple ~/simphony/bin/lammps
+    cd ../..
 
 - Install **JYU-LB**::
 
-  git clone https://github.com/simphony/JYU-LB.git
-  cd JYU-LB
-  make
-  ln -s ./bin/jyu_lb_isotherma3D.exe ~/simphony/bin/jyu_lb_isotherma3D.exe
-  cd ..
+    git clone https://github.com/simphony/JYU-LB.git
+    cd JYU-LB
+    make
+    ln -s ./bin/jyu_lb_isotherma3D.exe ~/simphony/bin/jyu_lb_isotherma3D.exe
+    cd ..
 
 - Install **PyFoam**::
 
-  svn co https://svn.code.sf.net/p/openfoam-extend/svn/trunk/Breeder/other/scripting/PyFoam
-  cd PyFoam
-  python setup.py install
+    svn co https://svn.code.sf.net/p/openfoam-extend/svn/trunk/Breeder/other/scripting/PyFoam
+    cd PyFoam
+    python setup.py install
 
 
 Installation scripts
@@ -95,7 +95,6 @@ Installation scripts
 
 A set of simple installation scripts are also provided that execute the above commands
 in sequence::
-
 
   sudo ./install_apt_requirements.sh
   ./install_external
