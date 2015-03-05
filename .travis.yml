@@ -4,9 +4,9 @@ python:
 before_install:
   - sudo ./install_apt_requirements.sh
 install:
+  - . /opt/openfoam222/etc/bashrc
   - ./install_external.sh
   - ./install_simphony_packages.sh
-  - . /opt/openfoam222/etc/bashrc
   - . ~/simphony/bin/activate
 script:
   - haas simphony
