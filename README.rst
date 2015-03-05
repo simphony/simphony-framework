@@ -11,6 +11,13 @@ The repository is hosted in github::
 
   https://github.com/simphony/simphony-framework
 
+License
+-------
+
+The Simphony Framework repository code and scripts are governed by the BSD license
+(see LICENSE.txt). The various dependencies, however, have their own licensing
+condition please make sure that you agree and comply with the license of the
+components that will be installed.
 
 Installation
 ------------
@@ -23,7 +30,7 @@ Checkout the simphony-framework repo::
 
 .. note::
 
-  The SymPhoNy framework is developed and tested on Ubuntu 12.4 LTS
+  The SymPhoNy framework is developed and tested on Ubuntu 12.04 LTS
   and the following commands and included scripts assume that they
   are executed inside the top level directory of the simphony-framework
   cloned repository.
@@ -42,7 +49,7 @@ The following packages are required::
   sudo apt-get install build-essential git subversion
   sudo apt-get install libhdf5-serial-dev
   sudo apt-get install mpi-default-bin mpi-default-dev
-  sudo apt-get install python-pip python-virtualenv
+  sudo apt-get install python-dev python-pip python-virtualenv
   sudo apt-get install -y --force-yes openfoam222
 
 
@@ -89,6 +96,24 @@ Create a python virtual environment and activate it::
     cd PyFoam
     python setup.py install
 
+Simphony packages
+~~~~~~~~~~~~~~~~~
+
+The simpony packages that are compatible with this release of the SimPhony Framework
+are:
+
+- simphony-common, version 0.0.1
+- simphony-openfoam, version 0.1.0
+- simphony-jyulb, version 0.1.0
+- simphony-lammps-md, version 0.1.0
+
+
+To install the SimPhoMy components one needs to run the following commands::
+
+  source ~/simphony/bin/activate # optional we just need to make sure that we use the simphony virtualenv
+  pip install numexpr cython==0.20
+  pip install -r requirements.txt
+  pip install -r simphony_packages.txt
 
 Installation scripts
 ~~~~~~~~~~~~~~~~~~~~
@@ -97,5 +122,5 @@ A set of simple installation scripts are also provided that execute the above co
 in sequence::
 
   sudo ./install_apt_requirements.sh
-  ./install_external
-  ./install_simphony_packages
+  ./install_external.sh
+  ./install_simphony_packages.sh
