@@ -9,7 +9,5 @@ install:
   - ./install_simphony_packages.sh
   - . ~/simphony/bin/activate
 script:
-  - haas simphony
-  - haas foam_controlwrapper
-  - haas jyu_engine
-  - haas simlammps
+  - set
+  - haas -vv simphony
