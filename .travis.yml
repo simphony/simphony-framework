@@ -9,7 +9,6 @@ install:
   - ./install_simphony_packages.sh
   - . ~/simphony/bin/activate
 script:
-  - set
   - haas simphony
   - haas jyu_engine
   - haas simlammps
