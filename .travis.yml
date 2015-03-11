@@ -10,4 +10,6 @@ install:
   - . ~/simphony/bin/activate
 script:
   - set
-  - haas -vv simphony
+  - haas simphony
+  - haas jyu_engine
+  - haas simlammps
