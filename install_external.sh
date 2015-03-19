@@ -11,14 +11,14 @@ git clone git://git.lammps.org/lammps-ro.git lammps
 pushd lammps
 git checkout r12824
 cd src
-make ubuntu_simple
+make -j 2 ubuntu_simple
 ln -s $(pwd)/lmp_ubuntu_simple ~/simphony/bin/lammps
 popd
 
 # Install JYU-LB
 git clone https://github.com/simphony/JYU-LB.git
 pushd JYU-LB
-make
+make -j 2
 ln -s $(pwd)/bin/jyu_lb_isothermal3D.exe ~/simphony/bin/jyu_lb_isothermal3D.exe
 popd
 
