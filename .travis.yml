@@ -3,6 +3,8 @@ python:
   - "2.7"
 before_install:
   - sudo ./install_apt_requirements.sh
+  - sudo apt-get install ccache
+  - export CC="ccache gcc"  
 install:
   - . /opt/openfoam222/etc/bashrc
   - ./install_external.sh
