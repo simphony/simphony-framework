@@ -73,28 +73,29 @@ Create a python virtual environment and activate it::
 
 - Install **lammps-md**::
 
-    git clone git://git.lammps.org/lammps-ro.git lammps
-    # checkout a recent stable version (from 9 Dec 2014)
-    cd lammps
-    git checkout r12824
-    cd src
-    make ubuntu_simple
-    ln -s lmp_ubuntu_simple ~/simphony/bin/lammps
-    cd ../..
+  git clone git://git.lammps.org/lammps-ro.git lammps
+  # checkout a recent stable version (from 9 Dec 2014)
+  pushd lammps
+  git checkout r12824
+  cd src
+  make ubuntu_simple
+  ln -s $(pwd)/lmp_ubuntu_simple ~/simphony/bin/lammps
+  popd
 
 - Install **JYU-LB**::
 
-    git clone https://github.com/simphony/JYU-LB.git
-    cd JYU-LB
-    make
-    ln -s ./bin/jyu_lb_isotherma3D.exe ~/simphony/bin/jyu_lb_isotherma3D.exe
-    cd ..
+  git clone https://github.com/simphony/JYU-LB.git
+  pushd JYU-LB
+  make
+  ln -s $(pwd)/bin/jyu_lb_isothermal3D.exe ~/simphony/bin/jyu_lb_isothermal3D.exe
+  popd
 
 - Install **PyFoam**::
 
-    svn co https://svn.code.sf.net/p/openfoam-extend/svn/trunk/Breeder/other/scripting/PyFoam
-    cd PyFoam
-    python setup.py install
+  svn co https://svn.code.sf.net/p/openfoam-extend/svn/trunk/Breeder/other/scripting/PyFoam
+  pushd PyFoam
+  python setup.py install
+  popd
 
 Simphony packages
 ~~~~~~~~~~~~~~~~~
@@ -102,7 +103,7 @@ Simphony packages
 The simpony packages that are compatible with this release of the SimPhony Framework
 are:
 
-- simphony-common, version 0.0.1
+- simphony-common, version 0.1.1
 - simphony-openfoam, version 0.1.0
 - simphony-jyulb, version 0.1.0
 - simphony-lammps-md, version 0.1.0
@@ -124,3 +125,17 @@ in sequence::
   sudo ./install_apt_requirements.sh
   ./install_external.sh
   ./install_simphony_packages.sh
+
+Usage
+~~~~~
+
+To activate the SimPhoNy environment::
+
+  . /opt/openfoam222/etc/bashrc
+  . ~/simphony/bin/activate
+
+To tests the different simphony libraries::
+
+  - haas simphony
+  - haas jyulb
+  - haas simlammps
