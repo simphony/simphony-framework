@@ -84,7 +84,6 @@ Create a python virtual environment and activate it::
   popd
 
 - Install **JYU-LB**
-
 ::
 
   git clone https://github.com/simphony/JYU-LB.git
@@ -93,7 +92,8 @@ Create a python virtual environment and activate it::
   ln -s $(pwd)/bin/jyu_lb_isothermal3D.exe ~/simphony/bin/jyu_lb_isothermal3D.exe
   popd
 
-- Install **PyFoam**::
+- Install **PyFoam**
+::
 
   svn co https://svn.code.sf.net/p/openfoam-extend/svn/trunk/Breeder/other/scripting/PyFoam
   pushd PyFoam
