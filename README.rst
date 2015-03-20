@@ -71,7 +71,8 @@ Create a python virtual environment and activate it::
    environment to avoid contaminating the system python with packages and
    allow a simpler user installation.
 
-- Install **lammps-md**::
+- Install **lammps-md**
+::
 
   git clone git://git.lammps.org/lammps-ro.git lammps
   # checkout a recent stable version (from 9 Dec 2014)
@@ -82,7 +83,9 @@ Create a python virtual environment and activate it::
   ln -s $(pwd)/lmp_ubuntu_simple ~/simphony/bin/lammps
   popd
 
-- Install **JYU-LB**::
+- Install **JYU-LB**
+
+::
 
   git clone https://github.com/simphony/JYU-LB.git
   pushd JYU-LB
