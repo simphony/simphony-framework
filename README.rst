@@ -107,10 +107,9 @@ The simpony packages that are compatible with this release of the SimPhony Frame
 are:
 
 - simphony-common, version 0.1.1
+- simphony-jyulb, version 0.1.1
+- simphony-lammps-md, version 0.1.1
 - simphony-openfoam, version 0.1.0
-- simphony-jyulb, version 0.1.0
-- simphony-lammps-md, version 0.1.0
-
 
 To install the SimPhoMy components one needs to run the following commands::
 
