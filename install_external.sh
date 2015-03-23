@@ -8,14 +8,14 @@ pushd lammps
 git checkout r12824
 cd src
 make -j 2 ubuntu_simple
-ln -s $(pwd)/lmp_ubuntu_simple ~/simphony/bin/lammps
+ln -s $(pwd)/lmp_ubuntu_simple echo $VIRTUAL_ENV/bin/lammps
 popd
 
 # Install JYU-LB
 git clone https://github.com/simphony/JYU-LB.git
 pushd JYU-LB
 make -j 2
-ln -s $(pwd)/bin/jyu_lb_isothermal3D.exe ~/simphony/bin/jyu_lb_isothermal3D.exe
+ln -s $(pwd)/bin/jyu_lb_isothermal3D.exe echo $VIRTUAL_ENV/bin/jyu_lb_isothermal3D.exe
 popd
 
 # install PyFoam
