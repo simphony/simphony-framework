@@ -13,3 +13,4 @@ script:
   - haas simphony
   - haas jyulb
   - haas simlammps
+  - hass tests/
