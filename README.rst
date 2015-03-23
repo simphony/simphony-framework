@@ -111,7 +111,7 @@ are:
 - simphony-lammps-md, version 0.1.1
 - simphony-openfoam, version 0.1.0
 
-To install the SimPhoMy components one needs to run the following commands::
+To install the SimPhoNy components one needs to run the following commands::
 
   source ~/simphony/bin/activate # optional we just need to make sure that we use the simphony virtualenv
   pip install numexpr cython==0.20
@@ -125,6 +125,8 @@ A set of simple installation scripts are also provided that execute the above co
 in sequence::
 
   sudo ./install_apt_requirements.sh
+  virtualenv ~/simphony --system-site-packages
+  source ~/simphony/bin/activate
   ./install_external.sh
   ./install_simphony_packages.sh
 
