@@ -9,7 +9,6 @@ install:
   - . /opt/openfoam222/etc/bashrc
   - ./install_external.sh
   - ./install_simphony_packages.sh
-  - . ~/simphony/bin/activate
 script:
   - haas simphony
   - haas jyulb
