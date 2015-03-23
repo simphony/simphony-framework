@@ -1,10 +1,6 @@
 #!/bin/bash
 set -e
 
-virtualenv ~/simphony
-source ~/simphony/bin/activate
-
-
 # Install lammps-md
 git clone git://git.lammps.org/lammps-ro.git lammps
 # checkout a recent stable version (from 9 Dec 2014)
