@@ -25,7 +25,7 @@ Installation
 
 Checkout the simphony-framework repo::
 
-  git clone git@github.com:simphony/simphony-framework.git
+  git clone https://github.com/simphony/simphony-framework.git
   cd simphony-framework
 
 .. note::
