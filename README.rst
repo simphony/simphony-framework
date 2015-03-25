@@ -4,6 +4,9 @@ SimPhoNy Framework
 The Simphony Framework is a meta-package to simplify integration and testing
 of the Simphony simulation tools.
 
+.. image:: https://travis-ci.org/simphony/simphony-framework.svg?branch=master
+    :target: https://travis-ci.org/simphony/simphony-framework
+
 Repository
 ----------
 
