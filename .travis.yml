@@ -10,7 +10,7 @@ install:
   - ./install_external.sh
   - ./install_simphony_packages.sh
 script:
-  - haas simphony
-  - haas jyulb
-  - haas simlammps
-  - haas tests/
+  - haas simphony -v
+  - haas jyulb -v
+  - haas simlammps -v
+  - haas tests/ -v
