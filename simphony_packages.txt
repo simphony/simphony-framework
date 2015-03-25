@@ -1,4 +1,4 @@
--e git+https://github.com/simphony/simphony-common.git@0.1.0#egg=simphony
+-e git+https://github.com/simphony/simphony-common.git@0.1.1#egg=simphony
 -e git+https://github.com/simphony/simphony-openfoam.git@0.1.0#egg=foam_controlwrapper
--e git+https://github.com/simphony/simphony-jyulb.git#egg=jyu_engine
--e git+https://github.com/simphony/simphony-lammps-md.git#egg=simlammps
+-e git+https://github.com/simphony/simphony-jyulb.git@0.1.1#egg=jyu_engine
+-e git+https://github.com/simphony/simphony-lammps-md.git@0.1.2#egg=simlammps
