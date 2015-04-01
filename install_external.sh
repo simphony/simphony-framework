@@ -13,6 +13,7 @@ popd
 
 # Install JYU-LB
 git clone https://github.com/simphony/JYU-LB.git
+git clechout e006f2f05
 pushd JYU-LB
 make -j 2
 ln -s $(pwd)/bin/jyu_lb_isothermal3D.exe $VIRTUAL_ENV/bin/jyu_lb_isothermal3D.exe
