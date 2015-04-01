@@ -92,6 +92,8 @@ Create a python virtual environment and activate it::
 
   git clone https://github.com/simphony/JYU-LB.git
   pushd JYU-LB
+  # checkout a recent stable version
+  git checkout 0.1.0
   make
   ln -s $(pwd)/bin/jyu_lb_isothermal3D.exe ~/simphony/bin/jyu_lb_isothermal3D.exe
   popd
