@@ -4,6 +4,9 @@ SimPhoNy Framework
 The Simphony Framework is a meta-package to simplify integration and testing
 of the Simphony simulation tools.
 
+.. image:: https://travis-ci.org/simphony/simphony-framework.svg?branch=master
+    :target: https://travis-ci.org/simphony/simphony-framework
+
 Repository
 ----------
 
@@ -25,7 +28,7 @@ Installation
 
 Checkout the simphony-framework repo::
 
-  git clone git@github.com:simphony/simphony-framework.git
+  git clone https://github.com/simphony/simphony-framework.git
   cd simphony-framework
 
 .. note::
@@ -39,8 +42,9 @@ Checkout the simphony-framework repo::
 Apt packages
 ~~~~~~~~~~~~
 
-To build and install the simphony framework the  following apt repos are required::
+To build and install the simphony framework the following apt repos are required::
 
+  add-apt-repository ppa:cython-dev/master-ppa -y
   sudo sh -c "echo deb http://www.openfoam.org/download/ubuntu precise main > /etc/apt
   sudo apt-get update
 
@@ -49,7 +53,7 @@ The following packages are required::
   sudo apt-get install build-essential git subversion
   sudo apt-get install libhdf5-serial-dev
   sudo apt-get install mpi-default-bin mpi-default-dev
-  sudo apt-get install python-dev python-pip python-virtualenv
+  sudo apt-get install python-dev python-pip python-virtualenv cython
   sudo apt-get install -y --force-yes openfoam222
 
 
@@ -62,7 +66,7 @@ compile them from sources.
 
 Create a python virtual environment and activate it::
 
-  virtualenv ~/simphony
+  virtualenv ~/simphony --system-site-packages
   source ~/simphony/bin/activate
 
 .. note::
@@ -106,15 +110,15 @@ Simphony packages
 The simpony packages that are compatible with this release of the SimPhony Framework
 are:
 
-- simphony-common, version 0.1.1
-- simphony-jyulb, version 0.1.1
-- simphony-lammps-md, version 0.1.1
-- simphony-openfoam, version 0.1.0
+- https://github.com/simphony/simphony-common/releases/tag/0.1.1, version 0.1.1
+- https://github.com/simphony/simphony-jyulb/releases/tag/0.1.1, version 0.1.1
+- https://github.com/simphony/simphony-lammps-md/releases/tag/0.1.2, version 0.1.2
+- https://github.com/simphony/simphony-openfoam/releases/tag/0.1.0, version 0.1.0
 
 To install the SimPhoNy components one needs to run the following commands::
 
-  source ~/simphony/bin/activate # optional we just need to make sure that we use the simphony virtualenv
-  pip install numexpr cython==0.20
+  source ~/simphony/bin/activate # make sure that we use the simphony virtualenv
+  pip install numexpr
   pip install -r requirements.txt
   pip install -r simphony_packages.txt
 
@@ -125,6 +129,7 @@ A set of simple installation scripts are also provided that execute the above co
 in sequence::
 
   sudo ./install_apt_requirements.sh
+  . /opt/openfoam222/etc/bashrc
   virtualenv ~/simphony --system-site-packages
   source ~/simphony/bin/activate
   ./install_external.sh
