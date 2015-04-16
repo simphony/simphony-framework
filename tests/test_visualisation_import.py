@@ -1,11 +1,12 @@
 import unittest
 import importlib
 
-ENGINES = [
+PLUGINS = [
     'mayavi_tools']
 
-class TestEngineImport(unittest.TestCase):
 
-    def test_engine_import(self):
-        for engine in ENGINES:
-            importlib.import_module('simphony.visualisation',engine)
+class TestVisualisationPluginImport(unittest.TestCase):
+
+    def test_plugin_import(self):
+        for engine in PLUGINS:
+            importlib.import_module('simphony.visualisation', engine)
