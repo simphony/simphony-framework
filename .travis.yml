@@ -1,9 +1,12 @@
 language: python
+
 python:
   - "2.7"
 virtualenv:
   system_site_packages: true
 before_install:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
   - sudo ./install_apt_requirements.sh
 install:
   - . /opt/openfoam222/etc/bashrc
@@ -13,4 +16,5 @@ script:
   - haas simphony -v
   - haas jyulb -v
   - haas simlammps -v
+  - haas simphony_mayavi -v
   - haas tests/ -v

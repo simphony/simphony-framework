@@ -54,6 +54,8 @@ The following packages are required::
   sudo apt-get install libhdf5-serial-dev
   sudo apt-get install mpi-default-bin mpi-default-dev
   sudo apt-get install python-dev python-pip python-virtualenv cython
+  sudo apt-get install python-vtk python-qt4 python-qt4-dev python-sip python-qt4-gl libqt4-scripttools python-imaging
+  sudo apt-get install libatlas-dev libatlas3gf-base
   sudo apt-get install -y --force-yes openfoam222
 
 
@@ -116,6 +118,7 @@ are:
 - https://github.com/simphony/simphony-jyulb/releases/tag/0.1.1, version 0.1.1
 - https://github.com/simphony/simphony-lammps-md/releases/tag/0.1.2, version 0.1.2
 - https://github.com/simphony/simphony-openfoam/releases/tag/0.1.0, version 0.1.0
+- https://github.com/simphony/simphony-mayavi/releases/tag/0.1.1, version 0.1.1
 
 To install the SimPhoNy components one needs to run the following commands::
 
@@ -150,3 +153,4 @@ To tests the different simphony libraries::
   - haas simphony
   - haas jyulb
   - haas simlammps
+  - haas simphony_mayavi
