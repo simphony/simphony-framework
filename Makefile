@@ -2,7 +2,7 @@
 #
 
 # You can set these variables from the command line.
-SIMPHONYENV   = ~/simphony
+SIMPHONYENV   ?= ~/simphony
 SIMPHONYVERSION  ?= 0.1.1
 
 .PHONY: clean base apt-openfoam apt-simphony apt-lammps apt-mayavi fix-pip simphony-env lammps jyu-lb simphony simphony-lammps simphony-mayavi simphony-openfoam simphony-jyu-lb test-plugins test-framework
