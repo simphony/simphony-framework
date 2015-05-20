@@ -26,6 +26,8 @@ help:
 	@echo "  simphony-plugins  to build and install all the simphony-plugins"
 	@echo "  test-plugins      run the tests for all the simphony-plugins"
 	@echo "  test-framework    run the tests for the simphony-framework"
+	@echo "  clean             remove any temporary folders"
+
 
 clean:
 	rm -rf lammps
@@ -106,7 +108,7 @@ simphony:
 	@echo "Simphony library installed"
 
 simphony-mayavi:
-	pip install --updrade git+https://github.com/simphony/simphony-mayavi.git@0.1.1#egg=simphony_mayavi
+	pip install --upgrade git+https://github.com/simphony/simphony-mayavi.git@0.1.1#egg=simphony_mayavi
 	@echo
 	@echo "Simphony Mayavi plugin installed"
 
