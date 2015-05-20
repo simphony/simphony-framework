@@ -111,6 +111,7 @@ simphony-mayavi:
 	@echo "Simphony Mayavi plugin installed"
 
 simphony-openfoam:
+	pip install --upgrade svn+https://svn.code.sf.net/p/openfoam-extend/svn/trunk/Breeder/other/scripting/PyFoam#egg=PyFoam
 	pip install --upgrade git+https://github.com/simphony/simphony-openfoam.git@0.1.0#egg=foam_controlwrapper
 	@echo
 	@echo "Simphony OpenFoam plugin installed"
