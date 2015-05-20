@@ -1,0 +1,28 @@
+SimPhoNy framework change log
+=============================
+
+Release 0.1.3
+-------------
+
+* Rework setup to use a Makefile
+
+
+Release 0.1.2
+-------------
+
+* Added simphony-mayavi, version 0.1.1
+
+
+Release 0.1.1
+-------------
+
+* Fix installation issues regarding the JYU-LB solver
+
+
+Release 0.1.0
+-------------
+
+* Added simphony-common, version 0.1.1
+* Added simphony-jyulb, version 0.1.1
+* Added simphony-lammps-md, version 0.1.2
+* Added simphony-openfoam, version 0.1.0
