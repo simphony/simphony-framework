@@ -50,19 +50,19 @@ apt-simphony:
 	apt-get update -qq
 	apt-get install -y python-dev cython libhdf5-serial-dev libatlas-dev libatlas3gf-base
 	@echo
-	@echo "Build depedencies for simphony installed"
+	@echo "Build dependencies for simphony installed"
 
 apt-lammps:
 	apt-get update -qq
 	apt-get install -y mpi-default-bin mpi-default-dev
 	@echo
-	@echo "Build depedencies for lammps installed"
+	@echo "Build dependencies for lammps installed"
 
 apt-mayavi:
 	apt-get update -qq
 	apt-get install python-vtk python-qt4 python-qt4-dev python-sip python-qt4-gl libqt4-scripttools python-imaging
 	@echo
-	@echo "Build depedencies for mayavi installed"
+	@echo "Build dependencies for mayavi installed"
 
 fix-pip:
 	wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
