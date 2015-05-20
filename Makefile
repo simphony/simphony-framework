@@ -83,7 +83,7 @@ simphony-env:
 lammps:
 	rm -Rf lammps
 	git clone --branch r12824 --depth 1 git://git.lammps.org/lammps-ro.git lammps
-	$(MAKE) -C lammps/src ubuntu_simple
+	$(MAKE) -C lammps/src ubuntu_simple -j 2
 	cp lammps/src/lmp_ubuntu_simple $(SIMPHONYENV)/bin/lammps
 	rm -Rf lammps
 	@echo
@@ -92,7 +92,7 @@ lammps:
 jyu-lb:
 	rm -Rf JYU-LB
 	git clone --branch 0.1.0 https://github.com/simphony/JYU-LB.git
-	$(MAKE) -C JYU-LB
+	$(MAKE) -C JYU-LB -j 2
 	cp JYU-LB/bin/jyu_lb_isothermal3D.exe $(SIMPHONYENV)/bin/jyu_lb_isothermal3D.exe
 	rm -Rf JYU-LB
 	@echo
