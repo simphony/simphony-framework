@@ -30,8 +30,9 @@ help:
 
 
 clean:
-	rm -rf lammps
-	rm -rf JYU-LB
+	rm -Rf lammps
+	rm -Rf JYU-LB
+	rm -Rf src/simphony-openfoam
 	@echo
 	@echo "Removed temporary folders"
 
@@ -114,12 +115,11 @@ simphony-mayavi:
 
 simphony-openfoam:
 	pip install --upgrade svn+https://svn.code.sf.net/p/openfoam-extend/svn/trunk/Breeder/other/scripting/PyFoam#egg=PyFoam
-	rm -Rf openfoam-interface
-	git clone https://github.com/simphony/simphony-openfoam.git openfoam-interface
-	cd openfoam-interface; /opt/openfoam222/wmake/wmake libso
-        cd openfoam-interface; python setup.py install
-	rm -Rf openfoam-interface
-	pip install --upgrade git+https://github.com/simphony/simphony-openfoam.git@0.1.1#egg=foam_controlwrapper
+	rm -Rf src/simphony-openfoam
+	git clone --branch 0.1.1 --depth 1 https://github.com/simphony/simphony-openfoam.git src/simphony-openfoam
+	/opt/openfoam222/wmake/wmake libso src/simphony-openfoam/openfoam-interface
+	(cd src/simphony-openfoam/openfoam-interface; python setup.py install)
+	(cd src/simphony-openfoam; python setup.py develop)
 	@echo
 	@echo "Simphony OpenFoam plugin installed"
 
@@ -147,7 +147,7 @@ test-plugins:
 	haas jyulb -v
 	haas simlammps -v
 	haas simphony_mayavi -v
-        hass foam_controlwrapper -v
+	(cd src/simphony-openfoam; hass foam_controlwrapper -v)
 	@echo
 	@echo "Tests for the simphony plugins done"
 
