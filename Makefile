@@ -28,7 +28,6 @@ help:
 	@echo "  test-framework    run the tests for the simphony-framework"
 	@echo "  clean             remove any temporary folders"
 
-
 clean:
 	rm -Rf src/lammps
 	rm -Rf src/JYU-LB
@@ -147,7 +146,7 @@ test-plugins:
 	haas jyulb -v
 	haas simlammps -v
 	haas simphony_mayavi -v
-	(cd src/simphony-openfoam; hass foam_controlwrapper -v)
+	(cd src/simphony-openfoam; haas foam_controlwrapper -v)
 	@echo
 	@echo "Tests for the simphony plugins done"
 
