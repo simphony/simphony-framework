@@ -114,7 +114,12 @@ simphony-mayavi:
 
 simphony-openfoam:
 	pip install --upgrade svn+https://svn.code.sf.net/p/openfoam-extend/svn/trunk/Breeder/other/scripting/PyFoam#egg=PyFoam
-	pip install --upgrade git+https://github.com/simphony/simphony-openfoam.git@0.1.0#egg=foam_controlwrapper
+	rm -Rf openfoam-interface
+	git clone https://github.com/simphony/simphony-openfoam.git openfoam-interface
+	cd openfoam-interface; /opt/openfoam222/wmake/wmake libso
+        cd openfoam-interface; python setup.py install
+	rm -Rf openfoam-interface
+	pip install --upgrade git+https://github.com/simphony/simphony-openfoam.git@0.1.1#egg=foam_controlwrapper
 	@echo
 	@echo "Simphony OpenFoam plugin installed"
 
@@ -142,6 +147,7 @@ test-plugins:
 	haas jyulb -v
 	haas simlammps -v
 	haas simphony_mayavi -v
+        hass foam_controlwrapper -v
 	@echo
 	@echo "Tests for the simphony plugins done"
 
