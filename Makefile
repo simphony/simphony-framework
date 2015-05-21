@@ -30,8 +30,8 @@ help:
 
 
 clean:
-	rm -Rf lammps
-	rm -Rf JYU-LB
+	rm -Rf src/lammps
+	rm -Rf src/JYU-LB
 	rm -Rf src/simphony-openfoam
 	@echo
 	@echo "Removed temporary folders"
@@ -84,20 +84,20 @@ simphony-env:
 	@echo "Simphony virtualenv created"
 
 lammps:
-	rm -Rf lammps
-	git clone --branch r12824 --depth 1 git://git.lammps.org/lammps-ro.git lammps
-	$(MAKE) -C lammps/src ubuntu_simple -j 2
-	cp lammps/src/lmp_ubuntu_simple $(SIMPHONYENV)/bin/lammps
-	rm -Rf lammps
+	rm -Rf src/lammps
+	git clone --branch r12824 --depth 1 git://git.lammps.org/lammps-ro.git src/lammps
+	$(MAKE) -C src/lammps/src ubuntu_simple -j 2
+	cp src/lammps/src/lmp_ubuntu_simple $(SIMPHONYENV)/bin/lammps
+	rm -Rf src/lammps
 	@echo
 	@echo "Lammps solver installed"
 
 jyu-lb:
-	rm -Rf JYU-LB
-	git clone --branch 0.1.0 https://github.com/simphony/JYU-LB.git
-	$(MAKE) -C JYU-LB -j 2
-	cp JYU-LB/bin/jyu_lb_isothermal3D.exe $(SIMPHONYENV)/bin/jyu_lb_isothermal3D.exe
-	rm -Rf JYU-LB
+	rm -Rf src/JYU-LB
+	git clone --branch 0.1.0 https://github.com/simphony/JYU-LB.git src/JYU-LB
+	$(MAKE) -C src/JYU-LB -j 2
+	cp src/JYU-LB/bin/jyu_lb_isothermal3D.exe $(SIMPHONYENV)/bin/jyu_lb_isothermal3D.exe
+	rm -Rf src/JYU-LB
 	@echo
 	@echo "jyu-lb solver installed"
 
