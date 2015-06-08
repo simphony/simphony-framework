@@ -16,7 +16,7 @@ The simphony-common version that is supported in version 0.1.3 of the framework 
 
 - https://github.com/simphony/simphony-common/releases/tag/0.1.3, version 0.1.3
 
-The simpony plugins that are compatible with this release:
+The SimPhoNy plugins that are compatible with this release:
 are:
 
 - https://github.com/simphony/simphony-jyulb/releases/tag/0.1.1, version 0.1.1
