@@ -12,7 +12,9 @@ before_install:
   - sudo make base apt-openfoam apt-simphony apt-lammps apt-mayavi fix-pip
 install:
   - source /opt/openfoam222/etc/bashrc
+  - make simphony-env
   - make -j 2 lammps jyu-lb
+  - source ~/simphony/bin/activate  
   - make simphony
   - make simphony-plugins
 script:
