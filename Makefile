@@ -146,7 +146,6 @@ test-plugins:
 	haas jyulb -v
 	haas simlammps -v
 	haas simphony_mayavi -v
-	(cd src/simphony-openfoam; haas foam_controlwrapper -v)
 	@echo
 	@echo "Tests for the simphony plugins done"
 
