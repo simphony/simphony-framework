@@ -97,18 +97,23 @@ simphony-env:
 
 lammps:
 	rm -Rf src/lammps
+	# bulding and installing executable
 	git clone --branch r12824 --depth 1 git://git.lammps.org/lammps-ro.git src/lammps
 	$(MAKE) -C src/lammps/src ubuntu_simple -j 2
 	cp src/lammps/src/lmp_ubuntu_simple $(SIMPHONYENV)/bin/lammps
+	# bulding and installing python module
+	$(MAKE) -C src/lammps/src makeshlib -j 2
+	$(MAKE) -C src/lammps/src ubuntu_simple -f Makefile.shlib -j 2
+	(cd src/lammps/python; python install.py $(SIMPHONYENV)/lib $(SIMPHONYENV)/lib/python2.7/site-packages/)
 	rm -Rf src/lammps
 	@echo
 	@echo "Lammps solver installed"
 
 jyu-lb:
 	rm -Rf src/JYU-LB
-	git clone --branch 0.1.0 https://github.com/simphony/JYU-LB.git src/JYU-LB
+	git clone --branch 0.1.2 https://github.com/simphony/JYU-LB.git src/JYU-LB
 	$(MAKE) -C src/JYU-LB -j 2
-	cp src/JYU-LB/bin/jyu_lb_isothermal3D.exe $(SIMPHONYENV)/bin/jyu_lb_isothermal3D.exe
+	cp src/JYU-LB/bin/jyu_lb_isothermal.exe $(SIMPHONYENV)/bin/jyu_lb_isothermal.exe
 	rm -Rf src/JYU-LB
 	@echo
 	@echo "jyu-lb solver installed"
@@ -153,7 +158,7 @@ simphony-openfoam:
 	@echo "Simphony OpenFoam plugin installed"
 
 simphony-jyu-lb:
-	pip install --upgrade git+https://github.com/simphony/simphony-jyulb.git@0.1.1#egg=jyu_engine
+	pip install --upgrade git+https://github.com/simphony/simphony-jyulb.git@0.1.3
 	@echo
 	@echo "Simphony jyu-lb plugin installed"
 
