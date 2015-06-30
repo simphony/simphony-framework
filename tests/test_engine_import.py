@@ -4,6 +4,7 @@ import importlib
 ENGINES = [
     'lammps',
     'openfoam',
+    'kratos',
     'jyulb']
 
 class TestEngineImport(unittest.TestCase):
