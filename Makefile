@@ -168,7 +168,7 @@ test-plugins:
 	haas jyulb -v
 	haas simlammps -v
 	haas simphony_mayavi -v
-	hass simkratos -v
+	haas simkratos -v
 	@echo
 	@echo "Tests for the simphony plugins done"
 
