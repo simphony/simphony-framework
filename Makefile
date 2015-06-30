@@ -13,7 +13,7 @@ else
 endif
 
 
-.PHONY: clean base apt-openfoam apt-simphony apt-lammps apt-mayavi fix-pip simphony-env lammps jyu-lb numerrin simphony simphony-lammps simphony-mayavi simphony-openfoam simphony-jyu-lb simphony-numerrin test-plugins test-framework
+.PHONY: clean base apt-openfoam apt-simphony apt-lammps apt-mayavi fix-pip simphony-env lammps jyu-lb kratos numerrin simphony simphony-lammps simphony-mayavi simphony-openfoam simphony-kratos simphony-jyu-lb simphony-numerrin test-plugins test-framework
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -24,10 +24,12 @@ help:
 	@echo "  apt-mayavi        to install building depedencies for the mayavi (requires sudo)"
 	@echo "  fix-pip           to update the version of pip and virtual evn (requires sudo)"
 	@echo "  simphony-env      to create a simphony virtualenv"
+	@echo "  kratos            to install the kratos solver"
 	@echo "  lammps            to build and install the lammps solver"
 	@echo "  numerrin          to install the numerrin solver"
 	@echo "  jyu-lb            to build and install the JYU-LB solver"
 	@echo "  simphony          to build and install the simphony library"
+	@echo "  simphony-kratos   to build and install the simphony-kratos plugin"
 	@echo "  simphony-lammps   to build and install the simphony-lammps plugin"
 	@echo "  simphony-numerrin to build and install the simphony-numerrin plugin"
 	@echo "  simphony-mayavi   to build and install the simphony-mayavi plugin"
@@ -39,6 +41,7 @@ help:
 	@echo "  clean             remove any temporary folders"
 
 clean:
+	rm -Rf src/kratos
 	rm -Rf src/lammps
 	rm -Rf src/JYU-LB
 	rm -Rf src/simphony-openfoam
@@ -118,6 +121,18 @@ jyu-lb:
 	@echo
 	@echo "jyu-lb solver installed"
 
+kratos:
+	rm -Rf src/kratos
+	mkdir -p src/kratos
+	wget https://web.cimne.upc.edu/users/croig/data/kratos-simphony.tgz -O src/kratos/kratos.tgz
+	(tar -xzf src/kratos/kratos.tgz -C src/kratos; rm -Rf src/kratos/kratos.tgz)
+	rm -rf $(SIMPHONYENV)/lib/python2.7/site-packages/KratosMultiphysics
+	(ln -s $(PWD)/src/kratos/KratosMultiphysics $(SIMPHONYENV)/lib/python2.7/site-packages/KratosMultiphysics)
+	cp -rf src/kratos/libs/*Kratos*.so $(SIMPHONYENV)/lib/.
+	cp -rf src/kratos/libs/libboost_python.so.1.55.0 $(SIMPHONYENV)/lib/.
+	@echo
+	@echo "Kratos solver installed"
+
 numerrin:
 	rm -Rf src/simphony-numerrin
 	git clone --branch 0.1.0 https://github.com/simphony/simphony-numerrin.git src/simphony-numerrin
@@ -157,6 +172,11 @@ simphony-openfoam:
 	@echo
 	@echo "Simphony OpenFoam plugin installed"
 
+simphony-kratos:
+	pip install --upgrade git+https://github.com/simphony/simphony-kratos.git@0.1.1
+	@echo
+	@echo "Simphony Kratos plugin installed"
+
 simphony-jyu-lb:
 	pip install --upgrade git+https://github.com/simphony/simphony-jyulb.git@0.1.3
 	@echo
@@ -167,7 +187,7 @@ simphony-lammps:
 	@echo
 	@echo "Simphony lammps plugin installed"
 
-simphony-plugins: simphony-numerrin simphony-mayavi simphony-openfoam simphony-jyu-lb simphony-lammps
+simphony-plugins: simphony-kratos simphony-numerrin simphony-mayavi simphony-openfoam simphony-jyu-lb simphony-lammps
 	@echo
 	@echo "Simphony plugins installed"
 
@@ -181,6 +201,7 @@ test-plugins:
 	haas jyulb -v
 	haas simlammps -v
 	haas simphony_mayavi -v
+	haas simkratos -v
 	$(TEST_NUMERRIN_COMMAND)
 	@echo
 	@echo "Tests for the simphony plugins done"

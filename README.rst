@@ -20,6 +20,7 @@ The SimPhoNy plugins that are compatible with this release:
 are:
 
 - https://github.com/simphony/simphony-jyulb/releases/tag/0.1.1, version 0.1.1
+- https://github.com/simphony/simphony-kratos/releases/tag/0.1.1, version 0.1.1
 - https://github.com/simphony/simphony-lammps-md/releases/tag/0.1.2, version 0.1.2
 - https://github.com/simphony/simphony-openfoam/releases/tag/0.1.1, version 0.1.1
 - https://github.com/simphony/simphony-numerrin/releases/tag/0.1.0, version 0.1.0
@@ -128,6 +129,7 @@ To build them there are separate targets::
 
   make -j 2 lammps
   make -j 2 jyu-lb
+  make kratos
   make numerrin
 
 .. note::
@@ -159,7 +161,7 @@ Complete script
   source /opt/openfoam222/etc/bashrc
   make simphony-env
   source ~/simphony/bin/activate
-  make -j 2 lammps jyu-lb numerrin
+  make -j 2 kratos lammps jyu-lb numerrin
   make simphony
   make simphony-plugins
 

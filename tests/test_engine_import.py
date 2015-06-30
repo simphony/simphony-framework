@@ -5,6 +5,7 @@ import os
 ENGINES = [
     'lammps',
     'openfoam',
+    'kratos',
     'jyulb']
 
 if os.getenv("HAVE_NUMERRIN", "no") == "yes":
