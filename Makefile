@@ -143,7 +143,7 @@ simphony-numerrin:
 	rm -Rf src/simphony-numerrin
 	git clone --branch 0.1.0 https://github.com/simphony/simphony-numerrin.git src/simphony-numerrin
 	cp src/simphony-numerrin/numerrin-interface/numerrin.so $(SIMPHONYENV)/lib/python2.7/site-packages/
-	(cd src/simphony-numerrin; python setup.py develop)
+	(cd src/simphony-numerrin; python setup.py install)
 	@echo
 	@echo "Simphony Numerrin plugin installed"
 
@@ -153,7 +153,7 @@ simphony-openfoam:
 	git clone --branch 0.1.1 --depth 1 https://github.com/simphony/simphony-openfoam.git src/simphony-openfoam
 	/opt/openfoam222/wmake/wmake libso src/simphony-openfoam/openfoam-interface
 	(cd src/simphony-openfoam/openfoam-interface; python setup.py install)
-	(cd src/simphony-openfoam; python setup.py develop)
+	(cd src/simphony-openfoam; python setup.py install)
 	@echo
 	@echo "Simphony OpenFoam plugin installed"
 
