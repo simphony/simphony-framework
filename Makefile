@@ -79,14 +79,21 @@ fix-pip:
 simphony-env:
 	rm -rf $(SIMPHONYENV)
 	virtualenv $(SIMPHONYENV) --system-site-packages
+	echo "LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:$(LD_LIBRARY_PATH)" >> $(SIMPHONYENV)/bin/activate
+	echo "export LD_LIBRARY_PATH" >> $(SIMPHONYENV)/bin/activate
 	@echo
 	@echo "Simphony virtualenv created"
 
 lammps:
 	rm -Rf src/lammps
+	# bulding and installing executable
 	git clone --branch r12824 --depth 1 git://git.lammps.org/lammps-ro.git src/lammps
 	$(MAKE) -C src/lammps/src ubuntu_simple -j 2
 	cp src/lammps/src/lmp_ubuntu_simple $(SIMPHONYENV)/bin/lammps
+	# bulding and installing python module
+	$(MAKE) -C src/lammps/src makeshlib -j 2
+	$(MAKE) -C src/lammps/src ubuntu_simple -f Makefile.shlib -j 2
+	(cd src/lammps/python; python install.py $(SIMPHONYENV)/lib $(SIMPHONYENV)/lib/python2.7/site-packages/)
 	rm -Rf src/lammps
 	@echo
 	@echo "Lammps solver installed"
