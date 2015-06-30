@@ -22,6 +22,7 @@ are:
 - https://github.com/simphony/simphony-jyulb/releases/tag/0.1.1, version 0.1.1
 - https://github.com/simphony/simphony-lammps-md/releases/tag/0.1.2, version 0.1.2
 - https://github.com/simphony/simphony-openfoam/releases/tag/0.1.1, version 0.1.1
+- https://github.com/simphony/simphony-numerrin/releases/tag/0.1.0, version 0.1.0
 - https://github.com/simphony/simphony-mayavi/releases/tag/0.1.1, version 0.1.1
 
 
@@ -127,6 +128,14 @@ To build them there are separate targets::
 
   make -j 2 lammps
   make -j 2 jyu-lb
+  make numerrin
+
+.. note::
+
+   The ``numerrin`` target will install the numerrin library. To use this solver, please
+   ensure that environment variable PYNUMERRIN_LICENSE points to a valid Numerrin
+   license file.
+
 
 Install Simphony
 ~~~~~~~~~~~~~~~~
@@ -150,7 +159,7 @@ Complete script
   source /opt/openfoam222/etc/bashrc
   make simphony-env
   source ~/simphony/bin/activate
-  make -j 2 lammps jyu-lb
+  make -j 2 lammps jyu-lb numerrin
   make simphony
   make simphony-plugins
 
@@ -161,3 +170,8 @@ Test
 ::
 
    make test-framework
+
+.. note::
+
+   The testing of simphony-numerrin is only performed if the environement variable
+   HAVE_NUMERRIN is set to yes (i.e. ''HAVE_NUMERRIN=yes make test-framework'')
