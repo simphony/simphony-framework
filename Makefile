@@ -79,6 +79,8 @@ fix-pip:
 simphony-env:
 	rm -rf $(SIMPHONYENV)
 	virtualenv $(SIMPHONYENV) --system-site-packages
+	echo "LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:$(LD_LIBRARY_PATH)" >> $(SIMPHONYENV)/bin/activate
+	echo "export LD_LIBRARY_PATH" >> $(SIMPHONYENV)/bin/activate
 	@echo
 	@echo "Simphony virtualenv created"
 
