@@ -4,8 +4,16 @@
 # You can set these variables from the command line.
 SIMPHONYENV   ?= ~/simphony
 SIMPHONYVERSION  ?= 0.1.3
+HAVE_NUMERRIN   ?= no
 
-.PHONY: clean base apt-openfoam apt-simphony apt-lammps apt-mayavi fix-pip simphony-env lammps jyu-lb simphony simphony-lammps simphony-mayavi simphony-openfoam simphony-jyu-lb test-plugins test-framework
+ifeq ($(HAVE_NUMERRIN),yes)
+	TEST_NUMERRIN_COMMAND=(cd src/simphony-numerrin; haas numerrin_wrapper -v)
+else
+	TEST_NUMERRIN_COMMAND=@echo "skip NUMERRIN tests"
+endif
+
+
+.PHONY: clean base apt-openfoam apt-simphony apt-lammps apt-mayavi fix-pip simphony-env lammps jyu-lb numerrin simphony simphony-lammps simphony-mayavi simphony-openfoam simphony-jyu-lb simphony-numerrin test-plugins test-framework
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -17,9 +25,11 @@ help:
 	@echo "  fix-pip           to update the version of pip and virtual evn (requires sudo)"
 	@echo "  simphony-env      to create a simphony virtualenv"
 	@echo "  lammps            to build and install the lammps solver"
+	@echo "  numerrin          to install the numerrin solver"
 	@echo "  jyu-lb            to build and install the JYU-LB solver"
 	@echo "  simphony          to build and install the simphony library"
 	@echo "  simphony-lammps   to build and install the simphony-lammps plugin"
+	@echo "  simphony-numerrin to build and install the simphony-numerrin plugin"
 	@echo "  simphony-mayavi   to build and install the simphony-mayavi plugin"
 	@echo "  simphony-openfoam to build and install the simphony-mayavi plugin"
 	@echo "  simphony-jyu-lb   to build and install the simphony-jyu-lb plugin"
@@ -32,6 +42,7 @@ clean:
 	rm -Rf src/lammps
 	rm -Rf src/JYU-LB
 	rm -Rf src/simphony-openfoam
+	rm -Rf src/simphony-numerrin
 	@echo
 	@echo "Removed temporary folders"
 
@@ -102,6 +113,15 @@ jyu-lb:
 	@echo
 	@echo "jyu-lb solver installed"
 
+numerrin:
+	rm -Rf src/simphony-numerrin
+	git clone --branch 0.1.0 https://github.com/simphony/simphony-numerrin.git src/simphony-numerrin
+	(cp src/simphony-numerrin/numerrin-interface/libnumerrin4.so $(SIMPHONYENV)/lib/.)
+	rm -Rf src/simphony-numerrin
+	@echo
+	@echo "Numerrin installed"
+	@echo "(Ensure that environment variable PYNUMERRIN_LICENSE points to license file)"
+
 simphony:
 	pip install "numexpr>=2.0.0"
 	pip install -r requirements.txt
@@ -113,6 +133,14 @@ simphony-mayavi:
 	pip install --upgrade git+https://github.com/simphony/simphony-mayavi.git@0.1.1#egg=simphony_mayavi
 	@echo
 	@echo "Simphony Mayavi plugin installed"
+
+simphony-numerrin:
+	rm -Rf src/simphony-numerrin
+	git clone --branch 0.1.0 https://github.com/simphony/simphony-numerrin.git src/simphony-numerrin
+	cp src/simphony-numerrin/numerrin-interface/numerrin.so $(SIMPHONYENV)/lib/python2.7/site-packages/
+	(cd src/simphony-numerrin; python setup.py develop)
+	@echo
+	@echo "Simphony Numerrin plugin installed"
 
 simphony-openfoam:
 	pip install --upgrade svn+https://svn.code.sf.net/p/openfoam-extend/svn/trunk/Breeder/other/scripting/PyFoam#egg=PyFoam
@@ -134,7 +162,7 @@ simphony-lammps:
 	@echo
 	@echo "Simphony lammps plugin installed"
 
-simphony-plugins: simphony-mayavi simphony-openfoam simphony-jyu-lb simphony-lammps
+simphony-plugins: simphony-numerrin simphony-mayavi simphony-openfoam simphony-jyu-lb simphony-lammps
 	@echo
 	@echo "Simphony plugins installed"
 
@@ -148,6 +176,7 @@ test-plugins:
 	haas jyulb -v
 	haas simlammps -v
 	haas simphony_mayavi -v
+	$(TEST_NUMERRIN_COMMAND)
 	@echo
 	@echo "Tests for the simphony plugins done"
 
