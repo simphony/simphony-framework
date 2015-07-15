@@ -199,6 +199,7 @@ test-plugins:
 	haas jyulb -v
 	haas simlammps -v
 	haas simphony_mayavi -v
+	(cd src/simphony-openfoam; haas foam_controlwrapper foam_internalwrapper -v)
 	haas simkratos -v
 	$(TEST_NUMERRIN_COMMAND)
 	@echo
