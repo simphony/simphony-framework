@@ -163,8 +163,10 @@ simphony-numerrin:
 	@echo "Simphony Numerrin plugin installed"
 
 simphony-openfoam:
-	pip install --upgrade svn+https://svn.code.sf.net/p/openfoam-extend/svn/trunk/Breeder/other/scripting/PyFoam#egg=PyFoam
 	rm -Rf src/simphony-openfoam
+	(mkdir -p src/simphony-openfoam/pyfoam; wget https://openfoamwiki.net/images/3/3b/PyFoam-0.6.4.tar.gz -O src/simphony-openfoam/pyfoam/pyfoam.tgz --no-check-certificate)
+	tar -xzf src/simphony-openfoam/pyfoam/pyfoam.tgz -C src/simphony-openfoam/pyfoam
+	(pip install --upgrade src/simphony-openfoam/pyfoam/PyFoam-0.6.4; rm -Rf src/simphony-openfoam/pyfoam)
 	git clone --branch 0.1.3 --depth 1 https://github.com/simphony/simphony-openfoam.git src/simphony-openfoam
 	(cd src/simphony-openfoam; python setup.py install)
 	@echo
