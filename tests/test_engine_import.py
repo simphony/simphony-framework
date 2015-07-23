@@ -5,9 +5,11 @@ from stevedore.extension import ExtensionManager
 
 ENGINES = [
     'lammps',
-    'openfoam',
+    'openfoam_file_io',
+    'openfoam_internal',
     'kratos',
-    'jyulb']
+    'jyulb_fileio_isothermal',
+    'jyulb_internal_isothermal']
 
 if os.getenv("HAVE_NUMERRIN", "no") == "yes":
     ENGINES.append("numerrin")
