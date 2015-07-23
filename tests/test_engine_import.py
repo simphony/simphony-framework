@@ -1,6 +1,7 @@
 import unittest
-import importlib
 import os
+
+from stevedore.extension import ExtensionManager
 
 ENGINES = [
     'lammps',
@@ -15,5 +16,7 @@ if os.getenv("HAVE_NUMERRIN", "no") == "yes":
 class TestEngineImport(unittest.TestCase):
 
     def test_engine_import(self):
+        extension_manager = ExtensionManager(namespace='simphony.engine')
         for engine in ENGINES:
-            importlib.import_module('simphony.engine', engine)
+            if engine not in extension_manager:
+                self.fail("`{}` could not be imported".format(engine))
