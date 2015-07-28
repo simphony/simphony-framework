@@ -13,7 +13,7 @@ else
 endif
 
 
-.PHONY: clean base apt-openfoam apt-simphony apt-lammps apt-mayavi fix-pip simphony-env lammps jyu-lb kratos numerrin simphony simphony-lammps simphony-mayavi simphony-openfoam simphony-kratos simphony-jyu-lb simphony-numerrin test-plugins test-framework
+.PHONY: clean base apt-openfoam apt-simphony apt-lammps apt-mayavi fix-pip simphony-env lammps jyu-lb kratos numerrin simphony simphony-lammps simphony-mayavi simphony-openfoam simphony-kratos simphony-jyu-lb simphony-numerrin test-plugins test-framework test-simphony test-jyulb test-lammps test-mayavi test-openfoam test-kratos
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -195,14 +195,35 @@ simphony-framework:
 	@echo
 	@echo "Simphony framework installed"
 
-test-plugins:
-	pip install haas
+test-plugins: test-simphony test-jyulb test-lammps test-mayavi test-openfoam test-kratos
+	@echo
+	@echo "Tests for simphony plugins done"
+
+test-simphony:
+	pip install haas --quiet
 	haas simphony -v
+
+test-jyulb:
+	pip install haas --quiet
 	haas jyulb -v
+
+test-lammps:
+	pip install haas --quiet
 	haas simlammps -v
+
+test-mayavi:
+	pip install haas --quiet
 	haas simphony_mayavi -v
+
+test-openfoam:
+	pip install haas --quiet
 	(cd src/simphony-openfoam; haas foam_controlwrapper foam_internalwrapper -v)
+
+test-kratos:
+	pip install haas --quiet
 	haas simkratos -v
+
+test-numerrin:
 	$(TEST_NUMERRIN_COMMAND)
 	@echo
 	@echo "Tests for the simphony plugins done"
