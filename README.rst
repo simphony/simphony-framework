@@ -74,10 +74,10 @@ All these targets make sure that the necessary libraries are installed by the
 various apt repositories, and require ``sudo`` access::
 
   sudo make base
-  sudo apt-openfoam
-  sudo apt-simphony
-  sudo apt-lammps
-  sudo apt-mayavi
+  sudo make apt-openfoam
+  sudo make apt-simphony
+  sudo make apt-lammps
+  sudo make apt-mayavi
 
 
 .. note::
