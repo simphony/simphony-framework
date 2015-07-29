@@ -152,6 +152,7 @@ numerrin:
 
 simphony:
 	pip install "numexpr>=2.0.0"
+	pip install haas
 	pip install -r requirements.txt
 	pip install --upgrade git+https://github.com/simphony/simphony-common.git@$(SIMPHONYVERSION)#egg=simphony
 	@echo
@@ -208,33 +209,39 @@ test-plugins: test-simphony test-jyulb test-lammps test-mayavi test-openfoam tes
 	@echo "Tests for simphony plugins done"
 
 test-simphony:
-	pip install haas --quiet
 	haas simphony -v
+	@echo
+	@echo "Tests for simphony library done"
 
 test-jyulb:
-	pip install haas --quiet
 	haas jyulb -v
+	@echo
+	@echo "Tests for the jyulb plugin done"
 
 test-lammps:
-	pip install haas --quiet
 	haas simlammps -v
+	@echo
+	@echo "Tests for the lammps plugin done"
 
 test-mayavi:
-	pip install haas --quiet
 	haas simphony_mayavi -v
+	@echo
+	@echo "Tests for the mayavi plugin done"
 
 test-openfoam:
-	pip install haas --quiet
 	(cd src/simphony-openfoam; haas foam_controlwrapper foam_internalwrapper -v)
+	@echo
+	@echo "Tests for the openfoam plugin done"
 
 test-kratos:
-	pip install haas --quiet
 	haas simkratos -v
+	@echo
+	@echo "Tests for the kratos plugin done"
 
 test-numerrin:
 	$(TEST_NUMERRIN_COMMAND)
 	@echo
-	@echo "Tests for the simphony plugins done"
+	@echo "Tests for the numerrin plugin done"
 
 test-integration:
 	haas tests/ -v
