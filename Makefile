@@ -37,6 +37,7 @@ help:
 	@echo "  simphony-jyu-lb   to build and install the simphony-jyu-lb plugin"
 	@echo "  simphony-plugins  to build and install all the simphony-plugins"
 	@echo "  test-plugins      run the tests for all the simphony-plugins"
+	@echo "  test-integration  run the integration tests"
 	@echo "  test-framework    run the tests for the simphony-framework"
 	@echo "  clean             remove any temporary folders"
 
@@ -228,7 +229,11 @@ test-numerrin:
 	@echo
 	@echo "Tests for the simphony plugins done"
 
-test-framework: test-plugins
+test-integration:
 	haas tests/ -v
+	@echo
+	@echo "Integration tests for the simphony framework done"
+
+test-framework: test-plugins test-integration
 	@echo
 	@echo "Tests for the simphony framework done"
