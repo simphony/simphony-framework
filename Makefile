@@ -13,7 +13,7 @@ else
 endif
 
 
-.PHONY: clean base apt-openfoam apt-simphony apt-lammps apt-mayavi fix-pip simphony-env lammps jyu-lb kratos numerrin simphony simphony-lammps simphony-mayavi simphony-openfoam simphony-kratos simphony-jyu-lb simphony-numerrin test-plugins test-framework test-simphony test-jyulb test-lammps test-mayavi test-openfoam test-kratos
+.PHONY: clean base apt-openfoam apt-simphony apt-lammps apt-mayavi fix-pip simphony-env lammps jyu-lb kratos numerrin simphony simphony-lammps simphony-mayavi simphony-openfoam simphony-kratos simphony-jyu-lb simphony-numerrin test-plugins test-framework test-simphony test-jyulb test-lammps test-mayavi test-openfoam test-kratos test-integration
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
