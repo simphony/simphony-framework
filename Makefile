@@ -13,7 +13,7 @@ else
 endif
 
 
-.PHONY: clean base apt-openfoam apt-simphony apt-lammps apt-mayavi fix-pip simphony-env lammps jyu-lb kratos numerrin simphony simphony-lammps simphony-mayavi simphony-openfoam simphony-kratos simphony-jyu-lb simphony-numerrin test-plugins test-framework
+.PHONY: clean base apt-openfoam apt-simphony apt-lammps apt-mayavi fix-pip simphony-env lammps jyu-lb kratos numerrin simphony simphony-lammps simphony-mayavi simphony-openfoam simphony-kratos simphony-jyu-lb simphony-numerrin test-plugins test-framework test-simphony test-jyulb test-lammps test-mayavi test-openfoam test-kratos test-integration
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -36,7 +36,15 @@ help:
 	@echo "  simphony-openfoam to build and install the simphony-openfoam plugin"
 	@echo "  simphony-jyu-lb   to build and install the simphony-jyu-lb plugin"
 	@echo "  simphony-plugins  to build and install all the simphony-plugins"
+	@echo "  test-simphony     run the tests for the simphony library"
+	@echo "  test-kratos       run the tests for the simphony-kratos plugin"
+	@echo "  test-lammps   	   run the tests for the simphony-lammps plugin"
+	@echo "  test-numerrin     run the tests for the simphony-numerrin plugin"
+	@echo "  test-mayavi       run the tests for the simphony-mayavi plugin"
+	@echo "  test-openfoam     run the tests for the simphony-openfoam plugin"
+	@echo "  test-jyu-lb       run the tests for the simphony-jyu-lb plugin"
 	@echo "  test-plugins      run the tests for all the simphony-plugins"
+	@echo "  test-integration  run the integration tests"
 	@echo "  test-framework    run the tests for the simphony-framework"
 	@echo "  clean             remove any temporary folders"
 
@@ -144,6 +152,7 @@ numerrin:
 
 simphony:
 	pip install "numexpr>=2.0.0"
+	pip install haas
 	pip install -r requirements.txt
 	pip install --upgrade git+https://github.com/simphony/simphony-common.git@$(SIMPHONYVERSION)#egg=simphony
 	@echo
@@ -195,19 +204,50 @@ simphony-framework:
 	@echo
 	@echo "Simphony framework installed"
 
-test-plugins:
-	pip install haas
+test-plugins: test-simphony test-jyulb test-lammps test-mayavi test-openfoam test-kratos
+	@echo
+	@echo "Tests for simphony plugins done"
+
+test-simphony:
 	haas simphony -v
+	@echo
+	@echo "Tests for simphony library done"
+
+test-jyulb:
 	haas jyulb -v
+	@echo
+	@echo "Tests for the jyulb plugin done"
+
+test-lammps:
 	haas simlammps -v
+	@echo
+	@echo "Tests for the lammps plugin done"
+
+test-mayavi:
 	haas simphony_mayavi -v
+	@echo
+	@echo "Tests for the mayavi plugin done"
+
+test-openfoam:
 	(cd src/simphony-openfoam; haas foam_controlwrapper foam_internalwrapper -v)
+	@echo
+	@echo "Tests for the openfoam plugin done"
+
+test-kratos:
 	haas simkratos -v
+	@echo
+	@echo "Tests for the kratos plugin done"
+
+test-numerrin:
 	$(TEST_NUMERRIN_COMMAND)
 	@echo
-	@echo "Tests for the simphony plugins done"
+	@echo "Tests for the numerrin plugin done"
 
-test-framework: test-plugins
+test-integration:
 	haas tests/ -v
+	@echo
+	@echo "Integration tests for the simphony framework done"
+
+test-framework: test-plugins test-integration
 	@echo
 	@echo "Tests for the simphony framework done"
