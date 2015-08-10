@@ -192,7 +192,7 @@ simphony-jyu-lb:
 	@echo "Simphony jyu-lb plugin installed"
 
 simphony-lammps:
-	pip install --upgrade git+https://github.com/simphony/simphony-lammps-md.git@0.1.2#egg=simlammps
+	pip install --upgrade git+https://github.com/simphony/simphony-lammps-md.git@0.1.3#egg=simlammps
 	@echo
 	@echo "Simphony lammps plugin installed"
 
