@@ -19,7 +19,7 @@ The simphony-common version that is supported in version 0.1.3 of the framework 
 The SimPhoNy plugins that are compatible with this release:
 are:
 
-- https://github.com/simphony/simphony-jyulb/releases/tag/0.1.1, version 0.1.1
+- https://github.com/simphony/simphony-jyulb/releases/tag/0.1.3, version 0.1.3
 - https://github.com/simphony/simphony-kratos/releases/tag/0.1.1, version 0.1.1
 - https://github.com/simphony/simphony-lammps-md/releases/tag/0.1.3, version 0.1.3
 - https://github.com/simphony/simphony-openfoam/releases/tag/0.1.3, version 0.1.3
