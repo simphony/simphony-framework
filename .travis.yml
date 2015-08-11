@@ -28,6 +28,10 @@ install:
   - source ~/simphony/bin/activate
   - source /opt/openfoam222/etc/bashrc
   - make simphony
-  - make simphony-plugins
+  - make jyulb
+  - make lammps
+  - make mayavi
+  - make openfoam
+  - make kratos
 script:
   - make $TEST_SUITE
