@@ -4,6 +4,12 @@ SimPhoNy framework change log
 Release 0.1.3
 -------------
 
+* Added simphony-numerrin, version 0.1.0
+* Added simphony-kratos, version 0.1.1
+* Updated simphony-jyulb, version 0.1.3
+* Updated simphony-lammps-md to version 0.1.3
+* Updated simphony-openfoam to version 0.1.3
+* Updated simphony-common to version 0.1.3
 * Rework setup to use a Makefile
 
 
