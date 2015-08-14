@@ -71,6 +71,7 @@ apt-openfoam:
 
 apt-simphony:
 	add-apt-repository ppa:cython-dev/master-ppa -y
+	add-apt-repository ppa:cython-dev/master-ppa -y
 	apt-get update -qq
 	apt-get install -y python-dev cython libhdf5-serial-dev libatlas-dev libatlas3gf-base
 	@echo
@@ -110,11 +111,11 @@ lammps:
 	rm -Rf src/lammps
 	# bulding and installing executable
 	git clone --branch r12824 --depth 1 git://git.lammps.org/lammps-ro.git src/lammps
-	$(MAKE) -C src/lammps/src ubuntu_simple -j 2
+	$(MAKE) -C src/lammps/src ubuntu_simple -j 3
 	cp src/lammps/src/lmp_ubuntu_simple $(SIMPHONYENV)/bin/lammps
 	# bulding and installing python module
-	$(MAKE) -C src/lammps/src makeshlib -j 2
-	$(MAKE) -C src/lammps/src ubuntu_simple -f Makefile.shlib -j 2
+	$(MAKE) -C src/lammps/src makeshlib -j 3
+	$(MAKE) -C src/lammps/src ubuntu_simple -f Makefile.shlib -j 3
 	(cd src/lammps/python; python install.py $(SIMPHONYENV)/lib $(SIMPHONYENV)/lib/python2.7/site-packages/)
 	rm -Rf src/lammps
 	@echo
