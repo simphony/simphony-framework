@@ -93,6 +93,7 @@ fix-pip:
 	wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
 	python get-pip.py
 	rm get-pip.py
+	pip uninstall distribute
 	pip install --upgrade setuptools
 	pip install --upgrade virtualenv
 	@echo
