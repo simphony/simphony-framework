@@ -71,7 +71,6 @@ apt-openfoam:
 
 apt-simphony:
 	add-apt-repository ppa:cython-dev/master-ppa -y
-	add-apt-repository ppa:cython-dev/master-ppa -y
 	apt-get update -qq
 	apt-get install -y python-dev cython libhdf5-serial-dev libatlas-dev libatlas3gf-base
 	@echo
@@ -93,7 +92,6 @@ fix-pip:
 	wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
 	python get-pip.py
 	rm get-pip.py
-	pip uninstall distribute
 	pip install --upgrade setuptools
 	pip install --upgrade virtualenv
 	@echo
