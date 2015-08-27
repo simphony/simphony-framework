@@ -8,9 +8,8 @@ env:
   global:
   - SIMPHONYENV=~/simphony
   matrix:
-  - TEST_SUITE=test-simphony test-integration
+  - TEST_SUITE=test-simphony test-mayavi test-integration
   - TEST_SUITE=test-jyulb test-lammps test-openfoam
-  - TEST_SUITE=test-mayavi
   - TEST_SUITE=test-kratos
 before_install:
   - sudo apt-get install ccache
