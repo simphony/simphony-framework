@@ -172,6 +172,7 @@ simphony-numerrin:
 	@echo "Simphony Numerrin plugin installed"
 
 simphony-openfoam:
+	pip install enum34==1.0.4
 	rm -Rf src/simphony-openfoam
 	(mkdir -p src/simphony-openfoam/pyfoam; wget https://openfoamwiki.net/images/3/3b/PyFoam-0.6.4.tar.gz -O src/simphony-openfoam/pyfoam/pyfoam.tgz --no-check-certificate)
 	tar -xzf src/simphony-openfoam/pyfoam/pyfoam.tgz -C src/simphony-openfoam/pyfoam
