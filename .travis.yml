@@ -35,5 +35,6 @@ install:
   - make simphony-openfoam
   - make simphony-numerrin
   - make simphony-kratos
+  - make fix-simphony-openfoam
 script:
   - make ${TEST_SUITE}
