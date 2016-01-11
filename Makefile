@@ -3,7 +3,7 @@
 
 # You can set these variables from the command line.
 SIMPHONYENV   ?= ~/simphony
-SIMPHONYVERSION  ?= 0.1.3
+SIMPHONYVERSION  ?= 0.2.2
 HAVE_NUMERRIN   ?= no
 
 ifeq ($(HAVE_NUMERRIN),yes)
@@ -143,7 +143,7 @@ kratos:
 
 numerrin:
 	rm -Rf src/simphony-numerrin
-	git clone --branch 0.1.0 https://github.com/simphony/simphony-numerrin.git src/simphony-numerrin
+	git clone --branch 0.1.1 https://github.com/simphony/simphony-numerrin.git src/simphony-numerrin
 	(cp src/simphony-numerrin/numerrin-interface/libnumerrin4.so $(SIMPHONYENV)/lib/.)
 	rm -Rf src/simphony-numerrin
 	@echo
@@ -159,13 +159,13 @@ simphony:
 	@echo "Simphony library installed"
 
 simphony-mayavi:
-	pip install --upgrade git+https://github.com/simphony/simphony-mayavi.git@0.1.1#egg=simphony_mayavi
+	pip install --upgrade git+https://github.com/simphony/simphony-mayavi.git@0.3.1#egg=simphony_mayavi
 	@echo
 	@echo "Simphony Mayavi plugin installed"
 
 simphony-numerrin:
 	rm -Rf src/simphony-numerrin
-	git clone --branch 0.1.0 https://github.com/simphony/simphony-numerrin.git src/simphony-numerrin
+	git clone --branch 0.1.1 https://github.com/simphony/simphony-numerrin.git src/simphony-numerrin
 	cp src/simphony-numerrin/numerrin-interface/numerrin.so $(SIMPHONYENV)/lib/python2.7/site-packages/
 	(cd src/simphony-numerrin; python setup.py install)
 	@echo
@@ -176,7 +176,7 @@ simphony-openfoam:
 	(mkdir -p src/simphony-openfoam/pyfoam; wget https://openfoamwiki.net/images/3/3b/PyFoam-0.6.4.tar.gz -O src/simphony-openfoam/pyfoam/pyfoam.tgz --no-check-certificate)
 	tar -xzf src/simphony-openfoam/pyfoam/pyfoam.tgz -C src/simphony-openfoam/pyfoam
 	(pip install --upgrade src/simphony-openfoam/pyfoam/PyFoam-0.6.4; rm -Rf src/simphony-openfoam/pyfoam)
-	git clone --branch 0.1.3 --depth 1 https://github.com/simphony/simphony-openfoam.git src/simphony-openfoam
+	git clone --branch 0.1.5 --depth 1 https://github.com/simphony/simphony-openfoam.git src/simphony-openfoam
 	(cd src/simphony-openfoam; python setup.py install)
 	@echo
 	@echo "Simphony OpenFoam plugin installed"
@@ -187,12 +187,12 @@ simphony-kratos:
 	@echo "Simphony Kratos plugin installed"
 
 simphony-jyu-lb:
-	pip install --upgrade git+https://github.com/simphony/simphony-jyulb.git@0.1.3
+	pip install --upgrade git+https://github.com/simphony/simphony-jyulb.git@0.2.0
 	@echo
 	@echo "Simphony jyu-lb plugin installed"
 
 simphony-lammps:
-	pip install --upgrade git+https://github.com/simphony/simphony-lammps-md.git@0.1.3#egg=simlammps
+	pip install --upgrade git+https://github.com/simphony/simphony-lammps-md.git@0.1.5#egg=simlammps
 	@echo
 	@echo "Simphony lammps plugin installed"
 
