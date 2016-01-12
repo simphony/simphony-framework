@@ -12,20 +12,39 @@ library and the SimPhoNy plugins.
 Packages
 --------
 
-The simphony-common version that is supported in version 0.1.3 of the framework is:
+The simphony-common version that is supported in version 0.2.2 of the framework is:
 
-- https://github.com/simphony/simphony-common/releases/tag/0.1.3, version 0.1.3
+- https://github.com/simphony/simphony-common/releases/tag/0.2.2, version 0.2.2
 
 The SimPhoNy plugins that are compatible with this release:
 are:
 
-- https://github.com/simphony/simphony-jyulb/releases/tag/0.1.3, version 0.1.3
-- https://github.com/simphony/simphony-kratos/releases/tag/0.1.1, version 0.1.1
-- https://github.com/simphony/simphony-lammps-md/releases/tag/0.1.3, version 0.1.3
-- https://github.com/simphony/simphony-openfoam/releases/tag/0.1.3, version 0.1.3
-- https://github.com/simphony/simphony-numerrin/releases/tag/0.1.0, version 0.1.0
-- https://github.com/simphony/simphony-mayavi/releases/tag/0.1.1, version 0.1.1
+- https://github.com/simphony/simphony-jyulb/releases/tag/0.2.0, version 0.2.0
+- https://github.com/simphony/simphony-lammps-md/releases/tag/0.1.5, version 0.1.5
+- https://github.com/simphony/simphony-openfoam/releases/tag/0.1.5, version 0.1.5
+- https://github.com/simphony/simphony-numerrin/releases/tag/0.1.1, version 0.1.1
+- https://github.com/simphony/simphony-kratos, commit afb3c50a630bb0d3d81f864ed4baa38093797940
+- https://github.com/simphony/simphony-mayavi/releases/tag/0.3.1, version 0.3.1
 
+Summary of releases
+-------------------
+
+=====================  =======  ========  =======
+ Repository                Version
+---------------------  --------------------------
+ simphony-framework     0.1.3    0.2.0     0.2.2
+=====================  =======  ========  =======
+ simphony-common        0.1.3    0.2.0     0.2.2
+ simphony-jyulb         0.1.3     n/a      0.2.0
+ simphony-kratos        0.1.1    master    master
+ simphony-lammps-md     0.1.3    0.1.5     0.1.5
+ simphony-openfoam      0.1.3    0.1.5     0.1.5
+ simphony-numerrin      0.1.0    0.1.1*    0.1.1*
+ simphony-mayavi        0.1.1     n/a      0.3.1
+ simphony-aviz           n/a     master     n/a
+=====================  =======  ========  =======
+
+*test pending
 
 Repository
 ----------
@@ -78,7 +97,7 @@ various apt repositories, and require ``sudo`` access::
   sudo make apt-simphony
   sudo make apt-lammps
   sudo make apt-mayavi
-
+  sudo make apt-aviz
 
 .. note::
 
@@ -131,6 +150,7 @@ To build them there are separate targets::
   make -j 2 jyu-lb
   make kratos
   make numerrin
+  make aviz
 
 .. note::
 
@@ -157,11 +177,11 @@ Complete script
 
 ::
 
-  sudo make base apt-openfoam apt-simphony apt-lammps apt-mayavi fix-pip
+  sudo make base apt-openfoam apt-simphony apt-lammps apt-mayavi apt-aviz fix-pip
   source /opt/openfoam222/etc/bashrc
   make simphony-env
   source ~/simphony/bin/activate
-  make -j 2 kratos lammps jyu-lb numerrin
+  make -j 2 kratos lammps jyu-lb numerrin aviz
   make simphony
   make simphony-plugins
 
