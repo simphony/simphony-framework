@@ -4,6 +4,20 @@
 # You can set these variables from the command line.
 SIMPHONYENV   ?= ~/simphony
 SIMPHONYVERSION  ?= 0.2.2
+SIMPHONY_JYU_LB_VERSION ?= 0.2.0
+SIMPHONY_LAMMPS_VERSION ?= 0.1.5
+SIMPHONY_NUMERRIN_VERSION ?= 0.1.1
+SIMPHONY_OPENFOAM_VERSION ?= 0.1.5
+SIMPHONY_KRATOS_VERSION ?= master
+SIMPHONY_AVIZ_VERSION ?= master
+SIMPHONY_MAYAVI_VERSION ?= 0.3.1
+
+# JYU-LB version
+JYU_LB_VERSION ?= 0.1.2
+
+# Aviz version
+AVIZ_VERSION ?= v6.5.0
+
 HAVE_NUMERRIN   ?= no
 
 ifeq ($(HAVE_NUMERRIN),yes)
@@ -13,22 +27,26 @@ else
 endif
 
 
-.PHONY: clean base apt-openfoam apt-simphony apt-lammps apt-mayavi fix-pip simphony-env lammps jyu-lb kratos numerrin simphony simphony-lammps simphony-mayavi simphony-openfoam simphony-kratos simphony-jyu-lb simphony-numerrin test-plugins test-framework test-simphony test-jyulb test-lammps test-mayavi test-openfoam test-kratos test-integration
+.PHONY: clean base apt-aviz apt-openfoam apt-simphony apt-lammps apt-mayavi fix-pip fix-simopenfoam simphony-env aviz lammps jyu-lb kratos numerrin simphony simphony-aviz simphony-lammps simphony-mayavi simphony-openfoam simphony-kratos simphony-jyu-lb simphony-numerrin test-plugins test-framework test-simphony test-aviz test-jyulb test-lammps test-mayavi test-openfoam test-kratos test-integration
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
 	@echo "  base              to install essential packages (requires sudo)"
+	@echo "  apt-aviz          to install building dependencies for Aviz (requires sudo)"
 	@echo "  apt-openfoam      to install openfoam 2.2.2 (requires sudo)"
 	@echo "  apt-simphony      to install building depedencies for the simphony library (requires sudo)"
 	@echo "  apt-lammps        to install building depedencies for the lammps solver (requires sudo)"
 	@echo "  apt-mayavi        to install building depedencies for the mayavi (requires sudo)"
 	@echo "  fix-pip           to update the version of pip and virtual evn (requires sudo)"
+	@echo "  fix-simopenfoam   to install enum3.4==1.0.4 for simphony-openfoam-0.1.5"
 	@echo "  simphony-env      to create a simphony virtualenv"
+	@echo "  aviz              to install AViz"
 	@echo "  kratos            to install the kratos solver"
 	@echo "  lammps            to build and install the lammps solver"
 	@echo "  numerrin          to install the numerrin solver"
 	@echo "  jyu-lb            to build and install the JYU-LB solver"
 	@echo "  simphony          to build and install the simphony library"
+	@echo "  simphony-aviz     to build and install the simphony-aviz plugin"
 	@echo "  simphony-kratos   to build and install the simphony-kratos plugin"
 	@echo "  simphony-lammps   to build and install the simphony-lammps plugin"
 	@echo "  simphony-numerrin to build and install the simphony-numerrin plugin"
@@ -37,6 +55,7 @@ help:
 	@echo "  simphony-jyu-lb   to build and install the simphony-jyu-lb plugin"
 	@echo "  simphony-plugins  to build and install all the simphony-plugins"
 	@echo "  test-simphony     run the tests for the simphony library"
+	@echo "  test-aviz         run the tests for the simphony-aviz plugin"
 	@echo "  test-kratos       run the tests for the simphony-kratos plugin"
 	@echo "  test-lammps   	   run the tests for the simphony-lammps plugin"
 	@echo "  test-numerrin     run the tests for the simphony-numerrin plugin"
@@ -49,6 +68,7 @@ help:
 	@echo "  clean             remove any temporary folders"
 
 clean:
+	rm -Rf src/aviz
 	rm -Rf src/kratos
 	rm -Rf src/lammps
 	rm -Rf src/JYU-LB
@@ -61,6 +81,12 @@ base:
 	add-apt-repository ppa:git-core/ppa -y
 	apt-get update -qq
 	apt-get install build-essential git subversion -y
+
+apt-aviz:
+	apt-get update -qq
+	apt-get install -y python-qt4 python-qt4-gl qt4-qmake qt4-dev-tools libpng-dev
+	@echo
+	@echo "Build dependencies for Aviz"
 
 apt-openfoam:
 	echo deb http://www.openfoam.org/download/ubuntu precise main > /etc/apt/sources.list.d/openfoam.list
@@ -88,7 +114,7 @@ apt-mayavi:
 	@echo
 	@echo "Build dependencies for mayavi installed"
 
-fix-simphony-openfoam:
+fix-simopenfoam:
 	pip install enum34==1.0.4
 	@echo
 	@echo "Fixed simphony-openfoam"
@@ -111,6 +137,13 @@ simphony-env:
 	@echo
 	@echo "Simphony virtualenv created"
 
+aviz:
+	rm -Rf src/aviz
+	git clone --branch $(AVIZ_VERSION) https://github.com/simphony/AViz src/aviz
+	(cd src/aviz/src; qmake aviz.pro; make; cp aviz $(SIMPHONYENV)/local/bin/)
+	@echo
+	@echo "Aviz installed"
+
 lammps:
 	rm -Rf src/lammps
 	# bulding and installing executable
@@ -127,7 +160,7 @@ lammps:
 
 jyu-lb:
 	rm -Rf src/JYU-LB
-	git clone --branch 0.1.2 https://github.com/simphony/JYU-LB.git src/JYU-LB
+	git clone --branch $(JYU_LB_VERSION) https://github.com/simphony/JYU-LB.git src/JYU-LB
 	$(MAKE) -C src/JYU-LB -j 2
 	cp src/JYU-LB/bin/jyu_lb_isothermal.exe $(SIMPHONYENV)/bin/jyu_lb_isothermal.exe
 	rm -Rf src/JYU-LB
@@ -148,7 +181,7 @@ kratos:
 
 numerrin:
 	rm -Rf src/simphony-numerrin
-	git clone --branch 0.1.1 https://github.com/simphony/simphony-numerrin.git src/simphony-numerrin
+	git clone --branch $(SIMPHONY_NUMERRIN_VERSION) https://github.com/simphony/simphony-numerrin.git src/simphony-numerrin
 	(cp src/simphony-numerrin/numerrin-interface/libnumerrin4.so $(SIMPHONYENV)/lib/.)
 	rm -Rf src/simphony-numerrin
 	@echo
@@ -163,14 +196,19 @@ simphony:
 	@echo
 	@echo "Simphony library installed"
 
+simphony-aviz:
+	pip install --upgrade git+https://github.com/simphony/simphony-aviz.git@$(SIMPHONY_AVIZ_VERSION)
+	@echo
+	@echo "Simphony AViz plugin installed"
+
 simphony-mayavi:
-	pip install --upgrade git+https://github.com/simphony/simphony-mayavi.git@0.3.1#egg=simphony_mayavi
+	pip install --upgrade git+https://github.com/simphony/simphony-mayavi.git@$(SIMPHONY_MAYAVI_VERSION)#egg=simphony_mayavi
 	@echo
 	@echo "Simphony Mayavi plugin installed"
 
 simphony-numerrin:
 	rm -Rf src/simphony-numerrin
-	git clone --branch 0.1.1 https://github.com/simphony/simphony-numerrin.git src/simphony-numerrin
+	git clone --branch $(SIMPHONY_NUMERRIN_VERSION) https://github.com/simphony/simphony-numerrin.git src/simphony-numerrin
 	cp src/simphony-numerrin/numerrin-interface/numerrin.so $(SIMPHONYENV)/lib/python2.7/site-packages/
 	(cd src/simphony-numerrin; python setup.py install)
 	@echo
@@ -181,23 +219,23 @@ simphony-openfoam:
 	(mkdir -p src/simphony-openfoam/pyfoam; wget https://openfoamwiki.net/images/3/3b/PyFoam-0.6.4.tar.gz -O src/simphony-openfoam/pyfoam/pyfoam.tgz --no-check-certificate)
 	tar -xzf src/simphony-openfoam/pyfoam/pyfoam.tgz -C src/simphony-openfoam/pyfoam
 	(pip install --upgrade src/simphony-openfoam/pyfoam/PyFoam-0.6.4; rm -Rf src/simphony-openfoam/pyfoam)
-	git clone --branch 0.1.5 --depth 1 https://github.com/simphony/simphony-openfoam.git src/simphony-openfoam
+	git clone --branch $(SIMPHONY_OPENFOAM_VERSION) --depth 1 https://github.com/simphony/simphony-openfoam.git src/simphony-openfoam
 	(cd src/simphony-openfoam; python setup.py install)
 	@echo
 	@echo "Simphony OpenFoam plugin installed"
 
 simphony-kratos:
-	pip install --upgrade git+https://github.com/simphony/simphony-kratos.git@0.1.1
+	pip install --upgrade git+https://github.com/simphony/simphony-kratos.git@$(SIMPHONY_KRATOS_VERSION)
 	@echo
 	@echo "Simphony Kratos plugin installed"
 
 simphony-jyu-lb:
-	pip install --upgrade git+https://github.com/simphony/simphony-jyulb.git@0.2.0
+	pip install --upgrade git+https://github.com/simphony/simphony-jyulb.git@$(SIMPHONY_JYU_LB_VERSION)
 	@echo
 	@echo "Simphony jyu-lb plugin installed"
 
 simphony-lammps:
-	pip install --upgrade git+https://github.com/simphony/simphony-lammps-md.git@0.1.5#egg=simlammps
+	pip install --upgrade git+https://github.com/simphony/simphony-lammps-md.git@$(SIMPHONY_LAMMPS_VERSION)#egg=simlammps
 	@echo
 	@echo "Simphony lammps plugin installed"
 
@@ -209,7 +247,7 @@ simphony-framework:
 	@echo
 	@echo "Simphony framework installed"
 
-test-plugins: test-simphony test-jyulb test-lammps test-mayavi test-openfoam test-kratos
+test-plugins: test-simphony test-jyulb test-lammps test-mayavi test-openfoam test-kratos test-aviz
 	@echo
 	@echo "Tests for simphony plugins done"
 
@@ -217,6 +255,11 @@ test-simphony:
 	haas simphony -v
 	@echo
 	@echo "Tests for simphony library done"
+
+test-aviz:
+	haas simphony_aviz -v
+	@echo
+	@echo "Tests for the aviz plugin done"
 
 test-jyulb:
 	haas jyulb -v
