@@ -155,7 +155,7 @@ lammps:
 	$(MAKE) -C src/lammps/src ubuntu_simple -f Makefile.shlib -j 2
 	(cd src/lammps/python; python install.py $(SIMPHONYENV)/lib $(SIMPHONYENV)/lib/python2.7/site-packages/)
 	rm -Rf src/lammps
-	build liggghts
+	# build liggghts
 	@echo "Building LIGGGHTS"
 	git clone --branch 3.3.0 --depth 1 git://github.com/CFDEMproject/LIGGGHTS-PUBLIC.git src/lammps/myliggghts
 	$(MAKE) -C src/lammps/myliggghts/src fedora -j 2
