@@ -20,6 +20,7 @@ before_install:
   - sudo make base
   - sudo make apt-openfoam apt-simphony apt-lammps apt-mayavi apt-aviz
   - make fix-pip
+  - pip install --allow-external PIL --allow-unverified PIL PIL
 install:
   - make simphony-env
   - make aviz

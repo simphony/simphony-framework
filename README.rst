@@ -23,7 +23,7 @@ are:
 - https://github.com/simphony/simphony-lammps-md/releases/tag/0.1.5, version 0.1.5
 - https://github.com/simphony/simphony-openfoam/releases/tag/0.1.5, version 0.1.5
 - https://github.com/simphony/simphony-numerrin/releases/tag/0.1.1, version 0.1.1
-- https://github.com/simphony/simphony-kratos, commit afb3c50a630bb0d3d81f864ed4baa38093797940
+- https://github.com/simphony/simphony-kratos/releases/tag/0.2.0, version 0.2.0
 - https://github.com/simphony/simphony-mayavi/releases/tag/0.3.1, version 0.3.1
 - https://github.com/simphony/simphony-aviz/releases/tag/0.1.0, version 0.1.0
   
@@ -37,7 +37,7 @@ Summary of releases
 =====================  =======  ========  =======
  simphony-common        0.1.3    0.2.0     0.2.2
  simphony-jyulb         0.1.3     n/a      0.2.0
- simphony-kratos        0.1.1    master    master
+ simphony-kratos        0.1.1    0.2.0     0.2.0
  simphony-lammps-md     0.1.3    0.1.5     0.1.5
  simphony-openfoam      0.1.3    0.1.5     0.1.5
  simphony-numerrin      0.1.0    0.1.1*    0.1.1*
