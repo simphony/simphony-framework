@@ -25,7 +25,8 @@ are:
 - https://github.com/simphony/simphony-numerrin/releases/tag/0.1.1, version 0.1.1
 - https://github.com/simphony/simphony-kratos, commit afb3c50a630bb0d3d81f864ed4baa38093797940
 - https://github.com/simphony/simphony-mayavi/releases/tag/0.3.1, version 0.3.1
-
+- https://github.com/simphony/simphony-aviz/releases/tag/0.1.0, version 0.1.0
+  
 Summary of releases
 -------------------
 
@@ -41,7 +42,7 @@ Summary of releases
  simphony-openfoam      0.1.3    0.1.5     0.1.5
  simphony-numerrin      0.1.0    0.1.1*    0.1.1*
  simphony-mayavi        0.1.1     n/a      0.3.1
- simphony-aviz           n/a     master     n/a
+ simphony-aviz           n/a     master    0.1.0
 =====================  =======  ========  =======
 
 *test pending
