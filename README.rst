@@ -42,7 +42,7 @@ Summary of releases
  simphony-openfoam      0.1.3    0.1.5     0.1.5
  simphony-numerrin      0.1.0    0.1.1*    0.1.1*
  simphony-mayavi        0.1.1     n/a      0.3.1
- simphony-aviz           n/a     master    0.1.0
+ simphony-aviz           n/a     0.1.0     0.1.0
 =====================  =======  ========  =======
 
 *test pending
