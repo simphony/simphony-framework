@@ -172,6 +172,11 @@ Install Simphony
 
    individual simphony plugins can be installed using the related targets.
 
+   If ``simphony-openfoam`` (version 0.1.5) is installed individually,
+   user needs to ensure that ``enum34==1.0.4`` by reinstalling it.
+   This is automatically done in the ``simphony-plugins`` target.
+   Future ``simphony-openfoam`` release should not have this problem.
+
 
 Complete script
 ~~~~~~~~~~~~~~~
