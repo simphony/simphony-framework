@@ -221,8 +221,7 @@ simphony-openfoam:
 	(mkdir -p src/simphony-openfoam/pyfoam; wget https://openfoamwiki.net/images/3/3b/PyFoam-0.6.4.tar.gz -O src/simphony-openfoam/pyfoam/pyfoam.tgz --no-check-certificate)
 	tar -xzf src/simphony-openfoam/pyfoam/pyfoam.tgz -C src/simphony-openfoam/pyfoam
 	(pip install --upgrade src/simphony-openfoam/pyfoam/PyFoam-0.6.4; rm -Rf src/simphony-openfoam/pyfoam)
-	git clone --branch $(SIMPHONY_OPENFOAM_VERSION) --depth 1 https://github.com/simphony/simphony-openfoam.git src/simphony-openfoam
-	(cd src/simphony-openfoam; python setup.py install)
+	pip install --upgrade git+https://github.com/simphony/simphony-openfoam.git@$(SIMPHONY_OPENFOAM_VERSION)
 	@echo
 	@echo "Simphony OpenFoam plugin installed"
 
@@ -280,7 +279,7 @@ test-mayavi:
 	@echo "Tests for the mayavi plugin done"
 
 test-openfoam:
-	(cd src/simphony-openfoam; haas foam_controlwrapper foam_internalwrapper -v)
+	haas foam_controlwrapper foam_internalwrapper -v
 	@echo
 	@echo "Tests for the openfoam plugin done"
 
