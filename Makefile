@@ -21,7 +21,7 @@ AVIZ_VERSION ?= v6.5.0
 HAVE_NUMERRIN   ?= no
 
 ifeq ($(HAVE_NUMERRIN),yes)
-	TEST_NUMERRIN_COMMAND=(cd src/simphony-numerrin; haas numerrin_wrapper -v)
+	TEST_NUMERRIN_COMMAND=haas numerrin_wrapper -v
 else
 	TEST_NUMERRIN_COMMAND=@echo "skip NUMERRIN tests"
 endif
@@ -212,10 +212,7 @@ simphony-mayavi:
 	@echo "Simphony Mayavi plugin installed"
 
 simphony-numerrin:
-	rm -Rf src/simphony-numerrin
-	git clone --branch $(SIMPHONY_NUMERRIN_VERSION) https://github.com/simphony/simphony-numerrin.git src/simphony-numerrin
-	cp src/simphony-numerrin/numerrin-interface/numerrin.so $(SIMPHONYENV)/lib/python2.7/site-packages/
-	(cd src/simphony-numerrin; python setup.py install)
+	pip install --upgrade git+https://github.com/simphony/simphony-numerrin.git@$(SIMPHONY_NUMERRIN_VERSION)
 	@echo
 	@echo "Simphony Numerrin plugin installed"
 
