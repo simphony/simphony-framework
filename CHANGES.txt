@@ -1,6 +1,18 @@
 SimPhoNy framework change log
 =============================
 
+Release 0.2.2
+-------------
+
+* simphony-common, version 0.2.2
+* simphony-jyulb, version 0.2.0
+* simphony-kratos, version 0.2.0
+* simphony-lammps-md, version 0.1.5
+* simphony-openfoam, version 0.1.5
+* simphony-numerrin, version 0.1.1
+* simphony-mayavi, version 0.3.1
+* simphony-aviz, version 0.1.0
+
 Release 0.1.3
 -------------
 

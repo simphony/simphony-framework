@@ -26,26 +26,7 @@ are:
 - https://github.com/simphony/simphony-kratos/releases/tag/0.2.0, version 0.2.0
 - https://github.com/simphony/simphony-mayavi/releases/tag/0.3.1, version 0.3.1
 - https://github.com/simphony/simphony-aviz/releases/tag/0.1.0, version 0.1.0
-  
-Summary of releases
--------------------
 
-=====================  =======  ========  =======
- Repository                Version
----------------------  --------------------------
- simphony-framework     0.1.3    0.2.0     0.2.2
-=====================  =======  ========  =======
- simphony-common        0.1.3    0.2.0     0.2.2
- simphony-jyulb         0.1.3     n/a      0.2.0
- simphony-kratos        0.1.1    0.2.0     0.2.0
- simphony-lammps-md     0.1.3    0.1.5     0.1.5
- simphony-openfoam      0.1.3    0.1.5     0.1.5
- simphony-numerrin      0.1.0    0.1.1*    0.1.1*
- simphony-mayavi        0.1.1     n/a      0.3.1
- simphony-aviz           n/a     0.1.0     0.1.0
-=====================  =======  ========  =======
-
-*test pending
 
 Repository
 ----------
@@ -54,6 +35,7 @@ The repository is hosted in github::
 
   https://github.com/simphony/simphony-framework
 
+  
 License
 -------
 
@@ -203,3 +185,23 @@ Test
 
    The testing of simphony-numerrin is only performed if the environement variable
    HAVE_NUMERRIN is set to yes (i.e. ''HAVE_NUMERRIN=yes make test-framework'')
+
+Summary of releases
+-------------------
+
+=====================  =======  =======
+ Repository                Version
+---------------------  ----------------
+ simphony-framework     0.1.3    0.2.2
+=====================  =======  =======
+ simphony-common        0.1.3    0.2.2
+ simphony-jyulb         0.1.3    0.2.0
+ simphony-kratos        0.1.1    0.2.0
+ simphony-lammps-md     0.1.3    0.1.5
+ simphony-openfoam      0.1.3    0.1.5
+ simphony-numerrin      0.1.0    0.1.1*
+ simphony-mayavi        0.1.1    0.3.1
+ simphony-aviz           n/a     0.1.0
+=====================  =======  =======
+
+*test pending
