@@ -2,7 +2,8 @@ import unittest
 from stevedore.extension import ExtensionManager
 
 PLUGINS = [
-    'mayavi_tools']
+    'mayavi_tools',
+    'aviz']
 
 
 class TestVisualisationPluginImport(unittest.TestCase):
