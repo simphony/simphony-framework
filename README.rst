@@ -199,9 +199,8 @@ Summary of releases
  simphony-kratos        0.1.1    0.2.0
  simphony-lammps-md     0.1.3    0.1.5
  simphony-openfoam      0.1.3    0.1.5
- simphony-numerrin      0.1.0    0.1.1*
+ simphony-numerrin      0.1.0    0.1.1
  simphony-mayavi        0.1.1    0.3.1
  simphony-aviz           n/a     0.1.0
 =====================  =======  =======
 
-*test pending
