@@ -27,45 +27,45 @@ else
 endif
 
 
-.PHONY: clean base apt-aviz apt-openfoam apt-simphony apt-lammps apt-mayavi fix-pip fix-simopenfoam simphony-env aviz lammps jyu-lb kratos numerrin simphony simphony-aviz simphony-lammps simphony-mayavi simphony-openfoam simphony-kratos simphony-jyu-lb simphony-numerrin test-plugins test-framework test-simphony test-aviz test-jyulb test-lammps test-mayavi test-openfoam test-kratos test-integration
+.PHONY: clean base apt-aviz-deps apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-mayavi-deps fix-pip fix-simopenfoam simphony-env aviz lammps jyu-lb kratos numerrin simphony simphony-aviz simphony-lammps simphony-mayavi simphony-openfoam simphony-kratos simphony-jyu-lb simphony-numerrin test-plugins test-framework test-simphony test-aviz test-jyulb test-lammps test-mayavi test-openfoam test-kratos test-integration
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
-	@echo "  base              to install essential packages (requires sudo)"
-	@echo "  apt-aviz          to install building dependencies for Aviz (requires sudo)"
-	@echo "  apt-openfoam      to install openfoam 2.2.2 (requires sudo)"
-	@echo "  apt-simphony      to install building depedencies for the simphony library (requires sudo)"
-	@echo "  apt-lammps        to install building depedencies for the lammps solver (requires sudo)"
-	@echo "  apt-mayavi        to install building depedencies for the mayavi (requires sudo)"
-	@echo "  fix-pip           to update the version of pip and virtual evn (requires sudo)"
-	@echo "  fix-simopenfoam   to install enum3.4==1.0.4 for simphony-openfoam-0.1.5"
-	@echo "  simphony-env      to create a simphony virtualenv"
-	@echo "  aviz              to install AViz"
-	@echo "  kratos            to install the kratos solver"
-	@echo "  lammps            to build and install the lammps solver"
-	@echo "  numerrin          to install the numerrin solver"
-	@echo "  jyu-lb            to build and install the JYU-LB solver"
-	@echo "  simphony          to build and install the simphony library"
-	@echo "  simphony-aviz     to build and install the simphony-aviz plugin"
-	@echo "  simphony-kratos   to build and install the simphony-kratos plugin"
-	@echo "  simphony-lammps   to build and install the simphony-lammps plugin"
-	@echo "  simphony-numerrin to build and install the simphony-numerrin plugin"
-	@echo "  simphony-mayavi   to build and install the simphony-mayavi plugin"
-	@echo "  simphony-openfoam to build and install the simphony-openfoam plugin"
-	@echo "  simphony-jyu-lb   to build and install the simphony-jyu-lb plugin"
-	@echo "  simphony-plugins  to build and install all the simphony-plugins"
-	@echo "  test-simphony     run the tests for the simphony library"
-	@echo "  test-aviz         run the tests for the simphony-aviz plugin"
-	@echo "  test-kratos       run the tests for the simphony-kratos plugin"
-	@echo "  test-lammps   	   run the tests for the simphony-lammps plugin"
-	@echo "  test-numerrin     run the tests for the simphony-numerrin plugin"
-	@echo "  test-mayavi       run the tests for the simphony-mayavi plugin"
-	@echo "  test-openfoam     run the tests for the simphony-openfoam plugin"
-	@echo "  test-jyu-lb       run the tests for the simphony-jyu-lb plugin"
-	@echo "  test-plugins      run the tests for all the simphony-plugins"
-	@echo "  test-integration  run the integration tests"
-	@echo "  test-framework    run the tests for the simphony-framework"
-	@echo "  clean             remove any temporary folders"
+	@echo "  base                to install essential packages (requires sudo)"
+	@echo "  apt-aviz-deps       to install building dependencies for Aviz (requires sudo)"
+	@echo "  apt-openfoam-deps   to install openfoam 2.2.2 (requires sudo)"
+	@echo "  apt-simphony-deps   to install building depedencies for the simphony library (requires sudo)"
+	@echo "  apt-lammps-deps     to install building depedencies for the lammps solver (requires sudo)"
+	@echo "  apt-mayavi-deps     to install building depedencies for the mayavi (requires sudo)"
+	@echo "  fix-pip             to update the version of pip and virtual evn (requires sudo)"
+	@echo "  fix-simopenfoam     to install enum3.4==1.0.4 for simphony-openfoam-0.1.5"
+	@echo "  simphony-env        to create a simphony virtualenv"
+	@echo "  aviz                to install AViz"
+	@echo "  kratos              to install the kratos solver"
+	@echo "  lammps              to build and install the lammps solver"
+	@echo "  numerrin            to install the numerrin solver"
+	@echo "  jyu-lb              to build and install the JYU-LB solver"
+	@echo "  simphony            to build and install the simphony library"
+	@echo "  simphony-aviz       to build and install the simphony-aviz plugin"
+	@echo "  simphony-kratos     to build and install the simphony-kratos plugin"
+	@echo "  simphony-lammps     to build and install the simphony-lammps plugin"
+	@echo "  simphony-numerrin   to build and install the simphony-numerrin plugin"
+	@echo "  simphony-mayavi     to build and install the simphony-mayavi plugin"
+	@echo "  simphony-openfoam   to build and install the simphony-openfoam plugin"
+	@echo "  simphony-jyu-lb     to build and install the simphony-jyu-lb plugin"
+	@echo "  simphony-plugins    to build and install all the simphony-plugins"
+	@echo "  test-simphony       run the tests for the simphony library"
+	@echo "  test-aviz           run the tests for the simphony-aviz plugin"
+	@echo "  test-kratos         run the tests for the simphony-kratos plugin"
+	@echo "  test-lammps   	     run the tests for the simphony-lammps plugin"
+	@echo "  test-numerrin       run the tests for the simphony-numerrin plugin"
+	@echo "  test-mayavi         run the tests for the simphony-mayavi plugin"
+	@echo "  test-openfoam       run the tests for the simphony-openfoam plugin"
+	@echo "  test-jyu-lb         run the tests for the simphony-jyu-lb plugin"
+	@echo "  test-plugins        run the tests for all the simphony-plugins"
+	@echo "  test-integration    run the integration tests"
+	@echo "  test-framework      run the tests for the simphony-framework"
+	@echo "  clean               remove any temporary folders"
 
 clean:
 	rm -Rf src/aviz
@@ -82,33 +82,33 @@ base:
 	apt-get update -qq
 	apt-get install build-essential git subversion -y
 
-apt-aviz:
+apt-aviz-deps:
 	apt-get update -qq
 	apt-get install -y python-qt4 python-qt4-gl qt4-qmake qt4-dev-tools libpng-dev
 	@echo
 	@echo "Build dependencies for Aviz"
 
-apt-openfoam:
+apt-openfoam-deps:
 	echo deb http://www.openfoam.org/download/ubuntu precise main > /etc/apt/sources.list.d/openfoam.list
 	apt-get update -qq
 	apt-get install -y --force-yes openfoam222
 	@echo
 	@echo "Openfoam installed use . /opt/openfoam222/etc/bashrc to setup the environment"
 
-apt-simphony:
+apt-simphony-deps:
 	add-apt-repository ppa:cython-dev/master-ppa -y
 	apt-get update -qq
 	apt-get install -y python-dev cython libhdf5-serial-dev libatlas-dev libatlas3gf-base
 	@echo
 	@echo "Build dependencies for simphony installed"
 
-apt-lammps:
+apt-lammps-deps:
 	apt-get update -qq
 	apt-get install -y mpi-default-bin mpi-default-dev
 	@echo
 	@echo "Build dependencies for lammps installed"
 
-apt-mayavi:
+apt-mayavi-deps:
 	apt-get update -qq
 	apt-get install python-vtk python-qt4 python-qt4-dev python-sip python-qt4-gl libqt4-scripttools python-imaging
 	@echo

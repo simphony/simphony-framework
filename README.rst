@@ -76,15 +76,15 @@ All these targets make sure that the necessary libraries are installed by the
 various apt repositories, and require ``sudo`` access::
 
   sudo make base
-  sudo make apt-openfoam
-  sudo make apt-simphony
-  sudo make apt-lammps
-  sudo make apt-mayavi
-  sudo make apt-aviz
+  sudo make apt-openfoam-deps
+  sudo make apt-simphony-deps
+  sudo make apt-lammps-deps
+  sudo make apt-mayavi-deps
+  sudo make apt-aviz-deps
 
 .. note::
 
-   The ``apt-openfoam`` target will install openfoam version 2.2.2. To use this solver
+   The ``apt-openfoam-deps`` target will install openfoam version 2.2.2. To use this solver
    please activate the related environment::
 
      source /opt/openfoam222/etc/bashrc
@@ -165,7 +165,7 @@ Complete script
 
 ::
 
-  sudo make base apt-openfoam apt-simphony apt-lammps apt-mayavi apt-aviz fix-pip
+  sudo make base apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-mayavi-deps apt-aviz-deps fix-pip
   source /opt/openfoam222/etc/bashrc
   make simphony-env
   source ~/simphony/bin/activate
@@ -199,9 +199,7 @@ Summary of releases
  simphony-kratos        0.1.1    0.2.0
  simphony-lammps-md     0.1.3    0.1.5
  simphony-openfoam      0.1.3    0.1.5
- simphony-numerrin      0.1.0    0.1.1*
+ simphony-numerrin      0.1.0    0.1.1
  simphony-mayavi        0.1.1    0.3.1
  simphony-aviz           n/a     0.1.0
 =====================  =======  =======
-
-*test pending
