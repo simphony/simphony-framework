@@ -57,7 +57,7 @@ Checkout the simphony-framework repo::
 .. note::
 
   The SymPhoNy framework is developed and tested on Ubuntu 12.04 LTS
-  and the following commands and included scripts assume that they
+  64bit and the following commands and included scripts assume that they
   are executed inside the top level directory of the simphony-framework
   cloned repository.
 
