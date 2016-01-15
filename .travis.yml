@@ -18,7 +18,7 @@ before_install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - sudo make base
-  - sudo make apt-openfoam apt-simphony apt-lammps apt-mayavi apt-aviz
+  - sudo make apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-mayavi-deps apt-aviz-deps
   - make fix-pip
   - pip install --allow-external PIL --allow-unverified PIL PIL
 install:
