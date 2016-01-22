@@ -37,7 +37,7 @@ help:
 	@echo "  apt-simphony-deps   to install building depedencies for the simphony library (requires sudo)"
 	@echo "  apt-lammps-deps     to install building depedencies for the lammps solver (requires sudo)"
 	@echo "  apt-mayavi-deps     to install building depedencies for the mayavi (requires sudo)"
-	@echo "  fix-pip             to update the version of pip, virtual evn (requires sudo)"
+	@echo "  fix-pip             to update the version of pip and virtual evn (requires sudo)"
 	@echo "  fix-simopenfoam     to install enum3.4==1.0.4 for simphony-openfoam-0.1.5"
 	@echo "  simphony-env        to create a simphony virtualenv"
 	@echo "  aviz                to install AViz"
