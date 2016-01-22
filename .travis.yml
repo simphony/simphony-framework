@@ -18,7 +18,7 @@ before_install:
   - sh -e /etc/init.d/xvfb start
   - sudo make base
   - sudo make apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-mayavi-deps apt-aviz-deps
-  - sudo make fix-system-python
+  - make fix-system-python
 install:
   - make simphony-env
   - make aviz
