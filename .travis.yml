@@ -18,11 +18,7 @@ before_install:
   - sh -e /etc/init.d/xvfb start
   - sudo make base
   - sudo make apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-mayavi-deps apt-aviz-deps
-  - make fix-pip
-  - sudo pip uninstall -y argparse
-  - sudo pip install argparse
-  - sudo pip uninstall -y pyyaml
-  - sudo pip install pyyaml
+  - sudo make fix-system-python
 install:
   - make simphony-env
   - make aviz

@@ -27,7 +27,7 @@ else
 endif
 
 
-.PHONY: clean base apt-aviz-deps apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-mayavi-deps fix-pip fix-simopenfoam simphony-env aviz lammps jyu-lb kratos numerrin simphony simphony-aviz simphony-lammps simphony-mayavi simphony-openfoam simphony-kratos simphony-jyu-lb simphony-numerrin test-plugins test-framework test-simphony test-aviz test-jyulb test-lammps test-mayavi test-openfoam test-kratos test-integration
+.PHONY: clean base apt-aviz-deps apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-mayavi-deps fix-system-python fix-simopenfoam simphony-env aviz lammps jyu-lb kratos numerrin simphony simphony-aviz simphony-lammps simphony-mayavi simphony-openfoam simphony-kratos simphony-jyu-lb simphony-numerrin test-plugins test-framework test-simphony test-aviz test-jyulb test-lammps test-mayavi test-openfoam test-kratos test-integration
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -37,7 +37,7 @@ help:
 	@echo "  apt-simphony-deps   to install building depedencies for the simphony library (requires sudo)"
 	@echo "  apt-lammps-deps     to install building depedencies for the lammps solver (requires sudo)"
 	@echo "  apt-mayavi-deps     to install building depedencies for the mayavi (requires sudo)"
-	@echo "  fix-pip             to update the version of pip and virtual evn (requires sudo)"
+	@echo "  fix-system-python   to update the version of pip, virtual evn and argparse (requires sudo)"
 	@echo "  fix-simopenfoam     to install enum3.4==1.0.4 for simphony-openfoam-0.1.5"
 	@echo "  simphony-env        to create a simphony virtualenv"
 	@echo "  aviz                to install AViz"
@@ -119,15 +119,17 @@ fix-simopenfoam:
 	@echo
 	@echo "Fixed simphony-openfoam"
 
-fix-pip:
+fix-system-python:
 	wget https://bootstrap.pypa.io/get-pip.py
 	python get-pip.py
 	rm get-pip.py
 	pip install --upgrade setuptools
 	pip install --upgrade virtualenv
+	pip install --upgrade argparse
 	@echo
 	pip --version
-	@echo "Latest pip installed"
+	pip show argparse
+	@echo "Latest pip and argparse installed"
 
 simphony-env:
 	rm -rf $(SIMPHONYENV)
