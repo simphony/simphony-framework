@@ -244,7 +244,7 @@ simphony-plugins: simphony-kratos simphony-numerrin simphony-mayavi simphony-ope
 	@echo
 	@echo "Simphony plugins installed"
 
-simphony-framework:
+simphony-framework: simphony simphony-plugins
 	@echo
 	@echo "Simphony framework installed"
 
