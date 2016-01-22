@@ -7,9 +7,6 @@ virtualenv:
 env:
   global:
   - SIMPHONYENV=~/simphony
-  matrix:
-  - TEST_SUITE="test-framework"
-  - TEST_SUITE="test-jyulb test-lammps test-openfoam test-kratos"
 before_install:
   - sudo apt-get install ccache
   - ccache -s
@@ -38,4 +35,4 @@ install:
   - make simphony-kratos
   - make fix-simopenfoam
 script:
-  - make ${TEST_SUITE}
+  - make test-framework
