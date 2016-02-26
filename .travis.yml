@@ -14,7 +14,7 @@ before_install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - sudo make base
-  - sudo make apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-mayavi-deps apt-aviz-deps
+  - sudo make apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-mayavi-deps apt-aviz-deps apt-nfluid-deps
   - make fix-pip
 install:
   - make simphony-env
@@ -34,5 +34,6 @@ install:
   - make simphony-numerrin
   - make simphony-kratos
   - make fix-simopenfoam
+  - make nfluid
 script:
   - make test-framework

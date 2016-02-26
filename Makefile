@@ -18,6 +18,9 @@ JYU_LB_VERSION ?= 0.1.2
 # Aviz version
 AVIZ_VERSION ?= v6.5.0
 
+# nFLUID version
+NFLUID_VERSION ?= 0.0.2.1
+
 HAVE_NUMERRIN   ?= no
 
 ifeq ($(HAVE_NUMERRIN),yes)
@@ -27,22 +30,23 @@ else
 endif
 
 
-.PHONY: clean base apt-aviz-deps apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-mayavi-deps fix-pip fix-simopenfoam simphony-env aviz lammps jyu-lb kratos numerrin simphony simphony-aviz simphony-lammps simphony-mayavi simphony-openfoam simphony-kratos simphony-jyu-lb simphony-numerrin test-plugins test-framework test-simphony test-aviz test-jyulb test-lammps test-mayavi test-openfoam test-kratos test-integration
+.PHONY: clean base apt-aviz-deps apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-mayavi-deps fix-pip fix-simopenfoam simphony-env aviz lammps jyu-lb kratos nfluid numerrin simphony simphony-aviz simphony-lammps simphony-mayavi simphony-openfoam simphony-kratos simphony-jyu-lb simphony-numerrin test-plugins test-framework test-simphony test-aviz test-jyulb test-lammps test-mayavi test-openfoam test-kratos test-integration
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
 	@echo "  base                to install essential packages (requires sudo)"
 	@echo "  apt-aviz-deps       to install building dependencies for Aviz (requires sudo)"
 	@echo "  apt-openfoam-deps   to install openfoam 2.2.2 (requires sudo)"
-	@echo "  apt-simphony-deps   to install building depedencies for the simphony library (requires sudo)"
-	@echo "  apt-lammps-deps     to install building depedencies for the lammps solver (requires sudo)"
-	@echo "  apt-mayavi-deps     to install building depedencies for the mayavi (requires sudo)"
+	@echo "  apt-simphony-deps   to install building dependencies for the simphony library (requires sudo)"
+	@echo "  apt-lammps-deps     to install building dependencies for the lammps solver (requires sudo)"
+	@echo "  apt-mayavi-deps     to install building dependencies for the mayavi (requires sudo)"
 	@echo "  fix-pip             to update the version of pip and virtual evn (requires sudo)"
 	@echo "  fix-simopenfoam     to install enum3.4==1.0.4 for simphony-openfoam-0.1.5"
 	@echo "  simphony-env        to create a simphony virtualenv"
 	@echo "  aviz                to install AViz"
 	@echo "  kratos              to install the kratos solver"
 	@echo "  lammps              to build and install the lammps solver"
+	@echo "  nfluid              to install nFLUID"
 	@echo "  numerrin            to install the numerrin solver"
 	@echo "  jyu-lb              to build and install the JYU-LB solver"
 	@echo "  simphony            to build and install the simphony library"
@@ -114,6 +118,12 @@ apt-mayavi-deps:
 	@echo
 	@echo "Build dependencies for mayavi installed"
 
+apt-nfluid-deps:
+	apt-get update -qq
+	apt-get install -y build-essential git cmake libqt4-dev libphonon-dev python2.7-dev libxml2-dev libxslt1-dev qtmobility-dev libqtwebkit-dev
+	@echo
+	@echo "Build dependencies for nFLUID installed"
+
 fix-simopenfoam:
 	pip install enum34==1.0.4
 	@echo
@@ -183,6 +193,11 @@ kratos:
 	cp -rf src/kratos/libs/libboost_python.so.1.55.0 $(SIMPHONYENV)/lib/.
 	@echo
 	@echo "Kratos solver installed"
+
+nfluid:
+	pip install --upgrade git+https://github.com/simphony/nfluid.git@$(NFLUID_VERSION)#egg=nfluid
+	@echo
+	@echo "nFLUID installed"
 
 numerrin:
 	rm -Rf src/simphony-numerrin
