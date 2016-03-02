@@ -33,7 +33,7 @@ install:
   - make simphony-openfoam
   - make simphony-numerrin
   - make simphony-kratos
-  - make fix-simopenfoam
   - make nfluid
+  - make fix-simopenfoam
 script:
   - make test-framework
