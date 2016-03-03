@@ -44,8 +44,6 @@ echo   all:             install simphony, ncad and nfluid modules
 echo   clean:           remove simphony, ncad and nfluid modules
 echo   pip:             install pip package manager
 echo   numpy:           install unofficial numpy extension
-echo.
-echo Please add C:\Python27\Scripts\ to your PATH environment
 goto exit
 
 
@@ -139,6 +137,8 @@ REM python -c "import urllib2; ifile=urllib2.urlopen('https://bootstrap.pypa.io/
 REM Install pip
 python C:\Python27\Tools\get-pip.py
 del C:\Python27\Tools\get-pip.py
+echo.
+echo Please add C:\Python27\Scripts\ to your PATH environment
 goto exit
 
 :numpy
