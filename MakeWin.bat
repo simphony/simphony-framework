@@ -145,7 +145,7 @@ goto exit
 REM Get unofficial numpy (installation of official package is not successful on Windows)
 REM from http://www.lfd.uci.edu/~gohlke/pythonlibs/
 REM -- using urllib2 with proper User-Agent
-python -c "import urllib2; headers={'User-Agent':'Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)'}; request=urllib2.Request('http://www.lfd.uci.edu/~gohlke/pythonlibs/wkvprmqy/numpy-1.10.4+vanilla-cp27-none-win32.whl',None,headers); ifile=urllib2.urlopen(request); ofile=open('C:/Python27/Lib/site-packages/numpy-1.10.4+vanilla-cp27-none-win32.whl','wb'); ofile.write(ifile.read()); ofile.close()"
+python -c "import urllib2; headers={'User-Agent':'Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)'}; request=urllib2.Request('http://www.lfd.uci.edu/~gohlke/pythonlibs/djcobkfp/numpy-1.10.4+vanilla-cp27-none-win32.whl',None,headers); ifile=urllib2.urlopen(request); ofile=open('C:/Python27/Lib/site-packages/numpy-1.10.4+vanilla-cp27-none-win32.whl','wb'); ofile.write(ifile.read()); ofile.close()"
 REM Install unofficial numpy
 pip install C:\Python27\Lib\site-packages\numpy-1.10.4+vanilla-cp27-none-win32.whl
 goto exit
