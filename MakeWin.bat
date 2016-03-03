@@ -7,6 +7,8 @@ REM     - install nCad wrapper package
 REM     - install nfluid package
 REM     - install entire SimPhoNy Framework
 REM     - uninstall entire SimPhoNy Framework
+REM     - install pip package manager
+REM     - install numpy extension
 
 REM All installation packages are directly downloaded and installed from GitHub
 
@@ -40,6 +42,10 @@ echo   simphony-ncad:   install ncad plugin      (version %NCADVERSION%)
 echo   nfluid:          install nfluid package   (version %NFLUIDVERSION%)
 echo   all:             install simphony, ncad and nfluid modules
 echo   clean:           remove simphony, ncad and nfluid modules
+echo   pip:             install pip package manager
+echo   numpy:           install unofficial numpy extension
+echo.
+echo Please add C:\Python27\Scripts\ to your PATH environment
 goto exit
 
 
@@ -127,11 +133,12 @@ goto exit
 :pip
 REM Get pip package
 REM -- using urllib
-python -c "import urllib; urllib.urlretrieve('https://bootstrap.pypa.io/get-pip.py', 'C:\python27\Tools\get-pip.py')"
+python -c "import urllib; urllib.urlretrieve('https://bootstrap.pypa.io/get-pip.py', 'C:\Python27\Tools\get-pip.py')"
 REM -- using urllib2
-REM python -c "import urllib2; ifile=urllib2.urlopen('https://bootstrap.pypa.io/get-pip.py');ofile=open('C:/python27/Tools/pip.py','wb');ofile.write(ifile.read());ofile.close()"
+REM python -c "import urllib2; ifile=urllib2.urlopen('https://bootstrap.pypa.io/get-pip.py');ofile=open('C:/Python27/Tools/pip.py','wb');ofile.write(ifile.read());ofile.close()"
 REM Install pip
-python C:\python27\Tools\get-pip.py
+python C:\Python27\Tools\get-pip.py
+del C:\Python27\Tools\get-pip.py
 goto exit
 
 :numpy
