@@ -16,6 +16,8 @@ before_install:
   - sudo make base
   - sudo make apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-mayavi-deps apt-aviz-deps apt-nfluid-deps
   - make fix-pip
+  # Get PySide wheel for nfluid (faster to install from wheel)
+  - wget -q -O ${HOME}/PySide-1.2.4-cp27-cp27mu-linux_x86_64.whl https://github.com/simphony/simphony-framework/releases/download/0.2.2/PySide-1.2.4-cp27-cp27mu-linux_x86_64.whl
 install:
   - make simphony-env
   - make aviz
@@ -33,6 +35,8 @@ install:
   - make simphony-openfoam
   - make simphony-numerrin
   - make simphony-kratos
+  # Install PySide for nfluid
+  - pip install ~/PySide-1.2.4-cp27-cp27mu-linux_x86_64.whl
   - make nfluid
   - make fix-simopenfoam
 script:
