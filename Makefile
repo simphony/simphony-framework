@@ -13,6 +13,9 @@ SIMPHONY_AVIZ_VERSION ?= 0.1.0
 SIMPHONY_MAYAVI_VERSION ?= 0.3.1
 SIMPHONY_PARAVIEW_VERSION ?= 0.2.0
 
+# Path for MPI in HDF5 suport
+MPI_INCLUDE_PATH ?= /usr/include/mpi
+
 # JYU-LB version
 JYU_LB_VERSION ?= 0.1.2
 
@@ -233,6 +236,7 @@ endif
 simphony:
 	pip install "numexpr>=2.0.0"
 	pip install haas
+	C_INCLUDE_PATH=$(MPI_INCLUDE_PATH) pip install tables
 	pip install -r requirements.txt
 	pip install --upgrade git+https://github.com/simphony/simphony-common.git@$(SIMPHONYVERSION)#egg=simphony
 	@echo
