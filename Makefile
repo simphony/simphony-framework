@@ -244,10 +244,6 @@ simphony-plugins: simphony-kratos simphony-numerrin simphony-mayavi simphony-ope
 	@echo
 	@echo "Simphony plugins installed"
 
-simphony-framework:
-	@echo
-	@echo "Simphony framework installed"
-
 test-plugins: test-simphony test-jyulb test-lammps test-mayavi test-openfoam test-kratos test-aviz
 	@echo
 	@echo "Tests for simphony plugins done"
