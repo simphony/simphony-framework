@@ -7,7 +7,7 @@ SIMPHONYVERSION  ?= 0.3.0
 SIMPHONY_JYU_LB_VERSION ?= 0.2.0
 SIMPHONY_LAMMPS_VERSION ?= 0.1.5
 SIMPHONY_NUMERRIN_VERSION ?= 0.1.1
-SIMPHONY_OPENFOAM_VERSION ?= 0.2.0
+SIMPHONY_OPENFOAM_VERSION ?= 0.2.1
 SIMPHONY_KRATOS_VERSION ?= 0.2.0
 SIMPHONY_AVIZ_VERSION ?= 0.2.0
 SIMPHONY_MAYAVI_VERSION ?= 0.4.0
@@ -33,7 +33,7 @@ help:
 	@echo "Please use \`make <target>' where <target> is one of"
 	@echo "  base                to install essential packages (requires sudo)"
 	@echo "  apt-aviz-deps       to install building dependencies for Aviz (requires sudo)"
-	@echo "  apt-openfoam-deps   to install openfoam 2.2.2 (requires sudo)"
+	@echo "  apt-openfoam-deps   to install openfoam 2.4.0 (requires sudo)"
 	@echo "  apt-simphony-deps   to install building depedencies for the simphony library (requires sudo)"
 	@echo "  apt-lammps-deps     to install building depedencies for the lammps solver (requires sudo)"
 	@echo "  apt-mayavi-deps     to install building depedencies for the mayavi (requires sudo)"
@@ -91,9 +91,9 @@ apt-aviz-deps:
 apt-openfoam-deps:
 	echo deb http://www.openfoam.org/download/ubuntu precise main > /etc/apt/sources.list.d/openfoam.list
 	apt-get update -qq
-	apt-get install -y --force-yes openfoam222
+	apt-get install -y --force-yes openfoam240
 	@echo
-	@echo "Openfoam installed use . /opt/openfoam222/etc/bashrc to setup the environment"
+	@echo "Openfoam installed use . /opt/openfoam240/etc/bashrc to setup the environment"
 
 apt-simphony-deps:
 	add-apt-repository ppa:cython-dev/master-ppa -y
