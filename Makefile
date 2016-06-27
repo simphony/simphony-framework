@@ -31,7 +31,7 @@ endif
 # Use Paraview OpenFoam? (if no, Paraview from Ubuntu is installed)
 USE_OPENFOAM_PARAVIEW ?= no
 
-.PHONY: clean base apt-aviz-deps apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-mayavi-deps apt-paraview-deps fix-pip fix-simopenfoam simphony-env aviz lammps jyu-lb kratos numerrin simphony simphony-aviz simphony-lammps simphony-mayavi simphony-paraview simphony-openfoam simphony-kratos simphony-jyu-lb simphony-numerrin test-plugins test-framework test-simphony test-aviz test-jyulb test-lammps test-mayavi test-paraview test-openfoam test-kratos test-integration
+.PHONY: clean base apt-aviz-deps apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-mayavi-deps apt-paraview-deps fix-pip fix-simopenfoam simphony-env aviz lammps jyu-lb kratos numerrin paraview simphony simphony-aviz simphony-lammps simphony-mayavi simphony-paraview simphony-openfoam simphony-kratos simphony-jyu-lb simphony-numerrin test-plugins test-framework test-simphony test-aviz test-jyulb test-lammps test-mayavi test-paraview test-openfoam test-kratos test-integration
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -50,6 +50,7 @@ help:
 	@echo "  lammps              to build and install the lammps solver"
 	@echo "  numerrin            to install the numerrin solver"
 	@echo "  jyu-lb              to build and install the JYU-LB solver"
+	@echo "  paraview            to install Paraview"
 	@echo "  simphony            to build and install the simphony library"
 	@echo "  simphony-aviz       to build and install the simphony-aviz plugin"
 	@echo "  simphony-kratos     to build and install the simphony-kratos plugin"
@@ -127,16 +128,10 @@ ifeq ($(USE_OPENFOAM_PARAVIEW),yes)
 	echo deb http://www.openfoam.org/download/ubuntu precise main > /etc/apt/sources.list.d/openfoam.list
 	apt-get update -qq
 	apt-get install -y --force-yes paraviewopenfoam410 libhdf5-openmpi-dev
-	echo "LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:/opt/paraviewopenfoam410/lib/paraview-4.1:\$$LD_LIBRARY_PATH\n" >> $(SIMPHONYENV)/bin/activate
-	echo "export LD_LIBRARY_PATH" >> $(SIMPHONYENV)/bin/activate
-	echo "PYTHONPATH=/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/:/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/vtk:\$$PYTHONPATH" >> $(SIMPHONYENV)/bin/activate
-	echo "export PYTHONPATH" >> $(SIMPHONYENV)/bin/activate
 	@echo
 	@echo "Paraview (openfoam) installed"
 else
 	apt-get install -y --force-yes paraview libhdf5-openmpi-dev
-	echo "LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:\$$LD_LIBRARY_PATH" >> $(SIMPHONYENV)/bin/activate
-	echo "export LD_LIBRARY_PATH" >> $(SIMPHONYENV)/bin/activate
 	@echo
 	@echo "Paraview (ubuntu) installed"
 endif
@@ -219,6 +214,21 @@ numerrin:
 	@echo
 	@echo "Numerrin installed"
 	@echo "(Ensure that environment variable PYNUMERRIN_LICENSE points to license file)"
+
+paraview:
+ifeq ($(USE_OPENFOAM_PARAVIEW),yes)
+	echo "LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:/opt/paraviewopenfoam410/lib/paraview-4.1:\$$LD_LIBRARY_PATH\n" >> $(SIMPHONYENV)/bin/activate
+	echo "export LD_LIBRARY_PATH" >> $(SIMPHONYENV)/bin/activate
+	echo "PYTHONPATH=/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/:/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/vtk:\$$PYTHONPATH" >> $(SIMPHONYENV)/bin/activate
+	echo "export PYTHONPATH" >> $(SIMPHONYENV)/bin/activate
+	@echo
+	@echo "Paraview (openfoam) installed"
+else
+	echo "LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:\$$LD_LIBRARY_PATH" >> $(SIMPHONYENV)/bin/activate
+	echo "export LD_LIBRARY_PATH" >> $(SIMPHONYENV)/bin/activate
+	@echo
+	@echo "Paraview (ubuntu) installed"
+endif
 
 simphony:
 	pip install "numexpr>=2.0.0"
