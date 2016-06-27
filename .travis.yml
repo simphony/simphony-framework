@@ -7,6 +7,9 @@ virtualenv:
 env:
   global:
   - SIMPHONYENV=~/simphony
+  matrix:
+  - TEST_SUITE=test-framework DEPS=apt-mayavi-deps PLUGINS=simphony-mayavi
+  - TEST_SUITE=test-paraview DEPS=apt-paraview-deps PLUGINS=simphony-paraview
 before_install:
   - sudo apt-get install ccache
   - ccache -s
@@ -14,7 +17,7 @@ before_install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - sudo make base
-  - sudo make apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-mayavi-deps apt-aviz-deps
+  - sudo make apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-aviz-deps $DEPS
   - make fix-pip
 install:
   - make simphony-env
@@ -29,10 +32,10 @@ install:
   - make simphony-aviz
   - make simphony-jyu-lb
   - make simphony-lammps
-  - make simphony-mayavi
   - make simphony-openfoam
   - make simphony-numerrin
   - make simphony-kratos
+  - make $PLUGINS
   - make fix-simopenfoam
 script:
-  - make test-framework
+  - make $TEST_SUITE
