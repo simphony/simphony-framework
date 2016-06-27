@@ -20,6 +20,7 @@ before_install:
   - sudo make base
   - sudo make apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-mayavi-deps apt-aviz-deps
   - make fix-pip
+  - sudo ln -s ccache /usr/local/bin/mpic++
 install:
   - make simphony-env
   - make aviz
