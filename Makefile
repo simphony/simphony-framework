@@ -323,7 +323,7 @@ test-mayavi:
 	@echo "Tests for the mayavi plugin done"
 
 test-paraview:
-	pip install mock
+	pip install mock hypothesis pillow
 	haas simphony_paraview -v
 	@echo
 	@echo "Tests for the paraview plugin done"
