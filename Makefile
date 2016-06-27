@@ -33,7 +33,7 @@ help:
 	@echo "Please use \`make <target>' where <target> is one of"
 	@echo "  base                to install essential packages (requires sudo)"
 	@echo "  apt-aviz-deps       to install building dependencies for Aviz (requires sudo)"
-	@echo "  apt-openfoam-deps   to install openfoam 2.4.0 (requires sudo)"
+	@echo "  apt-openfoam-deps   to install openfoam 2.3.0 (requires sudo)"
 	@echo "  apt-simphony-deps   to install building depedencies for the simphony library (requires sudo)"
 	@echo "  apt-lammps-deps     to install building depedencies for the lammps solver (requires sudo)"
 	@echo "  apt-mayavi-deps     to install building depedencies for the mayavi (requires sudo)"
@@ -91,9 +91,9 @@ apt-aviz-deps:
 apt-openfoam-deps:
 	echo deb http://www.openfoam.org/download/ubuntu precise main > /etc/apt/sources.list.d/openfoam.list
 	apt-get update -qq
-	apt-get install -y --force-yes openfoam240
+	apt-get install -y --force-yes openfoam230
 	@echo
-	@echo "Openfoam installed use . /opt/openfoam240/etc/bashrc to setup the environment"
+	@echo "Openfoam installed use . /opt/openfoam230/etc/bashrc to setup the environment"
 
 apt-simphony-deps:
 	add-apt-repository ppa:cython-dev/master-ppa -y
