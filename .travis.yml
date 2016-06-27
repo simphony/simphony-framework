@@ -9,7 +9,7 @@ env:
   - SIMPHONYENV=~/simphony
   matrix:
   - TEST_SUITE=test-framework DEPS=apt-mayavi-deps PLUGINS=simphony-mayavi
-  - TEST_SUITE=test-paraview DEPS=apt-paraview-deps PLUGINS=paraview simphony-paraview
+  - TEST_SUITE=test-paraview DEPS=apt-paraview-deps PLUGINS=simphony-paraview
 before_install:
   - sudo apt-get install ccache
   - ccache -s
