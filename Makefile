@@ -152,7 +152,7 @@ lammps:
 	cp src/lammps/src/lmp_ubuntu_simple $(SIMPHONYENV)/bin/lammps
 	# bulding and installing python module
 	$(MAKE) -C src/lammps/src -j 2 ubuntu_simple mode=shlib
-	(cd src/lammps/python; python install.py $(SIMPHONYENV)/lib $(SIMPHONYENV)/lib/python2.7/site-packages/)
+	(cd src/lammps/python; python install.py $(SIMPHONYENV)/lib/python2.7/site-packages/)
 	rm -Rf src/lammps
 	# build liggghts
 	@echo "Building LIGGGHTS"
