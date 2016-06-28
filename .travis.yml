@@ -29,7 +29,7 @@ install:
   - make jyu-lb
   - make numerrin
   - source ~/simphony/bin/activate
-  - source /opt/openfoam230/etc/bashrc
+  - source /opt/openfoam222/etc/bashrc
   - make simphony
   - make simphony-aviz
   - make simphony-jyu-lb
