@@ -1,9 +1,4 @@
 language: python
-
-cache:
-  - pip
-  - ccache
-
 python:
   - "2.7"
 virtualenv:
@@ -11,9 +6,15 @@ virtualenv:
 env:
   global:
   - SIMPHONYENV=~/simphony
+cache:
+  pip: true
+  directories:
+  - $HOME/.ccache
 before_install:
+  - sudo apt-get update -qq
   - sudo apt-get install ccache
   - ccache -s
+  - export PATH=/usr/lib/ccache:${PATH}
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - sudo make base
