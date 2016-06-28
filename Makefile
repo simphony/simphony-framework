@@ -10,7 +10,7 @@ SIMPHONY_NUMERRIN_VERSION ?= 0.1.1
 SIMPHONY_OPENFOAM_VERSION ?= 0.1.5
 SIMPHONY_KRATOS_VERSION ?= 0.2.0
 SIMPHONY_AVIZ_VERSION ?= 0.2.0
-SIMPHONY_MAYAVI_VERSION ?= 0.4.0
+SIMPHONY_MAYAVI_VERSION ?= 0.4.1
 SIMPHONY_PARAVIEW_VERSION ?= 0.2.0
 
 # Path for MPI in HDF5 suport
@@ -312,7 +312,7 @@ test-lammps:
 	@echo "Tests for the lammps plugin done"
 
 test-mayavi:
-	pip install mock
+	pip install mock hypothesis
 	haas simphony_mayavi -v
 	@echo
 	@echo "Tests for the mayavi plugin done"
