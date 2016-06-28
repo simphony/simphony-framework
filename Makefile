@@ -3,14 +3,14 @@
 
 # You can set these variables from the command line.
 SIMPHONYENV   ?= ~/simphony
-SIMPHONYVERSION  ?= 0.2.2
+SIMPHONYVERSION  ?= 0.3.0
 SIMPHONY_JYU_LB_VERSION ?= 0.2.0
 SIMPHONY_LAMMPS_VERSION ?= 0.1.5
 SIMPHONY_NUMERRIN_VERSION ?= 0.1.1
 SIMPHONY_OPENFOAM_VERSION ?= 0.1.5
 SIMPHONY_KRATOS_VERSION ?= 0.2.0
-SIMPHONY_AVIZ_VERSION ?= 0.1.0
-SIMPHONY_MAYAVI_VERSION ?= 0.3.1
+SIMPHONY_AVIZ_VERSION ?= 0.2.0
+SIMPHONY_MAYAVI_VERSION ?= 0.4.0
 SIMPHONY_PARAVIEW_VERSION ?= 0.2.0
 
 # Path for MPI in HDF5 suport
@@ -171,13 +171,12 @@ aviz:
 lammps:
 	rm -Rf src/lammps
 	# bulding and installing executable
-	git clone --branch r12824 --depth 1 git://git.lammps.org/lammps-ro.git src/lammps
+	git clone --branch r13864 --depth 1 git://git.lammps.org/lammps-ro.git src/lammps
 	$(MAKE) -C src/lammps/src ubuntu_simple -j 3
 	cp src/lammps/src/lmp_ubuntu_simple $(SIMPHONYENV)/bin/lammps
 	# bulding and installing python module
-	$(MAKE) -C src/lammps/src makeshlib -j 2
-	$(MAKE) -C src/lammps/src ubuntu_simple -f Makefile.shlib -j 2
-	(cd src/lammps/python; python install.py $(SIMPHONYENV)/lib $(SIMPHONYENV)/lib/python2.7/site-packages/)
+	$(MAKE) -C src/lammps/src -j 2 ubuntu_simple mode=shlib
+	(cd src/lammps/python; python install.py $(SIMPHONYENV)/lib/python2.7/site-packages/)
 	rm -Rf src/lammps
 	# build liggghts
 	@echo "Building LIGGGHTS"
@@ -287,10 +286,6 @@ simphony-lammps:
 simphony-plugins: simphony-kratos simphony-numerrin simphony-mayavi simphony-openfoam simphony-jyu-lb simphony-lammps fix-simopenfoam
 	@echo
 	@echo "Simphony plugins installed"
-
-simphony-framework:
-	@echo
-	@echo "Simphony framework installed"
 
 test-plugins: test-simphony test-jyulb test-lammps test-mayavi test-openfoam test-kratos test-aviz
 	@echo

@@ -1,5 +1,4 @@
 language: python
-
 python:
   - "2.7"
 virtualenv:
@@ -10,7 +9,12 @@ env:
   matrix:
   - TEST_SUITE=test-framework DEPS=apt-mayavi-deps PLUGINS=simphony-mayavi
   - TEST_SUITE=test-paraview DEPS=apt-paraview-deps PLUGINS=simphony-paraview
+cache:
+  pip: true
+  directories:
+  - $HOME/.ccache
 before_install:
+  - sudo apt-get update -qq
   - sudo apt-get install ccache
   - ccache -s
   - export PATH=/usr/lib/ccache:${PATH}
@@ -19,6 +23,7 @@ before_install:
   - sudo make base
   - sudo make apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-aviz-deps $DEPS
   - make fix-pip
+  - sudo ln -s ccache /usr/local/bin/mpic++
 install:
   - make simphony-env
   - make aviz
