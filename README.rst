@@ -155,13 +155,20 @@ Install Simphony
 
 .. note::
 
-   individual simphony plugins can be installed using the related targets.
+   - individual simphony plugins can be installed using the related targets.
 
-   If ``simphony-openfoam`` (version 0.1.5) is installed individually,
-   user needs to ensure that ``enum34==1.0.4`` by reinstalling it.
-   This is automatically done in the ``simphony-plugins`` target.
-   Future ``simphony-openfoam`` release should not have this problem.
+     If ``simphony-openfoam`` (version 0.1.5) is installed individually,
+     user needs to ensure that ``enum34==1.0.4`` by reinstalling it.
+     This is automatically done in the ``simphony-plugins`` target.
+     Future ``simphony-openfoam`` release should not have this problem.
 
+   - ``simphony-paraview`` and ``simphony-mayavi`` use different VTK
+     setups so they cannot be installed at the same time.  ``make
+     simphony-plugins`` will install by default
+
+   - ``simphony-paraview`` can be setup to use the system (default) or
+     openfoam build of Paraview using the ``USE_OPENFOAM_PARAVIEW``
+     enviroment variable
 
 Complete script
 ~~~~~~~~~~~~~~~
