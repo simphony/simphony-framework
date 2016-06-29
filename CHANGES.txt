@@ -1,6 +1,14 @@
 SimPhoNy framework change log
 =============================
 
+Release 0.3.0
+-------------
+
+* simphony-common, version 0.3.0
+* simphony-mayavi, version 0.4.1
+* simphony-aviz, version 0.2.0
+* simphony-paraview, version 0.2.0
+
 Release 0.2.2
 -------------
 
