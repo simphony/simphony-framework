@@ -12,9 +12,9 @@ library and the SimPhoNy plugins.
 Packages
 --------
 
-The simphony-common version that is supported in version 0.2.2 of the framework is:
+The simphony-common version that is supported in version 0.3.0 of the framework is:
 
-- https://github.com/simphony/simphony-common/releases/tag/0.2.2, version 0.2.2
+- https://github.com/simphony/simphony-common/releases/tag/0.3.0, version 0.3.0
 
 The SimPhoNy plugins that are compatible with this release:
 are:
@@ -24,8 +24,9 @@ are:
 - https://github.com/simphony/simphony-openfoam/releases/tag/0.1.5, version 0.1.5
 - https://github.com/simphony/simphony-numerrin/releases/tag/0.1.1, version 0.1.1
 - https://github.com/simphony/simphony-kratos/releases/tag/0.2.0, version 0.2.0
-- https://github.com/simphony/simphony-mayavi/releases/tag/0.3.1, version 0.3.1
-- https://github.com/simphony/simphony-aviz/releases/tag/0.1.0, version 0.1.0
+- https://github.com/simphony/simphony-mayavi/releases/tag/0.4.1, version 0.4.1
+- https://github.com/simphony/simphony-aviz/releases/tag/0.2.0, version 0.1.0
+- https://github.com/simphony/simphony-paraview/releases/tag/0.2.0, version 0.2.0
 
 
 Repository
@@ -35,7 +36,7 @@ The repository is hosted in github::
 
   https://github.com/simphony/simphony-framework
 
-  
+
 License
 -------
 
@@ -84,11 +85,13 @@ various apt repositories, and require ``sudo`` access::
 
 .. note::
 
-   The ``apt-openfoam-deps`` target will install openfoam version 2.2.2. To use this solver
-   please activate the related environment::
+   - The ``apt-openfoam-deps`` target will install openfoam version
+     2.2.2. To use this solver please activate the related environment::
 
      source /opt/openfoam222/etc/bashrc
 
+   - Alternative to mayavi one can install paraview dependencies by
+     using ``apt-paraview-deps``.
 
 
 Fix python setup tools
@@ -152,13 +155,20 @@ Install Simphony
 
 .. note::
 
-   individual simphony plugins can be installed using the related targets.
+   - individual simphony plugins can be installed using the related targets.
 
-   If ``simphony-openfoam`` (version 0.1.5) is installed individually,
-   user needs to ensure that ``enum34==1.0.4`` by reinstalling it.
-   This is automatically done in the ``simphony-plugins`` target.
-   Future ``simphony-openfoam`` release should not have this problem.
+     If ``simphony-openfoam`` (version 0.1.5) is installed individually,
+     user needs to ensure that ``enum34==1.0.4`` by reinstalling it.
+     This is automatically done in the ``simphony-plugins`` target.
+     Future ``simphony-openfoam`` release should not have this problem.
 
+   - ``simphony-paraview`` and ``simphony-mayavi`` use different VTK
+     setups so they cannot be installed at the same time.  ``make
+     simphony-plugins`` will install by default
+
+   - ``simphony-paraview`` can be setup to use the system (default) or
+     openfoam build of Paraview using the ``USE_OPENFOAM_PARAVIEW``
+     enviroment variable
 
 Complete script
 ~~~~~~~~~~~~~~~
@@ -189,17 +199,18 @@ Test
 Summary of releases
 -------------------
 
-=====================  =======  =======
- Repository                Version
----------------------  ----------------
- simphony-framework     0.1.3    0.2.2
-=====================  =======  =======
- simphony-common        0.1.3    0.2.2
- simphony-jyulb         0.1.3    0.2.0
- simphony-kratos        0.1.1    0.2.0
- simphony-lammps-md     0.1.3    0.1.5
- simphony-openfoam      0.1.3    0.1.5
- simphony-numerrin      0.1.0    0.1.1
- simphony-mayavi        0.1.1    0.3.1
- simphony-aviz           n/a     0.1.0
-=====================  =======  =======
+=====================  =======  ======= ========
+ Repository                     Version
+---------------------  -------------------------
+ simphony-framework     0.1.3    0.2.2    0.3.0
+=====================  =======  =======  =======
+ simphony-common        0.1.3    0.2.2    0.2.2
+ simphony-jyulb         0.1.3    0.2.0    0.2.0
+ simphony-kratos        0.1.1    0.2.0    0.2.0
+ simphony-lammps-md     0.1.3    0.1.5    0.1.5
+ simphony-openfoam      0.1.3    0.1.5    0.1.5
+ simphony-numerrin      0.1.0    0.1.1    0.1.1
+ simphony-mayavi        0.1.1    0.3.1    0.4.1
+ simphony-aviz           n/a     0.1.0    0.2.0
+ simphony-paraview       n/a      n/a     0.2.0
+=====================  =======  =======  =======
