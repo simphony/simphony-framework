@@ -8,7 +8,6 @@ REM     - install nfluid package
 REM     - install entire SimPhoNy Framework
 REM     - uninstall entire SimPhoNy Framework
 REM     - install pip package manager
-REM     - install numpy extension
 
 REM All installation packages are directly downloaded and installed from GitHub
 
@@ -43,7 +42,6 @@ echo   nfluid:          install nfluid package   (version %NFLUIDVERSION%)
 echo   all:             install simphony, ncad and nfluid modules
 echo   clean:           remove simphony, ncad and nfluid modules
 echo   pip:             install pip package manager
-echo   numpy:           install unofficial numpy extension
 goto exit
 
 
@@ -60,7 +58,6 @@ if '%1'=='all' (
 if '%1'=='clean'          goto clean
 if '%1'=='help'           goto help
 if '%1'=='pip'            goto pip
-if '%1'=='numpy'          goto numpy
 REM ----- DEVELOPMENT -------------------------
 if '%1'=='nfluid-dev'     goto nfluid-dev
 REM -------------------------------------------
@@ -72,9 +69,6 @@ echo ----- INSTALLING SIMPHONY -----
 REM Check if pip is installed
 python -c "import pip" 2>nul
 if %ERRORLEVEL% neq 0  call %0 pip
-REM Check if numpy is installed
-python -c "import numpy" 2>nul
-if %ERRORLEVEL% neq 0  call %0 numpy
 
 REM Retrieve and install simphony library
 pip install --upgrade git+https://github.com/simphony/simphony-common.git@%SIMPHONYVERSION%#egg=simphony
@@ -102,9 +96,6 @@ echo ----- INSTALLING NFLUID -----
 REM Check if pip is installed
 python -c "import pip" 2>nul
 if %ERRORLEVEL% neq 0  call %0 pip
-REM Check if numpy is installed
-python -c "import numpy" 2>nul
-if %ERRORLEVEL% neq 0  call %0 numpy
 REM Check if simphony is installed
 python -c "import simphony" 2>nul
 if %ERRORLEVEL% neq 0  call %0 simphony
@@ -139,15 +130,6 @@ python C:\Python27\Tools\get-pip.py
 del C:\Python27\Tools\get-pip.py
 echo.
 echo Please add C:\Python27\Scripts\ to your PATH environment
-goto exit
-
-:numpy
-REM Get unofficial numpy (installation of official package is not successful on Windows)
-REM from http://www.lfd.uci.edu/~gohlke/pythonlibs/
-REM -- using urllib2 with proper User-Agent
-python -c "import urllib2; headers={'User-Agent':'Mozilla/5.0 (Windows; U; MSIE 7.0; Windows NT 6.0; en-US)'}; request=urllib2.Request('http://www.lfd.uci.edu/~gohlke/pythonlibs/djcobkfp/numpy-1.10.4+vanilla-cp27-none-win32.whl',None,headers); ifile=urllib2.urlopen(request); ofile=open('C:/Python27/Lib/site-packages/numpy-1.10.4+vanilla-cp27-none-win32.whl','wb'); ofile.write(ifile.read()); ofile.close()"
-REM Install unofficial numpy
-pip install C:\Python27\Lib\site-packages\numpy-1.10.4+vanilla-cp27-none-win32.whl
 goto exit
 
 
