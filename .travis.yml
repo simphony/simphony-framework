@@ -1,5 +1,4 @@
 language: python
-
 python:
   - "2.7"
 virtualenv:
@@ -7,15 +6,24 @@ virtualenv:
 env:
   global:
   - SIMPHONYENV=~/simphony
+  matrix:
+  - TEST_SUITE=test-framework DEPS=apt-mayavi-deps PLUGINS=simphony-mayavi
+  - TEST_SUITE=test-paraview DEPS=apt-paraview-deps PLUGINS=simphony-paraview
+cache:
+  pip: true
+  directories:
+  - $HOME/.ccache
 before_install:
+  - sudo apt-get update -qq
   - sudo apt-get install ccache
   - ccache -s
   - export PATH=/usr/lib/ccache:${PATH}
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - sudo make base
-  - sudo make apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-mayavi-deps apt-aviz-deps apt-nfluid-deps
+  - sudo make apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-aviz-deps apt-nfluid-deps $DEPS
   - make fix-pip
+  - sudo ln -s ccache /usr/local/bin/mpic++
   # Get PySide wheel for nfluid (faster to install from wheel)
   - wget -q -O ${HOME}/PySide-1.2.4-cp27-cp27mu-linux_x86_64.whl https://github.com/simphony/simphony-framework/releases/download/0.2.2/PySide-1.2.4-cp27-cp27mu-linux_x86_64.whl
 install:
@@ -31,13 +39,13 @@ install:
   - make simphony-aviz
   - make simphony-jyu-lb
   - make simphony-lammps
-  - make simphony-mayavi
   - make simphony-openfoam
   - make simphony-numerrin
   - make simphony-kratos
+  - make $PLUGINS
   # Install PySide for nfluid
   - pip install ~/PySide-1.2.4-cp27-cp27mu-linux_x86_64.whl
   - make nfluid
   - make fix-simopenfoam
 script:
-  - make test-framework
+  - make $TEST_SUITE

@@ -3,14 +3,18 @@
 
 # You can set these variables from the command line.
 SIMPHONYENV   ?= ~/simphony
-SIMPHONYVERSION  ?= 0.2.2
+SIMPHONYVERSION  ?= 0.3.0
 SIMPHONY_JYU_LB_VERSION ?= 0.2.0
 SIMPHONY_LAMMPS_VERSION ?= 0.1.5
 SIMPHONY_NUMERRIN_VERSION ?= 0.1.1
 SIMPHONY_OPENFOAM_VERSION ?= 0.1.5
 SIMPHONY_KRATOS_VERSION ?= 0.2.0
-SIMPHONY_AVIZ_VERSION ?= 0.1.0
-SIMPHONY_MAYAVI_VERSION ?= 0.3.1
+SIMPHONY_AVIZ_VERSION ?= 0.2.0
+SIMPHONY_MAYAVI_VERSION ?= 0.4.1
+SIMPHONY_PARAVIEW_VERSION ?= 0.2.0
+
+# Path for MPI in HDF5 suport
+MPI_INCLUDE_PATH ?= /usr/include/mpi
 
 # JYU-LB version
 JYU_LB_VERSION ?= 0.1.2
@@ -30,7 +34,10 @@ else
 endif
 
 
-.PHONY: clean base apt-aviz-deps apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-mayavi-deps apt-nfluid-deps fix-pip fix-simopenfoam simphony-env aviz lammps jyu-lb kratos nfluid numerrin simphony simphony-aviz simphony-lammps simphony-mayavi simphony-openfoam simphony-kratos simphony-jyu-lb simphony-numerrin test-plugins test-framework test-simphony test-aviz test-jyulb test-lammps test-mayavi test-openfoam test-kratos test-integration
+# Use Paraview OpenFoam? (if no, Paraview from Ubuntu is installed)
+USE_OPENFOAM_PARAVIEW ?= no
+
+.PHONY: clean base apt-aviz-deps apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-mayavi-deps apt-paraview-deps fix-pip fix-simopenfoam simphony-env aviz lammps jyu-lb kratos numerrin simphony simphony-aviz simphony-lammps simphony-mayavi simphony-paraview simphony-openfoam simphony-kratos simphony-jyu-lb simphony-numerrin test-plugins test-framework test-simphony test-aviz test-jyulb test-lammps test-mayavi test-paraview test-openfoam test-kratos test-integration
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -40,6 +47,7 @@ help:
 	@echo "  apt-simphony-deps   to install building dependencies for the simphony library (requires sudo)"
 	@echo "  apt-lammps-deps     to install building dependencies for the lammps solver (requires sudo)"
 	@echo "  apt-mayavi-deps     to install building dependencies for the mayavi (requires sudo)"
+	@echo "  apt-paraview-deps   to install building depedencies for the paraview (requires sudo)"
 	@echo "  fix-pip             to update the version of pip and virtual evn (requires sudo)"
 	@echo "  fix-simopenfoam     to install enum3.4==1.0.4 for simphony-openfoam-0.1.5"
 	@echo "  simphony-env        to create a simphony virtualenv"
@@ -55,6 +63,7 @@ help:
 	@echo "  simphony-lammps     to build and install the simphony-lammps plugin"
 	@echo "  simphony-numerrin   to build and install the simphony-numerrin plugin"
 	@echo "  simphony-mayavi     to build and install the simphony-mayavi plugin"
+	@echo "  simphony-paraview   to build and install the simphony-paraview plugin"
 	@echo "  simphony-openfoam   to build and install the simphony-openfoam plugin"
 	@echo "  simphony-jyu-lb     to build and install the simphony-jyu-lb plugin"
 	@echo "  simphony-plugins    to build and install all the simphony-plugins"
@@ -64,6 +73,7 @@ help:
 	@echo "  test-lammps   	     run the tests for the simphony-lammps plugin"
 	@echo "  test-numerrin       run the tests for the simphony-numerrin plugin"
 	@echo "  test-mayavi         run the tests for the simphony-mayavi plugin"
+	@echo "  test-paraview       run the tests for the simphony-paraview plugin"
 	@echo "  test-openfoam       run the tests for the simphony-openfoam plugin"
 	@echo "  test-jyu-lb         run the tests for the simphony-jyu-lb plugin"
 	@echo "  test-plugins        run the tests for all the simphony-plugins"
@@ -118,6 +128,20 @@ apt-mayavi-deps:
 	@echo
 	@echo "Build dependencies for mayavi installed"
 
+apt-paraview-deps:
+	apt-get update -qq
+ifeq ($(USE_OPENFOAM_PARAVIEW),yes)
+	echo deb http://www.openfoam.org/download/ubuntu precise main > /etc/apt/sources.list.d/openfoam.list
+	apt-get update -qq
+	apt-get install -y --force-yes paraviewopenfoam410 libhdf5-openmpi-dev
+	@echo
+	@echo "Paraview (openfoam) installed"
+else
+	apt-get install -y --force-yes paraview libhdf5-openmpi-dev
+	@echo
+	@echo "Paraview (ubuntu) installed"
+endif
+
 apt-nfluid-deps:
 	apt-get update -qq
 	apt-get install -y build-essential git cmake libqt4-dev libphonon-dev python2.7-dev libxml2-dev libxslt1-dev qtmobility-dev libqtwebkit-dev
@@ -157,13 +181,12 @@ aviz:
 lammps:
 	rm -Rf src/lammps
 	# bulding and installing executable
-	git clone --branch r12824 --depth 1 git://git.lammps.org/lammps-ro.git src/lammps
+	git clone --branch r13864 --depth 1 git://git.lammps.org/lammps-ro.git src/lammps
 	$(MAKE) -C src/lammps/src ubuntu_simple -j 3
 	cp src/lammps/src/lmp_ubuntu_simple $(SIMPHONYENV)/bin/lammps
 	# bulding and installing python module
-	$(MAKE) -C src/lammps/src makeshlib -j 2
-	$(MAKE) -C src/lammps/src ubuntu_simple -f Makefile.shlib -j 2
-	(cd src/lammps/python; python install.py $(SIMPHONYENV)/lib $(SIMPHONYENV)/lib/python2.7/site-packages/)
+	$(MAKE) -C src/lammps/src -j 2 ubuntu_simple mode=shlib
+	(cd src/lammps/python; python install.py $(SIMPHONYENV)/lib/python2.7/site-packages/)
 	rm -Rf src/lammps
 	# build liggghts
 	@echo "Building LIGGGHTS"
@@ -211,6 +234,7 @@ numerrin:
 simphony:
 	pip install "numexpr>=2.0.0"
 	pip install haas
+	C_INCLUDE_PATH=$(MPI_INCLUDE_PATH) pip install tables
 	pip install -r requirements.txt
 	pip install --upgrade git+https://github.com/simphony/simphony-common.git@$(SIMPHONYVERSION)#egg=simphony
 	@echo
@@ -225,6 +249,25 @@ simphony-mayavi:
 	pip install --upgrade git+https://github.com/simphony/simphony-mayavi.git@$(SIMPHONY_MAYAVI_VERSION)#egg=simphony_mayavi
 	@echo
 	@echo "Simphony Mayavi plugin installed"
+
+
+simphony-paraview:
+ifeq ($(USE_OPENFOAM_PARAVIEW),yes)
+	echo "LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:/opt/paraviewopenfoam410/lib/paraview-4.1:\$$LD_LIBRARY_PATH\n" >> $(SIMPHONYENV)/bin/activate
+	echo "export LD_LIBRARY_PATH" >> $(SIMPHONYENV)/bin/activate
+	echo "PYTHONPATH=/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/:/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/vtk:\$$PYTHONPATH" >> $(SIMPHONYENV)/bin/activate
+	echo "export PYTHONPATH" >> $(SIMPHONYENV)/bin/activate
+	@echo
+	@echo "Paraview (openfoam) installed"
+else
+	echo "LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:\$$LD_LIBRARY_PATH" >> $(SIMPHONYENV)/bin/activate
+	echo "export LD_LIBRARY_PATH" >> $(SIMPHONYENV)/bin/activate
+	@echo
+	@echo "Paraview (ubuntu) installed"
+endif
+	pip install --upgrade git+https://github.com/simphony/simphony-paraview.git@$(SIMPHONY_PARAVIEW_VERSION)#egg=simphony_paraview
+	@echo
+	@echo "Simphony Paraview plugin installed"
 
 simphony-numerrin:
 	pip install --upgrade git+https://github.com/simphony/simphony-numerrin.git@$(SIMPHONY_NUMERRIN_VERSION)
@@ -259,10 +302,6 @@ simphony-plugins: simphony-kratos simphony-numerrin simphony-mayavi simphony-ope
 	@echo
 	@echo "Simphony plugins installed"
 
-simphony-framework:
-	@echo
-	@echo "Simphony framework installed"
-
 test-plugins: test-simphony test-jyulb test-lammps test-mayavi test-openfoam test-kratos test-aviz
 	@echo
 	@echo "Tests for simphony plugins done"
@@ -288,10 +327,16 @@ test-lammps:
 	@echo "Tests for the lammps plugin done"
 
 test-mayavi:
-	pip install mock
+	pip install mock hypothesis
 	haas simphony_mayavi -v
 	@echo
 	@echo "Tests for the mayavi plugin done"
+
+test-paraview:
+	pip install mock hypothesis pillow
+	haas simphony_paraview -v
+	@echo
+	@echo "Tests for the paraview plugin done"
 
 test-openfoam:
 	haas foam_controlwrapper foam_internalwrapper -v
