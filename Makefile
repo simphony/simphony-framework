@@ -108,7 +108,7 @@ apt-openfoam-deps:
 apt-simphony-deps:
 	add-apt-repository ppa:cython-dev/master-ppa -y
 	apt-get update -qq
-	apt-get install -y python-dev cython libhdf5-serial libhdf5-serial-dev libatlas-dev libatlas3gf-base
+	apt-get install -y python-dev cython libhdf5-serial-1.8.4 libhdf5-serial-dev libatlas-dev libatlas3gf-base
 	@echo
 	@echo "Build dependencies for simphony installed"
 
@@ -129,11 +129,11 @@ apt-paraview-deps:
 ifeq ($(USE_OPENFOAM_PARAVIEW),yes)
 	echo deb http://www.openfoam.org/download/ubuntu precise main > /etc/apt/sources.list.d/openfoam.list
 	apt-get update -qq
-	apt-get install -y --force-yes paraviewopenfoam410 libhdf5-openmpi libhdf5-openmpi-dev
+	apt-get install -y --force-yes paraviewopenfoam410 libhdf5-openmpi-1.8.4 libhdf5-openmpi-dev
 	@echo
 	@echo "Paraview (openfoam) installed"
 else
-	apt-get install -y --force-yes paraview libhdf5-openmpi libhdf5-openmpi-dev
+	apt-get install -y --force-yes paraview libhdf5-openmpi-1.8.4 libhdf5-openmpi-dev
 	@echo
 	@echo "Paraview (ubuntu) installed"
 endif
