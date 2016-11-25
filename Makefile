@@ -216,11 +216,7 @@ numerrin:
 	@echo "(Ensure that environment variable PYNUMERRIN_LICENSE points to license file)"
 
 simphony:
-	pip install "numexpr>=2.0.0"
-	pip install cython==0.25.1
-	pip install haas
-	C_INCLUDE_PATH=$(MPI_INCLUDE_PATH) pip install tables
-	pip install -r requirements.txt
+	C_INCLUDE_PATH=$(MPI_INCLUDE_PATH) pip install -r requirements.txt
 	pip install --upgrade git+https://github.com/simphony/simphony-common.git@$(SIMPHONYVERSION)#egg=simphony
 	@echo
 	@echo "Simphony library installed"
