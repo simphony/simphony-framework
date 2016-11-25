@@ -43,7 +43,5 @@ install:
   - make $PLUGINS
   - make fix-simopenfoam
 script:
-  - echo $LD_LIBRARY_PATH
-  - find / -name \*hdf\*
   - pip freeze
   - make $TEST_SUITE
