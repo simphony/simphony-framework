@@ -106,9 +106,8 @@ apt-openfoam-deps:
 	@echo "Openfoam installed use . /opt/openfoam222/etc/bashrc to setup the environment"
 
 apt-simphony-deps:
-	add-apt-repository ppa:cython-dev/master-ppa -y
 	apt-get update -qq
-	apt-get install -y python-dev cython libhdf5-serial-1.8.4 libhdf5-serial-dev libatlas-dev libatlas3gf-base
+	apt-get install -y python-dev libhdf5-serial-1.8.4 libhdf5-serial-dev libatlas-dev libatlas3gf-base
 	@echo
 	@echo "Build dependencies for simphony installed"
 
@@ -218,6 +217,7 @@ numerrin:
 
 simphony:
 	pip install "numexpr>=2.0.0"
+	pip install cython==0.25.1
 	pip install haas
 	C_INCLUDE_PATH=$(MPI_INCLUDE_PATH) pip install tables
 	pip install -r requirements.txt
