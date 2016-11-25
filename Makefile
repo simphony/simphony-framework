@@ -217,17 +217,17 @@ numerrin:
 
 simphony:
 	C_INCLUDE_PATH=$(MPI_INCLUDE_PATH) pip install -r requirements.txt
-	pip install --upgrade git+https://github.com/simphony/simphony-common.git@$(SIMPHONYVERSION)#egg=simphony
+	pip install git+https://github.com/simphony/simphony-common.git@$(SIMPHONYVERSION)#egg=simphony
 	@echo
 	@echo "Simphony library installed"
 
 simphony-aviz:
-	pip install --upgrade git+https://github.com/simphony/simphony-aviz.git@$(SIMPHONY_AVIZ_VERSION)
+	pip install git+https://github.com/simphony/simphony-aviz.git@$(SIMPHONY_AVIZ_VERSION)
 	@echo
 	@echo "Simphony AViz plugin installed"
 
 simphony-mayavi:
-	pip install --upgrade git+https://github.com/simphony/simphony-mayavi.git@$(SIMPHONY_MAYAVI_VERSION)#egg=simphony_mayavi
+	pip install git+https://github.com/simphony/simphony-mayavi.git@$(SIMPHONY_MAYAVI_VERSION)#egg=simphony_mayavi
 	@echo
 	@echo "Simphony Mayavi plugin installed"
 
@@ -246,12 +246,12 @@ else
 	@echo
 	@echo "Paraview (ubuntu) installed"
 endif
-	pip install --upgrade git+https://github.com/simphony/simphony-paraview.git@$(SIMPHONY_PARAVIEW_VERSION)#egg=simphony_paraview
+	pip install git+https://github.com/simphony/simphony-paraview.git@$(SIMPHONY_PARAVIEW_VERSION)#egg=simphony_paraview
 	@echo
 	@echo "Simphony Paraview plugin installed"
 
 simphony-numerrin:
-	pip install --upgrade git+https://github.com/simphony/simphony-numerrin.git@$(SIMPHONY_NUMERRIN_VERSION)
+	pip install git+https://github.com/simphony/simphony-numerrin.git@$(SIMPHONY_NUMERRIN_VERSION)
 	@echo
 	@echo "Simphony Numerrin plugin installed"
 
@@ -259,18 +259,18 @@ simphony-openfoam:
 	rm -Rf src/simphony-openfoam
 	(mkdir -p src/simphony-openfoam/pyfoam; wget https://openfoamwiki.net/images/3/3b/PyFoam-0.6.4.tar.gz -O src/simphony-openfoam/pyfoam/pyfoam.tgz --no-check-certificate)
 	tar -xzf src/simphony-openfoam/pyfoam/pyfoam.tgz -C src/simphony-openfoam/pyfoam
-	(pip install --upgrade src/simphony-openfoam/pyfoam/PyFoam-0.6.4; rm -Rf src/simphony-openfoam/pyfoam)
-	pip install --upgrade git+https://github.com/simphony/simphony-openfoam.git@$(SIMPHONY_OPENFOAM_VERSION)
+	(pip install src/simphony-openfoam/pyfoam/PyFoam-0.6.4; rm -Rf src/simphony-openfoam/pyfoam)
+	pip install git+https://github.com/simphony/simphony-openfoam.git@$(SIMPHONY_OPENFOAM_VERSION)
 	@echo
 	@echo "Simphony OpenFoam plugin installed"
 
 simphony-kratos:
-	pip install --upgrade git+https://github.com/simphony/simphony-kratos.git@$(SIMPHONY_KRATOS_VERSION)
+	pip install git+https://github.com/simphony/simphony-kratos.git@$(SIMPHONY_KRATOS_VERSION)
 	@echo
 	@echo "Simphony Kratos plugin installed"
 
 simphony-jyu-lb:
-	pip install --upgrade git+https://github.com/simphony/simphony-jyulb.git@$(SIMPHONY_JYU_LB_VERSION)
+	pip install git+https://github.com/simphony/simphony-jyulb.git@$(SIMPHONY_JYU_LB_VERSION)
 	@echo
 	@echo "Simphony jyu-lb plugin installed"
 
