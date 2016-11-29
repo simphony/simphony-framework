@@ -3,7 +3,7 @@
 
 # You can set these variables from the command line.
 SIMPHONYENV   ?= ~/simphony
-SIMPHONYVERSION  ?= 0.3.0
+SIMPHONY_COMMON_VERSION ?= 0.3.0
 SIMPHONY_JYU_LB_VERSION ?= 0.2.0
 SIMPHONY_LAMMPS_VERSION ?= 0.1.5
 SIMPHONY_NUMERRIN_VERSION ?= 0.1.1
@@ -12,29 +12,55 @@ SIMPHONY_KRATOS_VERSION ?= 0.2.0
 SIMPHONY_AVIZ_VERSION ?= 0.2.0
 SIMPHONY_MAYAVI_VERSION ?= 0.4.2
 SIMPHONY_PARAVIEW_VERSION ?= 0.2.0
+OPENFOAM_VERSION=222
+JYU_LB_VERSION ?= 0.1.2
+AVIZ_VERSION ?= v6.5.0
+LAMMPS_VERSION ?= r13864
 
 # Path for MPI in HDF5 suport
 MPI_INCLUDE_PATH ?= /usr/include/mpi
 
-# JYU-LB version
-JYU_LB_VERSION ?= 0.1.2
-
-# Aviz version
-AVIZ_VERSION ?= v6.5.0
-
-HAVE_NUMERRIN   ?= no
-
-ifeq ($(HAVE_NUMERRIN),yes)
-	TEST_NUMERRIN_COMMAND=haas numerrin_wrapper -v
-else
-	TEST_NUMERRIN_COMMAND=@echo "skip NUMERRIN tests"
-endif
-
-
 # Use Paraview OpenFoam? (if no, Paraview from Ubuntu is installed)
 USE_OPENFOAM_PARAVIEW ?= no
+HAVE_NUMERRIN   ?= no
 
-.PHONY: clean base apt-aviz-deps apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-mayavi-deps apt-paraview-deps fix-pip fix-simopenfoam simphony-env aviz lammps jyu-lb kratos numerrin simphony simphony-aviz simphony-lammps simphony-mayavi simphony-paraview simphony-openfoam simphony-kratos simphony-jyu-lb simphony-numerrin test-plugins test-framework test-simphony test-aviz test-jyulb test-lammps test-mayavi test-paraview test-openfoam test-kratos test-integration
+.PHONY: clean \
+		base \
+		apt-aviz-deps \
+		apt-openfoam-deps \
+		apt-simphony-deps \
+		apt-lammps-deps \
+		apt-mayavi-deps \
+		apt-paraview-deps \
+		fix-pip \
+		fix-simopenfoam \
+		simphony-env \
+		aviz \
+		lammps \
+		jyu-lb \
+		kratos \
+		numerrin \
+		simphony \
+		simphony-common \
+		simphony-aviz \
+		simphony-lammps \
+		simphony-mayavi \
+		simphony-paraview \
+		simphony-openfoam \
+		simphony-kratos \
+		simphony-jyu-lb \
+		simphony-numerrin \
+		test-plugins \
+		test-framework \
+		test-simphony \
+		test-aviz \
+		test-jyulb \
+		test-lammps \
+		test-mayavi \
+		test-paraview \
+		test-openfoam \
+		test-kratos \
+		test-integration
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -107,9 +133,9 @@ apt-aviz-deps:
 apt-openfoam-deps:
 	echo deb http://www.openfoam.org/download/ubuntu precise main > /etc/apt/sources.list.d/openfoam.list
 	apt-get update -qq
-	apt-get install -y --force-yes openfoam222
+	apt-get install -y --force-yes openfoam$(OPENFOAM_VERSION)
 	@echo
-	@echo "Openfoam installed use . /opt/openfoam222/etc/bashrc to setup the environment"
+	@echo "Openfoam installed use . /opt/openfoam$(OPENFOAM_VERSION)/etc/bashrc to setup the environment"
 
 apt-simphony-deps:
 	apt-get update -qq
@@ -176,7 +202,7 @@ aviz:
 lammps:
 	rm -Rf src/lammps
 	# bulding and installing executable
-	git clone --branch r13864 --depth 1 git://git.lammps.org/lammps-ro.git src/lammps
+	git clone --branch $(LAMMPS_VERSION) --depth 1 git://git.lammps.org/lammps-ro.git src/lammps
 	$(MAKE) -C src/lammps/src ubuntu_simple -j 3
 	cp src/lammps/src/lmp_ubuntu_simple $(SIMPHONYENV)/bin/lammps
 	# bulding and installing python module
@@ -221,9 +247,11 @@ numerrin:
 	@echo "Numerrin installed"
 	@echo "(Ensure that environment variable PYNUMERRIN_LICENSE points to license file)"
 
-simphony:
+simphony: simphony-common
+
+simphony-common:
 	C_INCLUDE_PATH=$(MPI_INCLUDE_PATH) pip install -r requirements.txt
-	pip install git+https://github.com/simphony/simphony-common.git@$(SIMPHONYVERSION)#egg=simphony
+	pip install git+https://github.com/simphony/simphony-common.git@$(SIMPHONY_COMMON_VERSION)#egg=simphony
 	@echo
 	@echo "Simphony library installed"
 
@@ -335,8 +363,14 @@ test-kratos:
 	@echo
 	@echo "Tests for the kratos plugin done"
 
+
+
 test-numerrin:
-	$(TEST_NUMERRIN_COMMAND)
+ifeq ($(HAVE_NUMERRIN),yes)
+	TEST_NUMERRIN_COMMAND=haas numerrin_wrapper -v
+else
+	TEST_NUMERRIN_COMMAND=@echo "skip NUMERRIN tests"
+endif
 	@echo
 	@echo "Tests for the numerrin plugin done"
 
