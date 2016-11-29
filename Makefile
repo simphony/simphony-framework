@@ -24,7 +24,43 @@ MPI_INCLUDE_PATH ?= /usr/include/mpi
 USE_OPENFOAM_PARAVIEW ?= no
 HAVE_NUMERRIN   ?= no
 
-.PHONY: clean base apt-aviz-deps apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-mayavi-deps apt-paraview-deps fix-pip fix-simopenfoam simphony-env aviz lammps jyu-lb kratos numerrin simphony simphony-aviz simphony-lammps simphony-mayavi simphony-paraview simphony-openfoam simphony-kratos simphony-jyu-lb simphony-numerrin test-plugins test-framework test-simphony test-aviz test-jyulb test-lammps test-mayavi test-paraview test-openfoam test-kratos test-integration
+.PHONY: clean \
+		base \
+		apt-aviz-deps \
+		apt-openfoam-deps \
+		apt-simphony-deps \
+		apt-lammps-deps \
+		apt-mayavi-deps \
+		apt-paraview-deps \
+		fix-pip \
+		fix-simopenfoam \
+		simphony-env \
+		aviz \
+		lammps \
+		jyu-lb \
+		kratos \
+		numerrin \
+		simphony \
+		simphony-common \
+		simphony-aviz \
+		simphony-lammps \
+		simphony-mayavi \
+		simphony-paraview \
+		simphony-openfoam \
+		simphony-kratos \
+		simphony-jyu-lb \
+		simphony-numerrin \
+		test-plugins \
+		test-framework \
+		test-simphony \
+		test-aviz \
+		test-jyulb \
+		test-lammps \
+		test-mayavi \
+		test-paraview \
+		test-openfoam \
+		test-kratos \
+		test-integration
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -205,7 +241,9 @@ numerrin:
 	@echo "Numerrin installed"
 	@echo "(Ensure that environment variable PYNUMERRIN_LICENSE points to license file)"
 
-simphony:
+simphony: simphony-common
+
+simphony-common:
 	C_INCLUDE_PATH=$(MPI_INCLUDE_PATH) pip install -r requirements.txt
 	pip install git+https://github.com/simphony/simphony-common.git@$(SIMPHONY_COMMON_VERSION)#egg=simphony
 	@echo
