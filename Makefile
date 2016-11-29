@@ -91,7 +91,7 @@ prepare: base apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-aviz-deps 
 
 prevenv: simphony-env aviz kratos lammps jyu-lb numerrin
 
-postvenv: simphony-common simphony-aviz simphony-jyu-lb simphony-lammps simphony-mayavi simphony-openfoam simphony-numerrin simphony-kratos
+postvenv: simphony simphony-aviz simphony-jyu-lb simphony-lammps simphony-mayavi simphony-openfoam simphony-numerrin simphony-kratos
 
 base:
 	add-apt-repository ppa:git-core/ppa -y
