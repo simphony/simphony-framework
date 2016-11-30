@@ -22,7 +22,9 @@ matrix:
       sudo: required
       dist: trusty
       env: SIMPHONYENV=~/simphony TEST_SUITE=test-paraview DEPS=apt-paraview-deps PLUGINS=simphony-paraview
-
+# Workaround for bogus additional job (travis-ci#4681)
+  exclude:
+    - env: 
 cache:
   pip: true
   directories:
