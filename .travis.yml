@@ -11,9 +11,6 @@ matrix:
     - env: SIMPHONYENV=~/simphony TEST_SUITE=test-framework DEPS=apt-mayavi-deps PLUGINS=simphony-mayavi
       dist: trusty
       python: 2.7
-    - env: SIMPHONYENV=~/simphony TEST_SUITE=test-paraview DEPS=apt-paraview-deps PLUGINS=simphony-paraview
-      dist: trusty
-      python: 2.7
 
 cache:
   pip: true
