@@ -7,7 +7,7 @@ SIMPHONY_COMMON_VERSION ?= 0.3.0
 SIMPHONY_JYU_LB_VERSION ?= 0.2.0
 SIMPHONY_LAMMPS_VERSION ?= 0.1.5
 SIMPHONY_NUMERRIN_VERSION ?= 0.1.1
-SIMPHONY_OPENFOAM_VERSION ?= 0.1.5
+SIMPHONY_OPENFOAM_VERSION ?= 0.2.3
 SIMPHONY_KRATOS_VERSION ?= 0.2.0
 SIMPHONY_AVIZ_VERSION ?= 0.2.0
 SIMPHONY_MAYAVI_VERSION ?= 0.4.2
@@ -33,7 +33,6 @@ HAVE_NUMERRIN   ?= no
 		apt-mayavi-deps \
 		apt-paraview-deps \
 		fix-pip \
-		fix-simopenfoam \
 		simphony-env \
 		aviz \
 		lammps \
@@ -72,7 +71,6 @@ help:
 	@echo "  apt-mayavi-deps     to install building depedencies for the mayavi (requires sudo)"
 	@echo "  apt-paraview-deps   to install building depedencies for the paraview (requires sudo)"
 	@echo "  fix-pip             to update the version of pip and virtual evn (requires sudo)"
-	@echo "  fix-simopenfoam     to install enum3.4==1.0.4 for simphony-openfoam-0.1.5"
 	@echo "  simphony-env        to create a simphony virtualenv"
 	@echo "  aviz                to install AViz"
 	@echo "  kratos              to install the kratos solver"
@@ -168,11 +166,6 @@ else
 	@echo
 	@echo "Paraview (ubuntu) installed"
 endif
-
-fix-simopenfoam:
-	pip install enum34==1.0.4
-	@echo
-	@echo "Fixed simphony-openfoam"
 
 fix-pip:
 	wget https://bootstrap.pypa.io/get-pip.py
@@ -311,7 +304,7 @@ simphony-lammps:
 	@echo
 	@echo "Simphony lammps plugin installed"
 
-simphony-plugins: simphony-kratos simphony-numerrin simphony-mayavi simphony-openfoam simphony-jyu-lb simphony-lammps fix-simopenfoam
+simphony-plugins: simphony-kratos simphony-numerrin simphony-mayavi simphony-openfoam simphony-jyu-lb simphony-lammps
 	@echo
 	@echo "Simphony plugins installed"
 
