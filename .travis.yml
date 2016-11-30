@@ -8,12 +8,6 @@ matrix:
   include:
     - env: SIMPHONYENV=~/simphony TEST_SUITE=test-framework DEPS=apt-mayavi-deps PLUGINS=simphony-mayavi
     - env: SIMPHONYENV=~/simphony TEST_SUITE=test-paraview DEPS=apt-paraview-deps PLUGINS=simphony-paraview
-    - dist: trusty
-      env: SIMPHONYENV=~/simphony TEST_SUITE=test-framework DEPS=apt-mayavi-deps PLUGINS=simphony-mayavi
-    - dist: trusty
-      env: SIMPHONYENV=~/simphony TEST_SUITE=test-paraview DEPS=apt-paraview-deps PLUGINS=simphony-paraview
-  allow_failures:
-    - env: 
 
 cache:
   pip: true
