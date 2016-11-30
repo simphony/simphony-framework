@@ -11,6 +11,10 @@ matrix:
     - env: SIMPHONYENV=~/simphony TEST_SUITE=test-framework DEPS=apt-mayavi-deps PLUGINS=simphony-mayavi
       dist: trusty
       python: 2.7
+  allow_failure:
+    - env: SIMPHONYENV=~/simphony TEST_SUITE=test-framework DEPS=apt-mayavi-deps PLUGINS=simphony-mayavi
+      dist: trusty
+      python: 2.7
 
 cache:
   pip: true
