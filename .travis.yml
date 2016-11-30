@@ -22,15 +22,19 @@ matrix:
       sudo: required
       dist: trusty
       env: SIMPHONYENV=~/simphony TEST_SUITE=test-paraview DEPS=apt-paraview-deps PLUGINS=simphony-paraview
-# Workaround for bogus additional job (travis-ci#4681)
-  exclude:
-    - language: python
+  allow_failures:
+    - os: linux
+      sudo: required
+      dist: precise
+      env: 
 
 cache:
   pip: true
   directories:
   - $HOME/.ccache
 before_install:
+# Workaround for bogus additional job (travis-ci#4681). Proposed solutions didn't work
+  - if [ ! ${SIMPHONYENV} ]; then false; fi;
   - sudo apt-get update -qq
   - sudo apt-get install ccache
   - ccache -s
