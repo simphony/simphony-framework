@@ -6,19 +6,14 @@ virtualenv:
 
 matrix:
   include:
-    - os: linux
+    - env: SIMPHONYENV=~/simphony TEST_SUITE=test-framework DEPS=apt-mayavi-deps PLUGINS=simphony-mayavi
+    - env: SIMPHONYENV=~/simphony TEST_SUITE=test-paraview DEPS=apt-paraview-deps PLUGINS=simphony-paraview
+    - dist: trusty
       env: SIMPHONYENV=~/simphony TEST_SUITE=test-framework DEPS=apt-mayavi-deps PLUGINS=simphony-mayavi
-    - os: linux
-      env: SIMPHONYENV=~/simphony TEST_SUITE=test-paraview DEPS=apt-paraview-deps PLUGINS=simphony-paraview
-    - os: linux
-      dist: trusty
-      env: SIMPHONYENV=~/simphony TEST_SUITE=test-framework DEPS=apt-mayavi-deps PLUGINS=simphony-mayavi
-    - os: linux
-      dist: trusty
+    - dist: trusty
       env: SIMPHONYENV=~/simphony TEST_SUITE=test-paraview DEPS=apt-paraview-deps PLUGINS=simphony-paraview
   allow_failures:
-    - os: linux
-      env: 
+    - env: 
 
 cache:
   pip: true
