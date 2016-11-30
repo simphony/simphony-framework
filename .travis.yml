@@ -3,17 +3,26 @@ python:
   - "2.7"
 virtualenv:
   system_site_packages: true
-os: linux
-env:
-  global:
-  - SIMPHONYENV=~/simphony
-  matrix:
-  - TEST_SUITE=test-framework DEPS=apt-mayavi-deps PLUGINS=simphony-mayavi
-  - TEST_SUITE=test-paraview DEPS=apt-paraview-deps PLUGINS=simphony-paraview
+
 matrix:
   include:
-    - dist: precise
-    - dist: trusty
+    - os: linux
+      sudo: required
+      dist: precise
+      env: SIMPHONYENV=~/simphony TEST_SUITE=test-framework DEPS=apt-mayavi-deps PLUGINS=simphony-mayavi
+    - os: linux
+      sudo: required
+      dist: precise
+      env: SIMPHONYENV=~/simphony TEST_SUITE=test-paraview DEPS=apt-paraview-deps PLUGINS=simphony-paraview
+    - os: linux
+      sudo: required
+      dist: trusty
+      env: SIMPHONYENV=~/simphony TEST_SUITE=test-framework DEPS=apt-mayavi-deps PLUGINS=simphony-mayavi
+    - os: linux
+      sudo: required
+      dist: trusty
+      env: SIMPHONYENV=~/simphony TEST_SUITE=test-paraview DEPS=apt-paraview-deps PLUGINS=simphony-paraview
+
 cache:
   pip: true
   directories:
