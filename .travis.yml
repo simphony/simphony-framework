@@ -32,7 +32,6 @@ before_install:
 install:
   - make prevenv
   - source ~/simphony/bin/activate
-  - source /opt/openfoam/etc/bashrc
   - make postvenv
   - make $PLUGINS
 script:
