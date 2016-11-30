@@ -32,10 +32,9 @@ before_install:
 install:
   - make prevenv
   - source ~/simphony/bin/activate
-  - source /opt/openfoam222/etc/bashrc
+  - source /opt/openfoam/etc/bashrc
   - make postvenv
   - make $PLUGINS
-  - make fix-simopenfoam
 script:
   - pip freeze
   - make $TEST_SUITE

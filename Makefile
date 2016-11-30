@@ -1,8 +1,10 @@
 # Makefile for Simphony Framework
-#
-
 # You can set these variables from the command line.
 SIMPHONYENV   ?= ~/simphony
+# end 
+
+UBUNTU_CODENAME=$(shell lsb_release -cs)
+
 SIMPHONY_COMMON_VERSION ?= 413eb6f5683c4733b943c300c3192265c79ac26b
 SIMPHONY_JYU_LB_VERSION ?= 0.2.0
 SIMPHONY_LAMMPS_VERSION ?= 0.1.5
@@ -12,7 +14,14 @@ SIMPHONY_KRATOS_VERSION ?= 0.2.0
 SIMPHONY_AVIZ_VERSION ?= 0.2.0
 SIMPHONY_MAYAVI_VERSION ?= 0.4.2
 SIMPHONY_PARAVIEW_VERSION ?= 0.2.0
+ifeq ($(UBUNTU_CODENAME),precise)
 OPENFOAM_VERSION=222
+else ifeq ($(UBUNTU_CODENAME),trusty)
+OPENFOAM_VERSION=231
+else
+	$(error "Unrecognized ubuntu version $(UBUNTU_CODENAME)")
+endif
+
 JYU_LB_VERSION ?= 0.1.2
 AVIZ_VERSION ?= v6.5.0
 LAMMPS_VERSION ?= r13864
@@ -129,9 +138,16 @@ apt-aviz-deps:
 	@echo "Build dependencies for Aviz"
 
 apt-openfoam-deps:
+ifeq ($(UBUNTU_CODENAME),precise)
 	echo deb http://www.openfoam.org/download/ubuntu precise main > /etc/apt/sources.list.d/openfoam.list
+else ifeq ($(UBUNTU_CODENAME),trusty)
+	add-apt-repository http://www.openfoam.org/download/ubuntu
+else
+	$(error "Unrecognized ubuntu version $(UBUNTU_CODENAME)")
+endif
 	apt-get update -qq
 	apt-get install -y --force-yes openfoam$(OPENFOAM_VERSION)
+	ln -s /opt/openfoam$(OPENFOAM_VERSION) /opt/openfoam
 	@echo
 	@echo "Openfoam installed use . /opt/openfoam$(OPENFOAM_VERSION)/etc/bashrc to setup the environment"
 
