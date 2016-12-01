@@ -126,7 +126,7 @@ base:
 
 apt-aviz-deps:
 	apt-get update -qq
-	apt-get install -y python-qt4 python-qt4-gl qt4-qmake qt4-dev-tools libpng-dev
+	apt-get install -y python-qt4 python-qt4-gl qt4-qmake qt4-dev-tools libpng-dev libqt4-dev
 	@echo
 	@echo "Build dependencies for Aviz"
 
