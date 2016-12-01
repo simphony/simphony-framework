@@ -1,5 +1,5 @@
 numexpr >= 2.0.0
-cython == 0.25.1
+cython == 0.20
 haas == 0.7.0
 numpy >= 1.9.1
 enum34 == 1.0.4
