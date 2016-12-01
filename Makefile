@@ -1,18 +1,27 @@
 # Makefile for Simphony Framework
-#
-
 # You can set these variables from the command line.
 SIMPHONYENV   ?= ~/simphony
+# end 
+
+UBUNTU_CODENAME=$(shell lsb_release -cs)
+
 SIMPHONY_COMMON_VERSION ?= 413eb6f5683c4733b943c300c3192265c79ac26b
 SIMPHONY_JYU_LB_VERSION ?= 0.2.0
 SIMPHONY_LAMMPS_VERSION ?= 0.1.5
 SIMPHONY_NUMERRIN_VERSION ?= 0.1.1
-SIMPHONY_OPENFOAM_VERSION ?= 0.1.5
+SIMPHONY_OPENFOAM_VERSION ?= 0.2.3
 SIMPHONY_KRATOS_VERSION ?= 0.2.0
 SIMPHONY_AVIZ_VERSION ?= 0.2.0
 SIMPHONY_MAYAVI_VERSION ?= 0.4.2
 SIMPHONY_PARAVIEW_VERSION ?= 0.2.0
-OPENFOAM_VERSION=222
+ifeq ($(UBUNTU_CODENAME),precise)
+OPENFOAM_VERSION=230
+else ifeq ($(UBUNTU_CODENAME),trusty)
+OPENFOAM_VERSION=231
+else
+	$(error "Unrecognized ubuntu version $(UBUNTU_CODENAME)")
+endif
+
 JYU_LB_VERSION ?= 0.1.2
 AVIZ_VERSION ?= v6.5.0
 LAMMPS_VERSION ?= r13864
@@ -33,7 +42,6 @@ HAVE_NUMERRIN   ?= no
 		apt-mayavi-deps \
 		apt-paraview-deps \
 		fix-pip \
-		fix-simopenfoam \
 		simphony-env \
 		aviz \
 		lammps \
@@ -72,7 +80,6 @@ help:
 	@echo "  apt-mayavi-deps     to install building depedencies for the mayavi (requires sudo)"
 	@echo "  apt-paraview-deps   to install building depedencies for the paraview (requires sudo)"
 	@echo "  fix-pip             to update the version of pip and virtual evn (requires sudo)"
-	@echo "  fix-simopenfoam     to install enum3.4==1.0.4 for simphony-openfoam-0.1.5"
 	@echo "  simphony-env        to create a simphony virtualenv"
 	@echo "  aviz                to install AViz"
 	@echo "  kratos              to install the kratos solver"
@@ -125,44 +132,52 @@ base:
 	apt-get install build-essential git subversion -y
 
 apt-aviz-deps:
-	apt-get update -qq
 	apt-get install -y python-qt4 python-qt4-gl qt4-qmake qt4-dev-tools libpng-dev libqt4-dev
 	@echo
 	@echo "Build dependencies for Aviz"
 
 apt-openfoam-deps:
+ifeq ($(UBUNTU_CODENAME),precise)
 	echo deb http://www.openfoam.org/download/ubuntu precise main > /etc/apt/sources.list.d/openfoam.list
+	echo "deb http://dl.openfoam.org/ubuntu precise main > /etc/apt/sources.list.d/openfoam.list"
+else ifeq ($(UBUNTU_CODENAME),trusty)
+	add-apt-repository http://www.openfoam.org/download/ubuntu
+else
+	$(error "Unrecognized ubuntu version $(UBUNTU_CODENAME)")
+endif
 	apt-get update -qq
 	apt-get install -y --force-yes openfoam$(OPENFOAM_VERSION)
+	ln -s /opt/openfoam$(OPENFOAM_VERSION) /opt/openfoam
 	@echo
 	@echo "Openfoam installed use . /opt/openfoam$(OPENFOAM_VERSION)/etc/bashrc to setup the environment"
 
 apt-simphony-deps:
-	apt-get update -qq
-	apt-get install -y python-dev libhdf5-serial-1.8.4 libhdf5-serial-dev libatlas-dev libatlas3gf-base
+ifeq ($(UBUNTU_CODENAME),precise)
+	apt-get install -y libhdf5-serial-1.8.4 libhdf5-serial-dev
+else ifeq ($(UBUNTU_CODENAME),trusty)
+	apt-get install -y libhdf5-7 libhdf5-dev
+else
+	$(error "Unrecognized ubuntu version $(UBUNTU_CODENAME)")
+endif
+	apt-get install -y python-dev libatlas-dev libatlas3gf-base
 	@echo
 	@echo "Build dependencies for simphony installed"
 
 apt-lammps-deps:
-	apt-get update -qq
 	apt-get install -y mpi-default-bin mpi-default-dev
 	@echo
 	@echo "Build dependencies for lammps installed"
 
 apt-mayavi-deps:
-	apt-get update -qq
 	apt-get install python-vtk python-qt4 python-qt4-dev python-sip python-qt4-gl libqt4-scripttools python-imaging
 	@echo
 	@echo "Build dependencies for mayavi installed"
 
 apt-paraview-deps:
-	apt-get update -qq
 ifeq ($(USE_OPENFOAM_PARAVIEW),yes)
 	echo deb http://www.openfoam.org/download/ubuntu precise main > /etc/apt/sources.list.d/openfoam.list
 	apt-get update -qq
 	apt-get install -y --force-yes paraviewopenfoam410 libhdf5-openmpi-1.8.4 libhdf5-openmpi-dev
-	echo "export LD_LIBRARY_PATH=/opt/paraviewopenfoam410/lib/paraview-4.1:\$$LD_LIBRARY_PATH\n" >> "$(SIMPHONYENV)/bin/activate"
-	echo "export PYTHONPATH=/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/:/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/vtk:\$$PYTHONPATH" >> "$(SIMPHONYENV)/bin/activate"
 	@echo
 	@echo "Paraview (openfoam) installed"
 else
@@ -170,11 +185,6 @@ else
 	@echo
 	@echo "Paraview (ubuntu) installed"
 endif
-
-fix-simopenfoam:
-	pip install enum34==1.0.4
-	@echo
-	@echo "Fixed simphony-openfoam"
 
 fix-pip:
 	wget https://bootstrap.pypa.io/get-pip.py
@@ -190,6 +200,11 @@ simphony-env:
 	rm -rf $(SIMPHONYENV)
 	virtualenv $(SIMPHONYENV) --system-site-packages
 	echo "export LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:\$$LD_LIBRARY_PATH" >> "$(SIMPHONYENV)/bin/activate"
+ifeq ($(USE_OPENFOAM_PARAVIEW),yes)
+	echo "export LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:/opt/paraviewopenfoam410/lib/paraview-4.1:\$$LD_LIBRARY_PATH\n" >> "$(SIMPHONYENV)/bin/activate"
+	echo "export PYTHONPATH=/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/:/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/vtk:\$$PYTHONPATH" >> "$(SIMPHONYENV)/bin/activate"
+endif
+	echo ". /opt/openfoam$(OPENFOAM_VERSION)/etc/bashrc" >> "$(SIMPHONYENV)/bin/activate"
 	@echo
 	@echo "Simphony virtualenv created"
 
@@ -267,15 +282,9 @@ simphony-mayavi:
 
 simphony-paraview:
 ifeq ($(USE_OPENFOAM_PARAVIEW),yes)
-	echo "LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:/opt/paraviewopenfoam410/lib/paraview-4.1:\$$LD_LIBRARY_PATH\n" >> $(SIMPHONYENV)/bin/activate
-	echo "export LD_LIBRARY_PATH" >> $(SIMPHONYENV)/bin/activate
-	echo "PYTHONPATH=/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/:/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/vtk:\$$PYTHONPATH" >> $(SIMPHONYENV)/bin/activate
-	echo "export PYTHONPATH" >> $(SIMPHONYENV)/bin/activate
 	@echo
 	@echo "Paraview (openfoam) installed"
 else
-	echo "LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:\$$LD_LIBRARY_PATH" >> $(SIMPHONYENV)/bin/activate
-	echo "export LD_LIBRARY_PATH" >> $(SIMPHONYENV)/bin/activate
 	@echo
 	@echo "Paraview (ubuntu) installed"
 endif
@@ -293,7 +302,10 @@ simphony-openfoam:
 	(mkdir -p src/simphony-openfoam/pyfoam; wget https://openfoamwiki.net/images/3/3b/PyFoam-0.6.4.tar.gz -O src/simphony-openfoam/pyfoam/pyfoam.tgz --no-check-certificate)
 	tar -xzf src/simphony-openfoam/pyfoam/pyfoam.tgz -C src/simphony-openfoam/pyfoam
 	(pip install src/simphony-openfoam/pyfoam/PyFoam-0.6.4; rm -Rf src/simphony-openfoam/pyfoam)
-	pip install git+https://github.com/simphony/simphony-openfoam.git@$(SIMPHONY_OPENFOAM_VERSION)
+	#pip install git+https://github.com/simphony/simphony-openfoam.git@$(SIMPHONY_OPENFOAM_VERSION)
+	git clone --branch $(SIMPHONY_OPENFOAM_VERSION) https://github.com/simphony/simphony-openfoam.git
+	cd simphony-openfoam && python setup.py install
+	
 	@echo
 	@echo "Simphony OpenFoam plugin installed"
 
@@ -312,7 +324,7 @@ simphony-lammps:
 	@echo
 	@echo "Simphony lammps plugin installed"
 
-simphony-plugins: simphony-kratos simphony-numerrin simphony-mayavi simphony-openfoam simphony-jyu-lb simphony-lammps fix-simopenfoam
+simphony-plugins: simphony-kratos simphony-numerrin simphony-mayavi simphony-openfoam simphony-jyu-lb simphony-lammps
 	@echo
 	@echo "Simphony plugins installed"
 

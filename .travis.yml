@@ -21,6 +21,7 @@ cache:
   directories:
   - $HOME/.ccache
 before_install:
+  - deactivate
   - sudo apt-get update -qq
   - sudo apt-get install ccache
   - ccache -s
@@ -32,10 +33,8 @@ before_install:
 install:
   - make prevenv
   - source ~/simphony/bin/activate
-  - source /opt/openfoam222/etc/bashrc
   - make postvenv
   - make $PLUGINS
-  - make fix-simopenfoam
 script:
   - pip freeze
   - make $TEST_SUITE
