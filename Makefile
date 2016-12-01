@@ -177,8 +177,6 @@ ifeq ($(USE_OPENFOAM_PARAVIEW),yes)
 	echo deb http://www.openfoam.org/download/ubuntu precise main > /etc/apt/sources.list.d/openfoam.list
 	apt-get update -qq
 	apt-get install -y --force-yes paraviewopenfoam410 libhdf5-openmpi-1.8.4 libhdf5-openmpi-dev
-	echo "export LD_LIBRARY_PATH=/opt/paraviewopenfoam410/lib/paraview-4.1:\$$LD_LIBRARY_PATH\n" >> "$(SIMPHONYENV)/bin/activate"
-	echo "export PYTHONPATH=/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/:/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/vtk:\$$PYTHONPATH" >> "$(SIMPHONYENV)/bin/activate"
 	@echo
 	@echo "Paraview (openfoam) installed"
 else
@@ -201,6 +199,13 @@ simphony-env:
 	rm -rf $(SIMPHONYENV)
 	virtualenv $(SIMPHONYENV) --system-site-packages
 	echo "export LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:\$$LD_LIBRARY_PATH" >> "$(SIMPHONYENV)/bin/activate"
+ifeq ($(USE_OPENFOAM_PARAVIEW),yes)
+	echo "export LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:/opt/paraviewopenfoam410/lib/paraview-4.1:\$$LD_LIBRARY_PATH\n" >> $(SIMPHONYENV)/bin/activate
+	echo "export PYTHONPATH=/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/:/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/vtk:\$$PYTHONPATH" >> $(SIMPHONYENV)/bin/activate
+else
+	echo "export LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:\$$LD_LIBRARY_PATH" >> $(SIMPHONYENV)/bin/activate
+endif
+	echo ". /opt/openfoam$(OPENFOAM_VERSION)/etc/bashrc" >> $(SIMPHONYENV)/bin/activate
 	@echo
 	@echo "Simphony virtualenv created"
 
@@ -278,12 +283,9 @@ simphony-mayavi:
 
 simphony-paraview:
 ifeq ($(USE_OPENFOAM_PARAVIEW),yes)
-	echo "export LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:/opt/paraviewopenfoam410/lib/paraview-4.1:\$$LD_LIBRARY_PATH\n" >> $(SIMPHONYENV)/bin/activate
-	echo "export PYTHONPATH=/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/:/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/vtk:\$$PYTHONPATH" >> $(SIMPHONYENV)/bin/activate
 	@echo
 	@echo "Paraview (openfoam) installed"
 else
-	echo "export LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:\$$LD_LIBRARY_PATH" >> $(SIMPHONYENV)/bin/activate
 	@echo
 	@echo "Paraview (ubuntu) installed"
 endif
@@ -297,7 +299,6 @@ simphony-numerrin:
 	@echo "Simphony Numerrin plugin installed"
 
 simphony-openfoam:
-	echo ". /opt/openfoam$(OPENFOAM_VERSION)/etc/bashrc" >> $(SIMPHONYENV)/bin/activate
 	rm -Rf src/simphony-openfoam
 	(mkdir -p src/simphony-openfoam/pyfoam; wget https://openfoamwiki.net/images/3/3b/PyFoam-0.6.4.tar.gz -O src/simphony-openfoam/pyfoam/pyfoam.tgz --no-check-certificate)
 	tar -xzf src/simphony-openfoam/pyfoam/pyfoam.tgz -C src/simphony-openfoam/pyfoam
