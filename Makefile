@@ -14,6 +14,8 @@ SIMPHONY_KRATOS_VERSION ?= 0.2.0
 SIMPHONY_AVIZ_VERSION ?= 0.2.0
 SIMPHONY_MAYAVI_VERSION ?= 0.4.2
 SIMPHONY_PARAVIEW_VERSION ?= 0.2.0
+SIMPHONY_LIGGGHTS_VERSION ?= 5b71656bfe5b313d5593265177459a853aaae1eb
+
 ifeq ($(UBUNTU_CODENAME),precise)
 OPENFOAM_VERSION=230
 else ifeq ($(UBUNTU_CODENAME),trusty)
@@ -199,7 +201,8 @@ fix-pip:
 simphony-env:
 	rm -rf $(SIMPHONYENV)
 	virtualenv $(SIMPHONYENV) --system-site-packages
-	echo "export LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:\$$LD_LIBRARY_PATH" >> "$(SIMPHONYENV)/bin/activate"
+	# Put the site-packages as well. some .so files from liggghts end up there.
+	echo "export LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:$(SIMPHONYENV)/lib/python2.7/site-packages/:\$$LD_LIBRARY_PATH" >> "$(SIMPHONYENV)/bin/activate"
 ifeq ($(USE_OPENFOAM_PARAVIEW),yes)
 	echo "export LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:/opt/paraviewopenfoam410/lib/paraview-4.1:\$$LD_LIBRARY_PATH\n" >> "$(SIMPHONYENV)/bin/activate"
 	echo "export PYTHONPATH=/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/:/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/vtk:\$$PYTHONPATH" >> "$(SIMPHONYENV)/bin/activate"
@@ -323,6 +326,11 @@ simphony-lammps:
 	pip install git+https://github.com/simphony/simphony-lammps-md.git@$(SIMPHONY_LAMMPS_VERSION)#egg=simlammps
 	@echo
 	@echo "Simphony lammps plugin installed"
+
+simphony-liggghts:
+	git clone https://github.com/simphony/simphony-liggghts.git
+	
+	cd simphony-liggghts && git checkout $(SIMPHONY_LIGGGHTS_VERSION) && PREFIX=$(SIMPHONYENV) ./install_external.sh && python setup.py install
 
 simphony-plugins: simphony-kratos simphony-numerrin simphony-mayavi simphony-openfoam simphony-jyu-lb simphony-lammps
 	@echo
