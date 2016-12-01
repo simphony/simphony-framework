@@ -177,6 +177,8 @@ ifeq ($(USE_OPENFOAM_PARAVIEW),yes)
 	echo deb http://www.openfoam.org/download/ubuntu precise main > /etc/apt/sources.list.d/openfoam.list
 	apt-get update -qq
 	apt-get install -y --force-yes paraviewopenfoam410 libhdf5-openmpi-1.8.4 libhdf5-openmpi-dev
+	echo "export LD_LIBRARY_PATH=/opt/paraviewopenfoam410/lib/paraview-4.1:\$$LD_LIBRARY_PATH\n" >> "$(SIMPHONYENV)/bin/activate"
+	echo "export PYTHONPATH=/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/:/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/vtk:\$$PYTHONPATH" >> "$(SIMPHONYENV)/bin/activate"
 	@echo
 	@echo "Paraview (openfoam) installed"
 else
@@ -198,9 +200,7 @@ fix-pip:
 simphony-env:
 	rm -rf $(SIMPHONYENV)
 	virtualenv $(SIMPHONYENV) --system-site-packages
-	echo ". /opt/openfoam$(OPENFOAM_VERSION)/etc/bashrc" >> $(SIMPHONYENV)/bin/activate
-	echo "LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:$(LD_LIBRARY_PATH)" >> $(SIMPHONYENV)/bin/activate
-	echo "export LD_LIBRARY_PATH" >> $(SIMPHONYENV)/bin/activate
+	echo "export LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:\$$LD_LIBRARY_PATH" >> "$(SIMPHONYENV)/bin/activate"
 	@echo
 	@echo "Simphony virtualenv created"
 
