@@ -15,7 +15,7 @@ SIMPHONY_AVIZ_VERSION ?= 0.2.0
 SIMPHONY_MAYAVI_VERSION ?= 0.4.2
 SIMPHONY_PARAVIEW_VERSION ?= 0.2.0
 ifeq ($(UBUNTU_CODENAME),precise)
-OPENFOAM_VERSION=231
+OPENFOAM_VERSION=230
 else ifeq ($(UBUNTU_CODENAME),trusty)
 OPENFOAM_VERSION=231
 else
@@ -139,6 +139,7 @@ apt-aviz-deps:
 apt-openfoam-deps:
 ifeq ($(UBUNTU_CODENAME),precise)
 	echo deb http://www.openfoam.org/download/ubuntu precise main > /etc/apt/sources.list.d/openfoam.list
+	echo "deb http://dl.openfoam.org/ubuntu precise main > /etc/apt/sources.list.d/openfoam.list"
 else ifeq ($(UBUNTU_CODENAME),trusty)
 	add-apt-repository http://www.openfoam.org/download/ubuntu
 else
