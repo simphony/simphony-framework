@@ -278,15 +278,12 @@ simphony-mayavi:
 
 simphony-paraview:
 ifeq ($(USE_OPENFOAM_PARAVIEW),yes)
-	echo "LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:/opt/paraviewopenfoam410/lib/paraview-4.1:\$$LD_LIBRARY_PATH\n" >> $(SIMPHONYENV)/bin/activate
-	echo "export LD_LIBRARY_PATH" >> $(SIMPHONYENV)/bin/activate
-	echo "PYTHONPATH=/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/:/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/vtk:\$$PYTHONPATH" >> $(SIMPHONYENV)/bin/activate
-	echo "export PYTHONPATH" >> $(SIMPHONYENV)/bin/activate
+	echo "export LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:/opt/paraviewopenfoam410/lib/paraview-4.1:\$$LD_LIBRARY_PATH\n" >> $(SIMPHONYENV)/bin/activate
+	echo "export PYTHONPATH=/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/:/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/vtk:\$$PYTHONPATH" >> $(SIMPHONYENV)/bin/activate
 	@echo
 	@echo "Paraview (openfoam) installed"
 else
-	echo "LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:\$$LD_LIBRARY_PATH" >> $(SIMPHONYENV)/bin/activate
-	echo "export LD_LIBRARY_PATH" >> $(SIMPHONYENV)/bin/activate
+	echo "export LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:\$$LD_LIBRARY_PATH" >> $(SIMPHONYENV)/bin/activate
 	@echo
 	@echo "Paraview (ubuntu) installed"
 endif
