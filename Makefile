@@ -1,6 +1,6 @@
 # Makefile for Simphony Framework
 # You can set these variables from the command line.
-SIMPHONYENV   ?= ~/simphony
+SIMPHONYENV   ?= $(HOME)/simphony
 # end 
 
 UBUNTU_CODENAME=$(shell lsb_release -cs)
