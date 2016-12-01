@@ -132,7 +132,6 @@ base:
 	apt-get install build-essential git subversion -y
 
 apt-aviz-deps:
-	apt-get update -qq
 	apt-get install -y python-qt4 python-qt4-gl qt4-qmake qt4-dev-tools libpng-dev
 	@echo
 	@echo "Build dependencies for Aviz"
@@ -152,25 +151,28 @@ endif
 	@echo "Openfoam installed use . /opt/openfoam$(OPENFOAM_VERSION)/etc/bashrc to setup the environment"
 
 apt-simphony-deps:
-	apt-get update -qq
-	apt-get install -y python-dev libhdf5-serial-1.8.4 libhdf5-serial-dev libatlas-dev libatlas3gf-base
+ifeq ($(UBUNTU_CODENAME),precise)
+	apt-get install -y libhdf5-serial-1.8.4 libhdf5-serial-dev
+else ifeq ($(UBUNTU_CODENAME),trusty)
+	apt-get install -y libhdf5-7 libhdf5-dev
+else
+	$(error "Unrecognized ubuntu version $(UBUNTU_CODENAME)")
+endif
+	apt-get install -y python-dev libatlas-dev libatlas3gf-base
 	@echo
 	@echo "Build dependencies for simphony installed"
 
 apt-lammps-deps:
-	apt-get update -qq
 	apt-get install -y mpi-default-bin mpi-default-dev
 	@echo
 	@echo "Build dependencies for lammps installed"
 
 apt-mayavi-deps:
-	apt-get update -qq
 	apt-get install python-vtk python-qt4 python-qt4-dev python-sip python-qt4-gl libqt4-scripttools python-imaging
 	@echo
 	@echo "Build dependencies for mayavi installed"
 
 apt-paraview-deps:
-	apt-get update -qq
 ifeq ($(USE_OPENFOAM_PARAVIEW),yes)
 	echo deb http://www.openfoam.org/download/ubuntu precise main > /etc/apt/sources.list.d/openfoam.list
 	apt-get update -qq
