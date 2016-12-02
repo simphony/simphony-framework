@@ -14,7 +14,7 @@ Packages
 
 The simphony-common version that is supported in version 0.3.0 of the framework is:
 
-- https://github.com/simphony/simphony-common/releases/tag/0.3.0, version 0.3.0
+- https://github.com/simphony/simphony-common/releases/tag/0.4.0, version 0.4.0
 
 The SimPhoNy plugins that are compatible with this release:
 are:
@@ -27,6 +27,26 @@ are:
 - https://github.com/simphony/simphony-mayavi/releases/tag/0.4.1, version 0.4.1
 - https://github.com/simphony/simphony-aviz/releases/tag/0.2.0, version 0.1.0
 - https://github.com/simphony/simphony-paraview/releases/tag/0.2.0, version 0.2.0
+
+SIMPHONY_JYU_LB_VERSION ?= 0.2.0
+SIMPHONY_LAMMPS_VERSION ?= 0.1.5
+SIMPHONY_NUMERRIN_VERSION ?= 0.1.1
+SIMPHONY_OPENFOAM_VERSION ?= 0.2.3
+SIMPHONY_KRATOS_VERSION ?= 0.2.0
+SIMPHONY_AVIZ_VERSION ?= 0.2.0
+SIMPHONY_MAYAVI_VERSION ?= 0.4.2
+SIMPHONY_PARAVIEW_VERSION ?= 0.2.0
+ifeq ($(UBUNTU_CODENAME),precise)
+OPENFOAM_VERSION=230
+else ifeq ($(UBUNTU_CODENAME),trusty)
+OPENFOAM_VERSION=231
+else
+	$(error "Unrecognized ubuntu version $(UBUNTU_CODENAME)")
+endif
+
+JYU_LB_VERSION ?= 0.1.2
+AVIZ_VERSION ?= v6.5.0
+LAMMPS_VERSION ?= r13864
 
 
 Repository
@@ -49,7 +69,6 @@ components that will be installed.
 Installation
 ------------
 
-
 Checkout the simphony-framework repo::
 
   git clone https://github.com/simphony/simphony-framework.git
@@ -58,10 +77,10 @@ Checkout the simphony-framework repo::
 .. note::
 
   The SymPhoNy framework is developed and tested on Ubuntu 12.04 LTS
-  64bit and the following commands and included scripts assume that they
+  64bit and Ubuntu 14.04.
+  the following commands and included scripts assume that they
   are executed inside the top level directory of the simphony-framework
   cloned repository.
-
 
 Makefile
 ~~~~~~~~
@@ -76,32 +95,14 @@ Installing build dependencies
 All these targets make sure that the necessary libraries are installed by the
 various apt repositories, and require ``sudo`` access::
 
-  sudo make base
-  sudo make apt-openfoam-deps
-  sudo make apt-simphony-deps
-  sudo make apt-lammps-deps
-  sudo make apt-mayavi-deps
-  sudo make apt-aviz-deps
+  sudo make prepare apt-mayavi-deps
 
 .. note::
 
-   - The ``apt-openfoam-deps`` target will install openfoam version
-     2.2.2. To use this solver please activate the related environment::
-
-     source /opt/openfoam222/etc/bashrc
-
    - Alternative to mayavi one can install paraview dependencies by
-     using ``apt-paraview-deps``.
+     using ``apt-paraview-deps``. IMPORTANT: The two cannot be installed
+     simultaneously.
 
-
-Fix python setup tools
-~~~~~~~~~~~~~~~~~~~~~~
-
-In order to properly support installing the various python packages we need to use
-the latest version of pip, setuptools and virtualenv. This target will make sure
-that these packages are upgraded in you system::
-
-  sudo make fix-pip
 
 
 Setup virtual environment
@@ -109,9 +110,10 @@ Setup virtual environment
 
 It is advised that the simphony framework is installed in a python
 virtual environment to avoid contaminating the system python
-with the simphony packages and allow a simpler user installation::
+with the simphony packages and allow a simpler user installation.
+The following make command builds the virtual environment::
 
-  make simphony-env
+  make prevenv 
 
 which will create a virtual enviroment in ``~/simphony`` or::
 
