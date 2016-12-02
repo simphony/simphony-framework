@@ -148,13 +148,13 @@ test-framework: test-plugins test-integration
 # Individual rules
 
 base:
-	apt-get install software-properties-common apt-transport-https
+	apt-get install -y --force-yes software-properties-common apt-transport-https
 	add-apt-repository ppa:git-core/ppa -y
 	apt-get update -qq
-	apt-get install build-essential git subversion -y
+	apt-get install -y --force-yes build-essential git subversion
 
 apt-aviz-deps:
-	apt-get install -y python-qt4 python-qt4-gl qt4-qmake qt4-dev-tools libpng-dev libqt4-dev
+	apt-get install -y --force-yes python-qt4 python-qt4-gl qt4-qmake qt4-dev-tools libpng-dev libqt4-dev
 	@echo
 	@echo "Build dependencies for Aviz"
 
@@ -174,23 +174,23 @@ endif
 
 apt-simphony-deps:
 ifeq ($(UBUNTU_CODENAME),precise)
-	apt-get install -y libhdf5-serial-1.8.4 libhdf5-serial-dev
+	apt-get install -y --force-yes libhdf5-serial-1.8.4 libhdf5-serial-dev
 else ifeq ($(UBUNTU_CODENAME),trusty)
-	apt-get install -y libhdf5-7 libhdf5-dev
+	apt-get install -y --force-yes libhdf5-7 libhdf5-dev
 else
 	$(error "Unrecognized ubuntu version $(UBUNTU_CODENAME)")
 endif
-	apt-get install -y python-dev libatlas-dev libatlas3gf-base
+	apt-get install -y --force-yes python-dev libatlas-dev libatlas3gf-base
 	@echo
 	@echo "Build dependencies for simphony installed"
 
 apt-lammps-deps:
-	apt-get install -y mpi-default-bin mpi-default-dev
+	apt-get install -y --force-yes mpi-default-bin mpi-default-dev
 	@echo
 	@echo "Build dependencies for lammps installed"
 
 apt-mayavi-deps:
-	apt-get install python-vtk python-qt4 python-qt4-dev python-sip python-qt4-gl libqt4-scripttools python-imaging
+	apt-get install -y --force-yes python-vtk python-qt4 python-qt4-dev python-sip python-qt4-gl libqt4-scripttools python-imaging
 	@echo
 	@echo "Build dependencies for mayavi installed"
 
