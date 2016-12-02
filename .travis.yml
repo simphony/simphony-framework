@@ -24,12 +24,13 @@ before_install:
   - export PATH=/usr/lib/ccache:${PATH}
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-  - sudo make prepare $DEPS
+  - sudo make deps $DEPS
+  - make solvers
   - sudo ln -s ccache /usr/local/bin/mpic++
 install:
-  - make prevenv
+  - make venv
   - source ~/simphony/bin/activate
-  - make postvenv
+  - make simphony
   - make $PLUGINS
 script:
   - pip freeze

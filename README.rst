@@ -28,27 +28,6 @@ are:
 - https://github.com/simphony/simphony-aviz/releases/tag/0.2.0, version 0.1.0
 - https://github.com/simphony/simphony-paraview/releases/tag/0.2.0, version 0.2.0
 
-SIMPHONY_JYU_LB_VERSION ?= 0.2.0
-SIMPHONY_LAMMPS_VERSION ?= 0.1.5
-SIMPHONY_NUMERRIN_VERSION ?= 0.1.1
-SIMPHONY_OPENFOAM_VERSION ?= 0.2.3
-SIMPHONY_KRATOS_VERSION ?= 0.2.0
-SIMPHONY_AVIZ_VERSION ?= 0.2.0
-SIMPHONY_MAYAVI_VERSION ?= 0.4.2
-SIMPHONY_PARAVIEW_VERSION ?= 0.2.0
-ifeq ($(UBUNTU_CODENAME),precise)
-OPENFOAM_VERSION=230
-else ifeq ($(UBUNTU_CODENAME),trusty)
-OPENFOAM_VERSION=231
-else
-	$(error "Unrecognized ubuntu version $(UBUNTU_CODENAME)")
-endif
-
-JYU_LB_VERSION ?= 0.1.2
-AVIZ_VERSION ?= v6.5.0
-LAMMPS_VERSION ?= r13864
-
-
 Repository
 ----------
 
@@ -78,7 +57,7 @@ Checkout the simphony-framework repo::
 
   The SymPhoNy framework is developed and tested on Ubuntu 12.04 LTS
   64bit and Ubuntu 14.04.
-  the following commands and included scripts assume that they
+  The following commands and included scripts assume that they
   are executed inside the top level directory of the simphony-framework
   cloned repository.
 
@@ -95,37 +74,15 @@ Installing build dependencies
 All these targets make sure that the necessary libraries are installed by the
 various apt repositories, and require ``sudo`` access::
 
-  sudo make prepare apt-mayavi-deps
+  sudo make prepare 
 
-.. note::
+Install the appropriate dependencies for the UI package you plan to install
+(either mayavi or paraview). The two are incompatible in deployment.
+To install Mayavi::
 
-   - Alternative to mayavi one can install paraview dependencies by
-     using ``apt-paraview-deps``. IMPORTANT: The two cannot be installed
-     simultaneously.
+  sudo make apt-mayavi-deps
 
-
-
-Setup virtual environment
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-It is advised that the simphony framework is installed in a python
-virtual environment to avoid contaminating the system python
-with the simphony packages and allow a simpler user installation.
-The following make command builds the virtual environment::
-
-  make prevenv 
-
-which will create a virtual enviroment in ``~/simphony`` or::
-
-
-  SIMPHONYENV=<path> make simphony-env
-
-
-.. note::
-
-   From this point the simphony enviroment needs to be active::
-
-     source ~/simphony/bin/activate
+If you are installing paraview, use the ``apt-paraview-deps`` instead.
 
 
 Install solvers
@@ -134,11 +91,7 @@ Install solvers
 Some solvers are not available as deb packages and need to be build locally.
 To build them there are separate targets::
 
-  make -j 2 lammps
-  make -j 2 jyu-lb
-  make kratos
-  make numerrin
-  make aviz
+  make solvers
 
 .. note::
 
@@ -147,44 +100,53 @@ To build them there are separate targets::
    license file.
 
 
+Setup virtual environment
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+It is recommended that the simphony framework is installed in a python
+virtual environment to avoid contaminating the system python
+with the simphony packages and allow a simpler user installation.
+The resulting activation script also exports all the variables
+needed to successfully run the programs.
+
+The following make command builds the virtual environment::
+
+  make venv 
+
+which will create a virtual enviroment in ``~/simphony`` or::
+
+  SIMPHONYENV=<path> make venv
+
+Activate the environment::
+
+  source ~/simphony/bin/activate
+
+
 Install Simphony
 ~~~~~~~~~~~~~~~~
 
-::
+Finally, install the complete framework with::
 
-  make simphony
-  make simphony-plugins
+  make simphony simphony-mayavi
 
 .. note::
 
-   - individual simphony plugins can be installed using the related targets.
-
-     If ``simphony-openfoam`` (version 0.1.5) is installed individually,
-     user needs to ensure that ``enum34==1.0.4`` by reinstalling it.
-     This is automatically done in the ``simphony-plugins`` target.
-     Future ``simphony-openfoam`` release should not have this problem.
-
-   - ``simphony-paraview`` and ``simphony-mayavi`` use different VTK
-     setups so they cannot be installed at the same time.  ``make
-     simphony-plugins`` will install by default
+   - ``simphony-paraview`` can be used in place of ``simphony-mayavi``
+	 to install paraview.
 
    - ``simphony-paraview`` can be setup to use the system (default) or
      openfoam build of Paraview using the ``USE_OPENFOAM_PARAVIEW``
      enviroment variable
 
-Complete script
-~~~~~~~~~~~~~~~
+Complete build
+--------------
 
 ::
-
-  sudo make base apt-openfoam-deps apt-simphony-deps apt-lammps-deps apt-mayavi-deps apt-aviz-deps fix-pip
-  source /opt/openfoam222/etc/bashrc
-  make simphony-env
-  source ~/simphony/bin/activate
-  make -j 2 kratos lammps jyu-lb numerrin aviz
-  make simphony
-  make simphony-plugins
-
+	sudo make prepare apt-mayavi-deps
+	make solvers
+	make venv
+	source ~/simphony/bin/activate
+	make simphony simphony-mayavi
 
 Test
 ----
