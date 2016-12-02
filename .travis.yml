@@ -28,7 +28,7 @@ before_install:
   - make solvers
   - sudo ln -s ccache /usr/local/bin/mpic++
 install:
-  - make venv
+  - make venv-prepare
   - source ~/simphony/bin/activate
   - make simphony
   - make $PLUGINS

@@ -85,23 +85,8 @@ To install Mayavi::
 If you are installing paraview, use the ``apt-paraview-deps`` instead.
 
 
-Install solvers
-~~~~~~~~~~~~~~~
-
-Some solvers are not available as deb packages and need to be build locally.
-To build them there are separate targets::
-
-  make solvers
-
-.. note::
-
-   The ``numerrin`` target will install the numerrin library. To use this solver, please
-   ensure that environment variable PYNUMERRIN_LICENSE points to a valid Numerrin
-   license file.
-
-
-Setup virtual environment
-~~~~~~~~~~~~~~~~~~~~~~~~~
+Setup virtual environment and solvers
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 It is recommended that the simphony framework is installed in a python
 virtual environment to avoid contaminating the system python
@@ -111,7 +96,16 @@ needed to successfully run the programs.
 
 The following make command builds the virtual environment::
 
-  make venv 
+  make venv-prepare
+
+It also installs solvers that are not available as deb packages 
+and need to be built locally.
+
+.. note::
+
+   The ``numerrin`` target will install the numerrin library. To use this solver, please
+   ensure that environment variable PYNUMERRIN_LICENSE points to a valid Numerrin
+   license file.
 
 which will create a virtual enviroment in ``~/simphony`` or::
 
