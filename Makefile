@@ -14,6 +14,8 @@ SIMPHONY_KRATOS_VERSION ?= 0.2.0
 SIMPHONY_AVIZ_VERSION ?= 0.2.0
 SIMPHONY_MAYAVI_VERSION ?= 0.4.2
 SIMPHONY_PARAVIEW_VERSION ?= 0.2.0
+SIMPHONY_LIGGGHTS_VERSION ?= fec73f25f9931108ab94b4d5d68d28cc9cbfe3c0
+
 ifeq ($(UBUNTU_CODENAME),precise)
 OPENFOAM_VERSION=230
 else ifeq ($(UBUNTU_CODENAME),trusty)
@@ -129,13 +131,18 @@ venv-prepare: simphony-env solvers
 
 solvers: aviz kratos lammps jyu-lb numerrin
 
-simphony: simphony-common simphony-aviz simphony-jyu-lb simphony-lammps simphony-mayavi simphony-openfoam simphony-numerrin simphony-kratos
+simphony: simphony-common simphony-aviz simphony-jyu-lb simphony-lammps simphony-mayavi simphony-openfoam simphony-numerrin simphony-kratos simphony-liggghts
 	@echo
 	@echo "Simphony plugins installed"
 
 test-plugins: test-simphony test-jyulb test-lammps test-mayavi test-openfoam test-kratos test-aviz
 	@echo
 	@echo "Tests for simphony plugins done"
+
+test-framework: test-plugins test-integration
+	@echo
+	@echo "Tests for the simphony framework done"
+
 
 # ----------------------
 # Individual rules
@@ -212,7 +219,8 @@ fix-pip:
 simphony-env:
 	rm -rf $(SIMPHONYENV)
 	virtualenv $(SIMPHONYENV) --system-site-packages
-	echo "export LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:\$$LD_LIBRARY_PATH" >> "$(SIMPHONYENV)/bin/activate"
+	# Put the site-packages as well. some .so files from liggghts end up there.
+	echo "export LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:$(SIMPHONYENV)/lib/python2.7/site-packages/:\$$LD_LIBRARY_PATH" >> "$(SIMPHONYENV)/bin/activate"
 ifeq ($(USE_OPENFOAM_PARAVIEW),yes)
 	echo "export LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:/opt/paraviewopenfoam410/lib/paraview-4.1:\$$LD_LIBRARY_PATH\n" >> "$(SIMPHONYENV)/bin/activate"
 	echo "export PYTHONPATH=/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/:/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/vtk:\$$PYTHONPATH" >> "$(SIMPHONYENV)/bin/activate"
@@ -337,6 +345,11 @@ simphony-lammps:
 	@echo
 	@echo "Simphony lammps plugin installed"
 
+simphony-liggghts:
+	git clone https://github.com/simphony/simphony-liggghts.git
+	
+	cd simphony-liggghts && git checkout $(SIMPHONY_LIGGGHTS_VERSION) && PREFIX=$(SIMPHONYENV) ./install_external.sh && python setup.py install
+
 test-simphony:
 	haas simphony -v
 	@echo
@@ -392,7 +405,3 @@ test-integration:
 	haas tests/ -v
 	@echo
 	@echo "Integration tests for the simphony framework done"
-
-test-framework: test-plugins test-integration
-	@echo
-	@echo "Tests for the simphony framework done"

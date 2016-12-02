@@ -9,7 +9,8 @@ ENGINES = [
     'openfoam_internal',
     'kratos',
     'jyulb_fileio_isothermal',
-    'jyulb_internal_isothermal']
+    'jyulb_internal_isothermal',
+    'liggghts']
 
 if os.getenv("HAVE_NUMERRIN", "no") == "yes":
     ENGINES.append("numerrin")
