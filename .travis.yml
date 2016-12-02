@@ -11,10 +11,6 @@ matrix:
     - env: SIMPHONYENV=~/simphony TEST_SUITE=test-framework DEPS=apt-mayavi-deps PLUGINS=simphony-mayavi
       dist: trusty
       python: 2.7
-  allow_failures:
-    - env: SIMPHONYENV=~/simphony TEST_SUITE=test-framework DEPS=apt-mayavi-deps PLUGINS=simphony-mayavi
-      dist: trusty
-      python: 2.7
 
 cache:
   pip: true
@@ -28,12 +24,12 @@ before_install:
   - export PATH=/usr/lib/ccache:${PATH}
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-  - sudo make prepare $DEPS
+  - sudo make deps $DEPS
   - sudo ln -s ccache /usr/local/bin/mpic++
 install:
-  - make prevenv
+  - make venv-prepare
   - source ~/simphony/bin/activate
-  - make postvenv
+  - make simphony
   - make $PLUGINS
 script:
   - pip freeze
