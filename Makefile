@@ -148,7 +148,7 @@ test-framework: test-plugins test-integration
 # Individual rules
 
 base:
-	apt-get install software-properties-common
+	apt-get install software-properties-common apt-transport-https
 	add-apt-repository ppa:git-core/ppa -y
 	apt-get update -qq
 	apt-get install build-essential git subversion -y
