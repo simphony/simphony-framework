@@ -148,12 +148,10 @@ test-framework: test-plugins test-integration
 # Individual rules
 
 base:
+	apt-get install software-properties-common
 	add-apt-repository ppa:git-core/ppa -y
 	apt-get update -qq
 	apt-get install build-essential git subversion -y
-ifeq ($(UBUNTU_CODENAME),trusty)
-	apt-get install software-properties-common
-endif
 
 apt-aviz-deps:
 	apt-get install -y python-qt4 python-qt4-gl qt4-qmake qt4-dev-tools libpng-dev libqt4-dev
