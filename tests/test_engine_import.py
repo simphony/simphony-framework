@@ -1,27 +1,8 @@
 import unittest
 import os
-import logging
 
 from stevedore.extension import ExtensionManager
-import logging
-import sys
 
-print sys.path
-for p in sys.path:
-    print p
-    try:
-        print os.listdir(p)
-    except:
-        print "not found"
-
-root = logging.getLogger()
-root.setLevel(logging.DEBUG)
-
-ch = logging.StreamHandler(sys.stdout)
-ch.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-ch.setFormatter(formatter)
-root.addHandler(ch)
 
 ENGINES = [
     'lammps',
