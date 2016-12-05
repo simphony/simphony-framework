@@ -6,6 +6,14 @@ from stevedore.extension import ExtensionManager
 import logging
 import sys
 
+print sys.path
+for p in sys.path:
+    print p
+    try:
+        print os.listdir(p)
+    except:
+        print "not found"
+
 root = logging.getLogger()
 root.setLevel(logging.DEBUG)
 
