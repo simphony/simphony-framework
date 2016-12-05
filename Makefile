@@ -279,7 +279,8 @@ kratos:
 numerrin:
 	rm -Rf src/simphony-numerrin
 	git clone --branch $(SIMPHONY_NUMERRIN_VERSION) https://github.com/simphony/simphony-numerrin.git src/simphony-numerrin
-	(cp src/simphony-numerrin/numerrin-interface/libnumerrin4.so $(SIMPHONYENV)/lib/.)
+	cp src/simphony-numerrin/numerrin-interface/libnumerrin4.so $(SIMPHONYENV)/lib/.
+	cp src/simphony-numerrin/numerrin-interface/numerrin.so $(SIMPHONYENV)/lib/python2.7/site-packages/.
 	rm -Rf src/simphony-numerrin
 	@echo
 	@echo "Numerrin installed"
