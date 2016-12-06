@@ -153,8 +153,6 @@ base:
 	apt-get update -qq
 	apt-get install -y --force-yes build-essential git subversion
 
- 
-
 apt-aviz-deps:
 	apt-get install -y --force-yes python-qt4 python-qt4-gl qt4-qmake qt4-dev-tools libpng-dev libqt4-dev
 	@echo
@@ -164,7 +162,7 @@ apt-openfoam-deps:
 ifeq ($(UBUNTU_CODENAME),precise)
 	echo "deb http://www.openfoam.org/download/ubuntu precise main" > /etc/apt/sources.list.d/openfoam.list
 	echo "deb http://dl.openfoam.org/ubuntu precise main" > /etc/apt/sources.list.d/openfoam.list
-    add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ precise multiverse"
+	add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ precise multiverse"
 else ifeq ($(UBUNTU_CODENAME),trusty)
 	add-apt-repository http://www.openfoam.org/download/ubuntu
 else
@@ -172,7 +170,7 @@ else
 endif
 	apt-get update -qq
 ifeq ($(UBUNTU_CODENAME),precise)
-    apt-get install -y libcgal8 libcgal-dev
+	apt-get install -y libcgal8 libcgal-dev
 endif
 	apt-get install -y --force-yes openfoam$(OPENFOAM_VERSION)
 	@echo
