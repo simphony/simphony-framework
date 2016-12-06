@@ -277,7 +277,6 @@ kratos:
 	cp -rf src/kratos/libs/libboost_python.so.1.55.0 $(SIMPHONYENV)/lib/.
 	cp -rf src/kratos/applications $(SIMPHONYENV)/lib/kratos/python2.7/site-packages/.
 	cp -rf src/kratos/kratos/python_scripts/* $(SIMPHONYENV)/lib/kratos/python2.7/site-packages/.
-	ls -la $(SIMPHONYENV)/lib/kratos/python2.7/site-packages/KratosMultiphysics
 	@echo
 	@echo "Kratos solver installed"
 
