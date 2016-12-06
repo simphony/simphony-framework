@@ -221,11 +221,12 @@ simphony-env:
 	rm -rf $(SIMPHONYENV)
 	virtualenv $(SIMPHONYENV) --system-site-packages
 	# Put the site-packages as well. some .so files from liggghts end up there.
-	echo "export LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:$(SIMPHONYENV)/lib/python2.7/site-packages/:\$$LD_LIBRARY_PATH" >> "$(SIMPHONYENV)/bin/activate"
+	echo "export LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:$(SIMPHONYENV)/lib/python2.7/site-packages/:$(SIMPHONYENV)/lib/kratos/python2.7/site-packages/:\$$LD_LIBRARY_PATH" >> "$(SIMPHONYENV)/bin/activate"
 ifeq ($(USE_OPENFOAM_PARAVIEW),yes)
 	echo "export LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:/opt/paraviewopenfoam410/lib/paraview-4.1:\$$LD_LIBRARY_PATH\n" >> "$(SIMPHONYENV)/bin/activate"
 	echo "export PYTHONPATH=/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/:/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/vtk:\$$PYTHONPATH" >> "$(SIMPHONYENV)/bin/activate"
 endif
+	echo "export PYTHONPATH=$(SIMPHONYENV)/lib/kratos/python2.7/site-packages/:\$$PYTHONPATH" >> "$(SIMPHONYENV)/bin/activate"
 	echo ". /opt/openfoam$(OPENFOAM_VERSION)/etc/bashrc" >> "$(SIMPHONYENV)/bin/activate"
 	@echo
 	@echo "Simphony virtualenv created"
@@ -269,10 +270,13 @@ kratos:
 	mkdir -p src/kratos
 	wget https://web.cimne.upc.edu/users/croig/data/kratos-simphony.tgz -O src/kratos/kratos.tgz
 	(tar -xzf src/kratos/kratos.tgz -C src/kratos; rm -Rf src/kratos/kratos.tgz)
-	rm -rf $(SIMPHONYENV)/lib/python2.7/site-packages/KratosMultiphysics
-	(ln -s $(PWD)/src/kratos/KratosMultiphysics $(SIMPHONYENV)/lib/python2.7/site-packages/KratosMultiphysics)
-	cp -rf src/kratos/libs/*Kratos*.so $(SIMPHONYENV)/lib/.
+	rm -rf $(SIMPHONYENV)/lib/kratos/python2.7/site-packages/KratosMultiphysics
+	mkdir -p $(SIMPHONYENV)/lib/kratos/python2.7/site-packages/
+	cp -rf $(PWD)/src/kratos/KratosMultiphysics $(SIMPHONYENV)/lib/kratos/python2.7/site-packages/KratosMultiphysics
+	cp -rf src/kratos/libs/*Kratos*.so $(SIMPHONYENV)/lib/kratos/python2.7/site-packages/.
 	cp -rf src/kratos/libs/libboost_python.so.1.55.0 $(SIMPHONYENV)/lib/.
+	cp -rf src/kratos/applications $(SIMPHONYENV)/lib/kratos/python2.7/site-packages/.
+	cp -rf src/kratos/kratos/python_scripts/* $(SIMPHONYENV)/lib/kratos/python2.7/site-packages/.
 	@echo
 	@echo "Kratos solver installed"
 
