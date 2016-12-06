@@ -148,10 +148,12 @@ test-framework: test-plugins test-integration
 # Individual rules
 
 base:
-	apt-get install -y --force-yes software-properties-common apt-transport-https
+	apt-get install -y --force-yes software-properties-common apt-transport-https python-software-properties
 	add-apt-repository ppa:git-core/ppa -y
 	apt-get update -qq
 	apt-get install -y --force-yes build-essential git subversion
+
+ 
 
 apt-aviz-deps:
 	apt-get install -y --force-yes python-qt4 python-qt4-gl qt4-qmake qt4-dev-tools libpng-dev libqt4-dev
@@ -160,14 +162,18 @@ apt-aviz-deps:
 
 apt-openfoam-deps:
 ifeq ($(UBUNTU_CODENAME),precise)
-	echo deb http://www.openfoam.org/download/ubuntu precise main > /etc/apt/sources.list.d/openfoam.list
-	echo "deb http://dl.openfoam.org/ubuntu precise main > /etc/apt/sources.list.d/openfoam.list"
+	echo "deb http://www.openfoam.org/download/ubuntu precise main" > /etc/apt/sources.list.d/openfoam.list
+	echo "deb http://dl.openfoam.org/ubuntu precise main" > /etc/apt/sources.list.d/openfoam.list
+    add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ precise multiverse"
 else ifeq ($(UBUNTU_CODENAME),trusty)
 	add-apt-repository http://www.openfoam.org/download/ubuntu
 else
 	$(error "Unrecognized ubuntu version $(UBUNTU_CODENAME)")
 endif
 	apt-get update -qq
+ifeq ($(UBUNTU_CODENAME),precise)
+    apt-get install -y libcgal8 libcgal-dev
+endif
 	apt-get install -y --force-yes openfoam$(OPENFOAM_VERSION)
 	@echo
 	@echo "Openfoam installed use . /opt/openfoam$(OPENFOAM_VERSION)/etc/bashrc to setup the environment"
