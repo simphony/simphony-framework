@@ -285,7 +285,7 @@ kratos:
 	@echo "Kratos solver installed"
 
 numerrin:
-ifneq($(SIMPHONY_NUMERRIN_VERSION),)
+ifneq ($(SIMPHONY_NUMERRIN_VERSION),)
 	rm -Rf src/simphony-numerrin
 	git clone --branch $(SIMPHONY_NUMERRIN_VERSION) https://github.com/simphony/simphony-numerrin.git src/simphony-numerrin
 	cp src/simphony-numerrin/numerrin-interface/libnumerrin4.so $(SIMPHONYENV)/lib/.
@@ -356,7 +356,7 @@ simphony-kratos:
 	@echo "Simphony Kratos plugin installed"
 
 simphony-jyu-lb:
-ifneq($(SIMPHONY_JYU_LB_VERSION),)
+ifneq ($(SIMPHONY_JYU_LB_VERSION),)
 	pip install git+https://github.com/simphony/simphony-jyulb.git@$(SIMPHONY_JYU_LB_VERSION)
 	@echo
 	@echo "Simphony jyu-lb plugin installed"
@@ -366,7 +366,7 @@ else
 endif
 
 simphony-lammps:
-ifneq($(SIMPHONY_LAMMPS_VERSION),)
+ifneq ($(SIMPHONY_LAMMPS_VERSION),)
 	pip install git+https://github.com/simphony/simphony-lammps-md.git@$(SIMPHONY_LAMMPS_VERSION)#egg=simlammps
 	@echo
 	@echo "Simphony lammps plugin installed"
@@ -391,7 +391,7 @@ test-aviz:
 	@echo "Tests for the aviz plugin done"
 
 test-jyulb:
-ifneq($(SIMPHONY_JYU_LB_VERSION),)
+ifneq ($(SIMPHONY_JYU_LB_VERSION),)
 	haas jyulb -v
 	@echo
 	@echo "Tests for the jyulb plugin done"
@@ -401,7 +401,7 @@ else
 endif
 
 test-lammps:
-ifneq($(SIMPHONY_LAMMPS_VERSION),)
+ifneq ($(SIMPHONY_LAMMPS_VERSION),)
 	haas simlammps -v
 	@echo
 	@echo "Tests for the lammps plugin done"
