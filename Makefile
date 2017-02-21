@@ -160,7 +160,6 @@ apt-aviz-deps:
 
 apt-openfoam-deps:
 ifeq ($(UBUNTU_CODENAME),precise)
-	echo "deb http://www.openfoam.org/download/ubuntu precise main" > /etc/apt/sources.list.d/openfoam.list
 	echo "deb http://dl.openfoam.org/ubuntu precise main" > /etc/apt/sources.list.d/openfoam.list
 	add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ precise multiverse"
 else ifeq ($(UBUNTU_CODENAME),trusty)
