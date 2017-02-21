@@ -168,6 +168,7 @@ else ifeq ($(UBUNTU_CODENAME),trusty)
 else
 	$(error "Unrecognized ubuntu version $(UBUNTU_CODENAME)")
 endif
+	wget -O - http://dl.openfoam.org/gpg.key | apt-key add -
 	apt-get update -qq
 ifeq ($(UBUNTU_CODENAME),precise)
 	apt-get install -y libcgal8 libcgal-dev
