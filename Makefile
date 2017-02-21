@@ -164,7 +164,7 @@ ifeq ($(UBUNTU_CODENAME),precise)
 	echo "deb http://dl.openfoam.org/ubuntu precise main" > /etc/apt/sources.list.d/openfoam.list
 	add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ precise multiverse"
 else ifeq ($(UBUNTU_CODENAME),trusty)
-	add-apt-repository http://www.openfoam.org/download/ubuntu
+	echo "deb http://dl.openfoam.org/ubuntu trusty main" > /etc/apt/sources.list.d/openfoam.list
 else
 	$(error "Unrecognized ubuntu version $(UBUNTU_CODENAME)")
 endif
