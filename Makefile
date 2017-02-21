@@ -12,7 +12,7 @@ SIMPHONY_NUMERRIN_VERSION ?= 0.1.3
 SIMPHONY_OPENFOAM_VERSION ?= 0.2.4
 SIMPHONY_KRATOS_VERSION ?= 0.2.0
 SIMPHONY_AVIZ_VERSION ?= 0.2.2
-SIMPHONY_MAYAVI_VERSION ?= 0.4.3
+SIMPHONY_MAYAVI_VERSION ?= 0.4.4
 SIMPHONY_PARAVIEW_VERSION ?= 0.2.1
 SIMPHONY_LIGGGHTS_VERSION ?= 0.1.6
 
@@ -160,14 +160,14 @@ apt-aviz-deps:
 
 apt-openfoam-deps:
 ifeq ($(UBUNTU_CODENAME),precise)
-	echo "deb http://www.openfoam.org/download/ubuntu precise main" > /etc/apt/sources.list.d/openfoam.list
 	echo "deb http://dl.openfoam.org/ubuntu precise main" > /etc/apt/sources.list.d/openfoam.list
 	add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ precise multiverse"
 else ifeq ($(UBUNTU_CODENAME),trusty)
-	add-apt-repository http://www.openfoam.org/download/ubuntu
+	echo "deb http://dl.openfoam.org/ubuntu trusty main" > /etc/apt/sources.list.d/openfoam.list
 else
 	$(error "Unrecognized ubuntu version $(UBUNTU_CODENAME)")
 endif
+	wget -O - http://dl.openfoam.org/gpg.key | apt-key add -
 	apt-get update -qq
 ifeq ($(UBUNTU_CODENAME),precise)
 	apt-get install -y libcgal8 libcgal-dev
