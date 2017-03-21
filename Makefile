@@ -245,7 +245,7 @@ aviz:
 lammps:
 	rm -Rf src/lammps
 	# bulding and installing executable
-	git clone --branch $(LAMMPS_VERSION) --depth 1 git://git.lammps.org/lammps-ro.git src/lammps
+	git clone --branch $(LAMMPS_VERSION) http://git.lammps.org/lammps-ro.git src/lammps
 	$(MAKE) -C src/lammps/src ubuntu_simple -j 3
 	cp src/lammps/src/lmp_ubuntu_simple $(SIMPHONYENV)/bin/lammps
 	# bulding and installing python module
