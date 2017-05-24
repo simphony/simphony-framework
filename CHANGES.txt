@@ -1,10 +1,21 @@
 SimPhoNy framework change log
 =============================
 
-Release 0.3.2
+Release 0.3.3
 -------------
 
 * simphony-common, version 0.4.1
+
+Release 0.3.2
+-------------
+
+* Updated LAMMPS retrieval due to git connectivity issues (#103)
+
+Release 0.3.1
+-------------
+
+* Added OpenFoam key for successful installation in changed conditions. (#101)
+* Updated simphony-mayavi to 0.4.4. (#101)
 
 Release 0.3.0
 -------------

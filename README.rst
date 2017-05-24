@@ -12,7 +12,7 @@ library and the SimPhoNy plugins.
 Packages
 --------
 
-The simphony-common version that is supported in version 0.3.2 of the framework is:
+The simphony-common version that is supported in version 0.3.3 of the framework is:
 
 - https://github.com/simphony/simphony-common/releases/tag/0.4.1, version 0.4.1
 
