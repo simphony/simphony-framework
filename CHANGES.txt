@@ -1,6 +1,11 @@
 SimPhoNy framework change log
 =============================
 
+Release 0.3.2
+-------------
+
+* simphony-common, version 0.4.1
+
 Release 0.3.0
 -------------
 

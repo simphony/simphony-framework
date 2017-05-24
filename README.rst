@@ -12,9 +12,9 @@ library and the SimPhoNy plugins.
 Packages
 --------
 
-The simphony-common version that is supported in version 0.3.0 of the framework is:
+The simphony-common version that is supported in version 0.3.2 of the framework is:
 
-- https://github.com/simphony/simphony-common/releases/tag/0.4.0, version 0.4.0
+- https://github.com/simphony/simphony-common/releases/tag/0.4.1, version 0.4.1
 
 The SimPhoNy plugins that are compatible with this release:
 are:
