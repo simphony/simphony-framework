@@ -31,10 +31,10 @@ OPENFOAM_VERSION=231
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
-	@echo " deps                 to install the dependencies (requires sudo)"
-	@echo " venv-prepare          to create a simphony virtualenv"
+	@echo " provision            to install the dependencies (requires sudo)"
+	@echo " venv                 to create a simphony virtualenv"
 	@echo " simphony             to build and install the simphony framework"
-	@echo " test-framework       run the tests for the simphony-framework"
+	@echo " test                 run the tests for the simphony-framework"
 	@echo " clean                remove any temporary folders"
 
 clean:
@@ -43,7 +43,7 @@ clean:
 
 deps: base apt-simphony-deps apt-openfoam-deps
 
-venv-prepare: simphony-env solvers
+venv: simphony-env solvers
 
 solvers: 
 
@@ -55,7 +55,7 @@ test-plugins: test-simphony
 	@echo
 	@echo "Tests for simphony plugins done"
 
-test-framework: test-plugins
+test: test-plugins
 	@echo
 	@echo "Tests for the simphony framework done"
 
