@@ -5,11 +5,13 @@ SIMPHONYENV   ?= $(HOME)/simphony
 
 UBUNTU_CODENAME=$(shell lsb_release -cs)
 
-SIMPHONY_COMMON_VERSION ?= 0.4.0
+SIMPHONY_METAPARSER_VERSION ?= master
+SIMPHONY_METATOOLS_VERSION ?= master
+SIMPHONY_COMMON_VERSION ?= master
 SIMPHONY_JYU_LB_VERSION ?= 0.2.1
 SIMPHONY_LAMMPS_VERSION ?= 0.1.5
 SIMPHONY_NUMERRIN_VERSION ?= 0.1.3
-SIMPHONY_OPENFOAM_VERSION ?= 0.2.4
+SIMPHONY_OPENFOAM_VERSION ?= master
 SIMPHONY_KRATOS_VERSION ?= 0.2.0
 SIMPHONY_AVIZ_VERSION ?= 0.2.2
 SIMPHONY_MAYAVI_VERSION ?= 0.4.4
@@ -294,8 +296,17 @@ numerrin:
 	@echo "Numerrin installed"
 	@echo "(Ensure that environment variable PYNUMERRIN_LICENSE points to license file)"
 
-simphony-common:
-	C_INCLUDE_PATH=$(MPI_INCLUDE_PATH) pip install -r requirements.txt
+simphony-metaparser:
+	pip install git+https://github.com/simphony/simphony-metaparser.git@$(SIMPHONY_METAPARSER_VERSION)#egg=simphony_metaparser
+	@echo
+	@echo "Simphony metaparser installed"
+
+simphony-metatools: simphony-metaparser
+	pip install git+https://github.com/simphony/simphony-metatools.git@$(SIMPHONY_METATOOLS_VERSION)#egg=simphony_metatools
+	@echo
+	@echo "Simphony metatools installed"
+
+simphony-common: simphony-metatools
 	pip install git+https://github.com/simphony/simphony-common.git@$(SIMPHONY_COMMON_VERSION)#egg=simphony
 	@echo
 	@echo "Simphony library installed"

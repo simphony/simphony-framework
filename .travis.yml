@@ -33,4 +33,5 @@ install:
   - make $PLUGINS
 script:
   - pip freeze
+  - pip install -r dev_requirements.txt
   - make $TEST_SUITE
