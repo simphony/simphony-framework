@@ -133,15 +133,15 @@ venv-prepare: simphony-env solvers
 
 solvers: aviz kratos lammps jyu-lb numerrin
 
-simphony: simphony-common simphony-aviz simphony-jyu-lb simphony-lammps simphony-mayavi simphony-openfoam simphony-numerrin simphony-kratos simphony-liggghts
+simphony: simphony-common 
 	@echo
 	@echo "Simphony plugins installed"
 
-test-plugins: test-simphony test-jyulb test-lammps test-mayavi test-openfoam test-kratos test-aviz
+test-plugins: test-simphony 
 	@echo
 	@echo "Tests for simphony plugins done"
 
-test-framework: test-plugins test-integration
+test-framework: test-plugins
 	@echo
 	@echo "Tests for the simphony framework done"
 
