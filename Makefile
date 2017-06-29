@@ -98,13 +98,7 @@ simphony-env:
 	rm -rf $(SIMPHONYENV)
 	virtualenv $(SIMPHONYENV) --system-site-packages
 	# Put the site-packages as well. some .so files from liggghts end up there.
-	echo "export LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:$(SIMPHONYENV)/lib/python2.7/site-packages/:$(SIMPHONYENV)/lib/kratos/python2.7/site-packages/:\$$LD_LIBRARY_PATH" >> "$(SIMPHONYENV)/bin/activate"
-ifeq ($(USE_OPENFOAM_PARAVIEW),yes)
-	echo "export LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:/opt/paraviewopenfoam410/lib/paraview-4.1:\$$LD_LIBRARY_PATH\n" >> "$(SIMPHONYENV)/bin/activate"
-	echo "export PYTHONPATH=/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/:/opt/paraviewopenfoam410/lib/paraview-4.1/site-packages/vtk:\$$PYTHONPATH" >> "$(SIMPHONYENV)/bin/activate"
-endif
-	echo "export PYTHONPATH=$(SIMPHONYENV)/lib/kratos/python2.7/site-packages/:\$$PYTHONPATH" >> "$(SIMPHONYENV)/bin/activate"
-	echo ". /opt/openfoam$(OPENFOAM_VERSION)/etc/bashrc" >> "$(SIMPHONYENV)/bin/activate"
+	echo "export LD_LIBRARY_PATH=$(SIMPHONYENV)/lib:$(SIMPHONYENV)/lib/python2.7/site-packages/:\$$LD_LIBRARY_PATH" >> "$(SIMPHONYENV)/bin/activate"
 	@echo
 	@echo "Simphony virtualenv created"
 
