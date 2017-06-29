@@ -41,7 +41,7 @@ clean:
 	@echo
 	@echo "Removed temporary folders"
 
-deps: base apt-simphony-deps apt-openfoam-deps
+provision: base apt-simphony-deps apt-openfoam-deps
 
 venv: simphony-env solvers
 
