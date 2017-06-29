@@ -1,13 +1,11 @@
 language: python
 virtualenv:
   system_site_packages: true
-
 matrix:
   include:
     - env: SIMPHONYENV=~/simphony TEST_SUITE=test-framework 
       dist: trusty
       python: 2.7
-
 cache:
   pip: true
   directories:
