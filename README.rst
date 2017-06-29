@@ -1,6 +1,9 @@
 SimPhoNy Framework
 ==================
 
+**NOTE**: THIS REPOSITORY IS LEGACY. The future direction is to build packages
+with EDM. See repository simphony/buildrecipes-common for more details.
+
 The SimPhoNy Framework is a meta-package to simplify integration and testing
 of the SimPhoNy simulation tools. The framework is build around the simphony
 library and the SimPhoNy plugins.
@@ -12,21 +15,10 @@ library and the SimPhoNy plugins.
 Packages
 --------
 
-The simphony-common version that is supported in version 0.3.0 of the framework is:
+The simphony-common version that is supported in master of the framework is:
 
-- https://github.com/simphony/simphony-common/releases/tag/0.4.0, version 0.4.0
-
-The SimPhoNy plugins that are compatible with this release:
-are:
-
-- https://github.com/simphony/simphony-jyulb/releases/tag/0.2.0, version 0.2.0
-- https://github.com/simphony/simphony-lammps-md/releases/tag/0.1.5, version 0.1.5
-- https://github.com/simphony/simphony-openfoam/releases/tag/0.1.5, version 0.1.5
-- https://github.com/simphony/simphony-numerrin/releases/tag/0.1.1, version 0.1.1
-- https://github.com/simphony/simphony-kratos/releases/tag/0.2.0, version 0.2.0
-- https://github.com/simphony/simphony-mayavi/releases/tag/0.4.1, version 0.4.1
-- https://github.com/simphony/simphony-aviz/releases/tag/0.2.0, version 0.1.0
-- https://github.com/simphony/simphony-paraview/releases/tag/0.2.0, version 0.2.0
+- https://github.com/simphony/simphony-common/
+- https://github.com/simphony/simphony-openfoam/
 
 Repository
 ----------
@@ -55,8 +47,7 @@ Checkout the simphony-framework repo::
 
 .. note::
 
-  The SymPhoNy framework is developed and tested on Ubuntu 12.04 LTS
-  64bit and Ubuntu 14.04.
+  The SymPhoNy framework is developed and tested on Ubuntu 14.04.
   The following commands and included scripts assume that they
   are executed inside the top level directory of the simphony-framework
   cloned repository.
@@ -74,16 +65,7 @@ Installing build dependencies
 All these targets make sure that the necessary libraries are installed by the
 various apt repositories, and require ``sudo`` access::
 
-  sudo make prepare 
-
-Install the appropriate dependencies for the UI package you plan to install
-(either mayavi or paraview). The two are incompatible in deployment.
-To install Mayavi::
-
-  sudo make apt-mayavi-deps
-
-If you are installing paraview, use the ``apt-paraview-deps`` instead.
-
+  sudo make provision
 
 Setup virtual environment and solvers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -96,79 +78,55 @@ needed to successfully run the programs.
 
 The following make command builds the virtual environment::
 
-  make venv-prepare
+  make venv
 
 It also installs solvers that are not available as deb packages 
 and need to be built locally.
 
-.. note::
-
-   The ``numerrin`` target will install the numerrin library. To use this solver, please
-   ensure that environment variable PYNUMERRIN_LICENSE points to a valid Numerrin
-   license file.
-
-which will create a virtual enviroment in ``~/simphony`` or::
-
-  SIMPHONYENV=<path> make venv
-
-Activate the environment::
+The command will create a virtual enviroment in ``~/simphony``.
+Activate the environment with::
 
   source ~/simphony/bin/activate
-
 
 Install Simphony
 ~~~~~~~~~~~~~~~~
 
 Finally, install the complete framework with::
 
-  make simphony simphony-mayavi
-
-.. note::
-
-   - ``simphony-paraview`` can be used in place of ``simphony-mayavi``
-	 to install paraview.
-
-   - ``simphony-paraview`` can be setup to use the system (default) or
-     openfoam build of Paraview using the ``USE_OPENFOAM_PARAVIEW``
-     enviroment variable
+  make simphony
 
 Complete build
 --------------
 
 ::
-	sudo make prepare apt-mayavi-deps
-	make solvers
+	sudo make deps
 	make venv
 	source ~/simphony/bin/activate
-	make simphony simphony-mayavi
+	make simphony 
 
 Test
 ----
 
 ::
 
-   make test-framework
-
-.. note::
-
-   The testing of simphony-numerrin is only performed if the environement variable
-   HAVE_NUMERRIN is set to yes (i.e. ''HAVE_NUMERRIN=yes make test-framework'')
+   make test
 
 Summary of releases
 -------------------
 
-=====================  =======  ======= ========
+=====================  =======  =======  =======  =======  ========
  Repository                     Version
----------------------  -------------------------
- simphony-framework     0.1.3    0.2.2    0.3.0
-=====================  =======  =======  =======
- simphony-common        0.1.3    0.2.2    0.2.2
- simphony-jyulb         0.1.3    0.2.0    0.2.0
- simphony-kratos        0.1.1    0.2.0    0.2.0
- simphony-lammps-md     0.1.3    0.1.5    0.1.5
- simphony-openfoam      0.1.3    0.1.5    0.1.5
- simphony-numerrin      0.1.0    0.1.1    0.1.1
- simphony-mayavi        0.1.1    0.3.1    0.4.1
- simphony-aviz           n/a     0.1.0    0.2.0
- simphony-paraview       n/a      n/a     0.2.0
-=====================  =======  =======  =======
+---------------------  --------------------------------------------
+ simphony-framework     0.1.3    0.2.2    0.3.0    0.3.3    master
+=====================  =======  =======  =======  =======  ========
+ simphony-common        0.1.3    0.2.2    0.2.2    0.4.1    master 
+ simphony-jyulb         0.1.3    0.2.0    0.2.0    0.2.1     n/a
+ simphony-kratos        0.1.1    0.2.0    0.2.0    0.2.1     n/a
+ simphony-lammps-md     0.1.3    0.1.5    0.1.5    0.1.5     n/a
+ simphony-openfoam      0.1.3    0.1.5    0.1.5    0.2.4    master
+ simphony-numerrin      0.1.0    0.1.1    0.1.1    0.1.3     n/a
+ simphony-mayavi        0.1.1    0.3.1    0.4.1    0.4.3     n/a 
+ simphony-aviz           n/a     0.1.0    0.2.0    0.2.2     n/a
+ simphony-paraview       n/a      n/a     0.2.0    0.2.1     n/a
+ simphony-liggghts       n/a      n/a      n/a     0.1.6     n/a 
+=====================  =======  =======  =======  =======  ========
