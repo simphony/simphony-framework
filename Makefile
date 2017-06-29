@@ -16,6 +16,7 @@ MPI_INCLUDE_PATH ?= /usr/include/mpi
 OPENFOAM_VERSION=231
 
 .PHONY: clean \
+        provision \
 		base \
 		apt-simphony-deps \
 		apt-openfoam-deps \
