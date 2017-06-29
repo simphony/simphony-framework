@@ -128,7 +128,3 @@ test-simphony:
 	@echo
 	@echo "Tests for simphony library done"
 
-test-integration:
-	haas tests/ -v
-	@echo
-	@echo "Integration tests for the simphony framework done"

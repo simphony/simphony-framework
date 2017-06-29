@@ -4,11 +4,7 @@ virtualenv:
 
 matrix:
   include:
-    - env: SIMPHONYENV=~/simphony TEST_SUITE=test-framework DEPS=apt-mayavi-deps PLUGINS=simphony-mayavi
-      python: 2.7
-    - env: SIMPHONYENV=~/simphony TEST_SUITE=test-paraview DEPS=apt-paraview-deps PLUGINS=simphony-paraview
-      python: 2.7
-    - env: SIMPHONYENV=~/simphony TEST_SUITE=test-framework DEPS=apt-mayavi-deps PLUGINS=simphony-mayavi
+    - env: SIMPHONYENV=~/simphony TEST_SUITE=test-framework 
       dist: trusty
       python: 2.7
 
@@ -24,13 +20,12 @@ before_install:
   - export PATH=/usr/lib/ccache:${PATH}
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-  - sudo make deps $DEPS
+  - sudo make deps
   - sudo ln -s ccache /usr/local/bin/mpic++
 install:
   - make venv-prepare
   - source ~/simphony/bin/activate
   - make simphony
-  - make $PLUGINS
 script:
   - pip freeze
   - pip install -r dev_requirements.txt
