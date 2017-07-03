@@ -5,8 +5,6 @@ SIMPHONYENV   ?= $(HOME)/simphony
 
 UBUNTU_CODENAME=$(shell lsb_release -cs)
 
-SIMPHONY_METAPARSER_VERSION ?= master
-SIMPHONY_METATOOLS_VERSION ?= master
 SIMPHONY_COMMON_VERSION ?= master
 SIMPHONY_OPENFOAM_VERSION ?= master
 
@@ -42,7 +40,7 @@ clean:
 	@echo
 	@echo "Removed temporary folders"
 
-provision: base apt-simphony-deps apt-openfoam-deps
+provision: base apt-simphony-deps apt-openfoam-deps fix-pip
 
 venv: simphony-env solvers
 
@@ -119,17 +117,7 @@ simphony-env:
 	@echo
 	@echo "Simphony virtualenv created"
 
-simphony-metaparser:
-	pip install git+https://github.com/simphony/simphony-metaparser.git@$(SIMPHONY_METAPARSER_VERSION)#egg=simphony_metaparser
-	@echo
-	@echo "Simphony metaparser installed"
-
-simphony-metatools: simphony-metaparser
-	pip install git+https://github.com/simphony/simphony-metatools.git@$(SIMPHONY_METATOOLS_VERSION)#egg=simphony_metatools
-	@echo
-	@echo "Simphony metatools installed"
-
-simphony-common: simphony-metatools
+simphony-common:
 	pip install git+https://github.com/simphony/simphony-common.git@$(SIMPHONY_COMMON_VERSION)#egg=simphony
 	@echo
 	@echo "Simphony library installed"
